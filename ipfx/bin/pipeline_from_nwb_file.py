@@ -2,11 +2,11 @@ from __future__ import absolute_import
 import allensdk.core.json_utilities as ju
 import sys
 import os.path
-from .run_pipeline import run_pipeline
-from . import generate_pipeline_input as gpi
+from run_pipeline import run_pipeline
+import generate_pipeline_input as gpi
 import ipfx.logging_utils as lu
 
-OUTPUT_DIR = "/local1/ephys/tsts"
+OUTPUT_DIR = "local1\\ephys\\tsts"
 
 INPUT_JSON = "pipeline_input.json"
 OUTPUT_JSON = "pipeline_output.json"

@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29230.47
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ipfx", "ipfx.pyproj", "{EDC86DA0-6DAF-4775-99B2-34AA6A7EB333}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDC86DA0-6DAF-4775-99B2-34AA6A7EB333}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDC86DA0-6DAF-4775-99B2-34AA6A7EB333}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36E7A4C1-7B1E-4AA5-BFA7-62419542790E}
+	EndGlobalSection
+EndGlobal

@@ -7,7 +7,7 @@ from ipfx.stimulus import StimulusOntology
 from ipfx.ephys_data_set import EphysDataSet
 import allensdk.core.json_utilities as ju
 
-from .helpers_for_tests import compare_dicts
+from helpers_for_tests import compare_dicts
 
 
 def get_sweep_table_dict():

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>ipfx\bin\pipeline_from_nwb_file.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <CommandLineArguments>"C:\Users\SMest\source\repos\ipfx\ipfx\bin\595570553.nwb"</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+    <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="docs\aibs_sphinx\static\aibs_sphinx.css_t" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\bundled.js" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\arrow_off.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\arrow_on.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\arrow_over.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\logo_AIBS.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\progress_indicator.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\images\tab_blue.gif" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\javascript\AC_RunActiveContent.js" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\javascript\appConfig.js" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\javascript\browserVersions.js" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\javascript\relatedData.js" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\stylesheets\animation.css" />
+    <Content Include="docs\aibs_sphinx\static\external_assets\stylesheets\common_layout.css" />
+    <Content Include="docs\aibs_sphinx\static\style\comment.png" />
+    <Content Include="docs\aibs_sphinx\static\style\nocomment.png" />
+    <Content Include="docs\aibs_sphinx\templates\globaltoc.html" />
+    <Content Include="docs\aibs_sphinx\templates\layout.html" />
+    <Content Include="docs\aibs_sphinx\templates\portalHeader.html" />
+    <Content Include="docs\gallery\analysis_examples\README.txt" />
+    <Content Include="docs\gallery\qc_examples\README.txt" />
+    <Content Include="docs\gallery\README.txt" />
+    <Content Include="docs\gallery\spikes_examples\README.txt" />
+    <Content Include="ipfx\bin\local1\ephys\tsts\595570553\log.txt" />
+    <Content Include="pytest.ini" />
+    <Content Include="requirements.txt" />
+    <Content Include="requirements_docs.txt" />
+    <Content Include="tests\test_specimens.txt" />
+    <Content Include="test_requirements.txt" />
+    <Content Include="tox.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include=".cookiecutter\update_from_repo.py" />
+    <Compile Include="docs\conf.py" />
+    <Compile Include="docs\gallery\analysis_examples\all_analysis.py" />
+    <Compile Include="docs\gallery\analysis_examples\lsq_analysis.py" />
+    <Compile Include="docs\gallery\analysis_examples\ramp_analysis.py" />
+    <Compile Include="docs\gallery\analysis_examples\short_square_analysis.py" />
+    <Compile Include="docs\gallery\qc_examples\sweep_qc.py" />
+    <Compile Include="docs\gallery\spikes_examples\detect_spikes_single_sweep.py" />
+    <Compile Include="docs\gallery\spikes_examples\detect_spikes_single_sweep_window.py" />
+    <Compile Include="docs\gallery\spikes_examples\estimate_params.py" />
+    <Compile Include="docs\gallery\spikes_examples\spike_train_features.py" />
+    <Compile Include="ipfx\aibs_data_set.py" />
+    <Compile Include="ipfx\bin\generate_fx_input.py" />
+    <Compile Include="ipfx\bin\generate_pipeline_input.py" />
+    <Compile Include="ipfx\bin\generate_qc_input.py" />
+    <Compile Include="ipfx\bin\generate_se_input.py" />
+    <Compile Include="ipfx\bin\get_fx_output.py" />
+    <Compile Include="ipfx\bin\lims_queries.py" />
+    <Compile Include="ipfx\bin\make_stimulus_ontology.py" />
+    <Compile Include="ipfx\bin\mcc_get_settings.py" />
+    <Compile Include="ipfx\bin\nwb_to_pdf.py" />
+    <Compile Include="ipfx\bin\pipeline_from_nwb_file.py" />
+    <Compile Include="ipfx\bin\pipeline_from_specimen_id.py" />
+    <Compile Include="ipfx\bin\plot_ephys_nwb.py" />
+    <Compile Include="ipfx\bin\run_feature_collection.py" />
+    <Compile Include="ipfx\bin\run_feature_extraction.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
+    <Compile Include="ipfx\bin\run_nwb1_to_nwb2_conversion.py" />
+    <Compile Include="ipfx\bin\run_pipeline.py" />
+    <Compile Include="ipfx\bin\run_qc.py" />
+    <Compile Include="ipfx\bin\run_sweep_extraction.py" />
+    <Compile Include="ipfx\bin\run_synphys_feature_vector_extraction.py" />
+    <Compile Include="ipfx\bin\run_x_to_nwb_conversion.py" />
+    <Compile Include="ipfx\bin\validate_experiment.py" />
+    <Compile Include="ipfx\bin\__init__.py" />
+    <Compile Include="ipfx\data_set_features.py" />
+    <Compile Include="ipfx\data_set_utils.py" />
+    <Compile Include="ipfx\ephys_data_set.py" />
+    <Compile Include="ipfx\epochs.py" />
+    <Compile Include="ipfx\error.py" />
+    <Compile Include="ipfx\feature_extractor.py" />
+    <Compile Include="ipfx\feature_record.py" />
+    <Compile Include="ipfx\feature_vectors.py" />
+    <Compile Include="ipfx\hbg_dataset.py" />
+    <Compile Include="ipfx\lab_notebook_reader.py" />
+    <Compile Include="ipfx\logging_utils.py" />
+    <Compile Include="ipfx\nwb_reader.py" />
+    <Compile Include="ipfx\plot_qc_figures.py" />
+    <Compile Include="ipfx\py2to3.py" />
+    <Compile Include="ipfx\qc_features.py" />
+    <Compile Include="ipfx\qc_feature_evaluator.py" />
+    <Compile Include="ipfx\qc_feature_extractor.py" />
+    <Compile Include="ipfx\spike_detector.py" />
+    <Compile Include="ipfx\spike_features.py" />
+    <Compile Include="ipfx\spike_train_features.py" />
+    <Compile Include="ipfx\stimulus.py" />
+    <Compile Include="ipfx\stimulus_protocol_analysis.py" />
+    <Compile Include="ipfx\stim_features.py" />
+    <Compile Include="ipfx\subthresh_features.py" />
+    <Compile Include="ipfx\sweep.py" />
+    <Compile Include="ipfx\sweep_props.py" />
+    <Compile Include="ipfx\time_series_utils.py" />
+    <Compile Include="ipfx\x_to_nwb\ABFConverter.py" />
+    <Compile Include="ipfx\x_to_nwb\conversion_utils.py" />
+    <Compile Include="ipfx\x_to_nwb\DatConverter.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_bundle.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_nodes.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_segments.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_stimsetgenerator.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_struct.py" />
+    <Compile Include="ipfx\x_to_nwb\hr_treenode.py" />
+    <Compile Include="ipfx\x_to_nwb\NWBConverter.py" />
+    <Compile Include="ipfx\x_to_nwb\__init__.py" />
+    <Compile Include="ipfx\_schemas.py" />
+    <Compile Include="ipfx\__init__.py" />
+    <Compile Include="setup.py" />
+    <Compile Include="tests\conftest.py" />
+    <Compile Include="tests\helpers_for_tests.py" />
+    <Compile Include="tests\test_aibs_data_set.py" />
+    <Compile Include="tests\test_data_set_features.py" />
+    <Compile Include="tests\test_ephys_data_set.py" />
+    <Compile Include="tests\test_ephys_extractor.py" />
+    <Compile Include="tests\test_epochs.py" />
+    <Compile Include="tests\test_feature_record.py" />
+    <Compile Include="tests\test_feature_vector.py" />
+    <Compile Include="tests\test_hbg_dataset.py" />
+    <Compile Include="tests\test_ipfx.py" />
+    <Compile Include="tests\test_lims_queries.py" />
+    <Compile Include="tests\test_nwb1_nwb2_conversion.py" />
+    <Compile Include="tests\test_nwb_reader.py" />
+    <Compile Include="tests\test_ontology.py" />
+    <Compile Include="tests\test_pipeline_output.py" />
+    <Compile Include="tests\test_qc_features.py" />
+    <Compile Include="tests\test_run_feature_vector.py" />
+    <Compile Include="tests\test_spike_detector.py" />
+    <Compile Include="tests\test_spike_features.py" />
+    <Compile Include="tests\test_stimulus_protocol_analysis.py" />
+    <Compile Include="tests\test_stim_features.py" />
+    <Compile Include="tests\test_subthresh_features.py" />
+    <Compile Include="tests\test_sweep.py" />
+    <Compile Include="tests\test_sweep_props.py" />
+    <Compile Include="tests\test_time_series_utils.py" />
+    <Compile Include="tests\test_x_nwb.py" />
+    <Compile Include="tests\test_x_nwb_helper.py" />
+    <Compile Include="tests\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".cookiecutter" />
+    <Folder Include="docs" />
+    <Folder Include="docs\aibs_sphinx\" />
+    <Folder Include="docs\aibs_sphinx\static" />
+    <Folder Include="docs\aibs_sphinx\static\external_assets" />
+    <Folder Include="docs\aibs_sphinx\static\external_assets\images" />
+    <Folder Include="docs\aibs_sphinx\static\external_assets\javascript" />
+    <Folder Include="docs\aibs_sphinx\static\external_assets\stylesheets" />
+    <Folder Include="docs\aibs_sphinx\static\style" />
+    <Folder Include="docs\aibs_sphinx\templates" />
+    <Folder Include="docs\gallery" />
+    <Folder Include="docs\gallery\analysis_examples" />
+    <Folder Include="docs\gallery\qc_examples" />
+    <Folder Include="docs\gallery\spikes_examples" />
+    <Folder Include="ipfx" />
+    <Folder Include="ipfx\bin" />
+    <Folder Include="ipfx\bin\local1\" />
+    <Folder Include="ipfx\bin\local1\ephys\" />
+    <Folder Include="ipfx\bin\local1\ephys\tsts\" />
+    <Folder Include="ipfx\bin\local1\ephys\tsts\595570553" />
+    <Folder Include="ipfx\x_to_nwb" />
+    <Folder Include="tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="Global|PythonCore|3.7" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+</Project>
