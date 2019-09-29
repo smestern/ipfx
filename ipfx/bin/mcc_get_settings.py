@@ -152,7 +152,7 @@ class MultiClampControl:
 
     def __init__(self, dllPath=None):
 
-        dllPaths = [("C:/Program Files/Molecular Devices/MultiClamp 700B Commander/"
+        dllPaths = [("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
                      "3rd Party Support/AxMultiClampMsg/"),
                     ("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
                      "3rd Party Support/AxMultiClampMsg/")]
@@ -243,15 +243,15 @@ class MultiClampControl:
         return val(ptr, ptype)
 
     def _getDLL(self, dllPath):
-        olddir = os.getcwd()
+        #olddir = os.getcwd()
 
-        try:
+        #try:
             os.chdir(dllPath)
             self.aDLL = ct.windll.AxMultiClampMsg
             os.chdir(olddir)
-        except IOError:
+        #except IOError:
             os.chdir(olddir)
-            raise IOError('Multiclamp DLL not found! Check your install path!')
+            #raise IOError('Multiclamp DLL not found! Check your install path!')
 
     def _returnUID(self, serial, channel):
         """ give demo mccs a unique id channel correspondence"""
@@ -1091,7 +1091,7 @@ def main():
     if not os.path.isdir(args.watchFolder):
         raise ValueError("The parameter watchFolder requires an existing folder.")
 
-    eventHandler = SettingsFetcher(args.settingsFile)
+    eventHandler = SettingsFetcher(args.settingsFile, )
     observer = Observer()
     observer.schedule(eventHandler, args.watchFolder, recursive=False)
     observer.start()
