@@ -1,0 +1,239 @@
+{
+  "cell_features": {
+    "blowout_mv": null,
+    "electrode_0_pa": null,
+    "recording_date": "2019-07-09 17:27:54",
+    "seal_gohm": null,
+    "input_resistance_mohm": null,
+    "initial_access_resistance_mohm": null,
+    "input_access_resistance_ratio": null
+  },
+  "cell_tags": [
+    "Blowout is not available",
+    "Electrode 0 is not available",
+    "Seal is not available",
+    "Breakin sweep not found"
+  ],
+  "sweep_features": [
+    {
+      "sweep_number": 0,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 1,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 2,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 3,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 4,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 5,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 6,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 7,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 8,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 9,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    },
+    {
+      "sweep_number": 10,
+      "stimulus_units": "Amps",
+      "bridge_balance_mohm": null,
+      "leak_pa": null,
+      "stimulus_scale_factor": 1.0,
+      "stimulus_code": "IC1",
+      "stimulus_code_ext": "IC1",
+      "stimulus_name": "Unknown",
+      "clamp_mode": "CurrentClamp",
+      "tags": [
+        "test epoch is missing",
+        "experiment epoch is missing",
+        "stim epoch is missing"
+      ],
+      "stimulus_start_time": null,
+      "stimulus_amplitude": 0.0,
+      "stimulus_duration": null,
+      "stimulus_interval": null
+    }
+  ]
+}

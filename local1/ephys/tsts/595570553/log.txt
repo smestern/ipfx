@@ -26,3 +26,31 @@ INFO:root:
 INFO:root:***** ***** ***** Extract QC features ***** ***** *****
 INFO:root:=======================================================
 INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
