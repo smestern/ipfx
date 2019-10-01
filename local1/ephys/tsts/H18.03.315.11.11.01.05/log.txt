@@ -1,0 +1,101 @@
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:No current clamp sweeps available to compute QC features
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:No current clamp sweeps available to compute QC features
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+WARNING:root:Failed QC. No ephys features extracted.
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:No current clamp sweeps available to compute QC features
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+WARNING:root:Failed QC. No ephys features extracted.
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:No current clamp sweeps available to compute QC features
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+WARNING:root:Failed QC. No ephys features extracted.

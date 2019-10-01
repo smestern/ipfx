@@ -1,0 +1,38 @@
+{
+  "sweep_extraction": {
+    "cell_features": {
+      "blowout_mv": null,
+      "electrode_0_pa": null,
+      "recording_date": "2019-07-09 17:27:54",
+      "seal_gohm": null,
+      "input_resistance_mohm": null,
+      "initial_access_resistance_mohm": null,
+      "input_access_resistance_ratio": null
+    },
+    "cell_tags": [
+      "Blowout is not available",
+      "Electrode 0 is not available",
+      "Seal is not available",
+      "Breakin sweep not found"
+    ],
+    "sweep_features": []
+  },
+  "qc": {
+    "cell_state": {
+      "failed_blowout": false,
+      "failed_electrode_0": true,
+      "failed_seal": true,
+      "failed_input_access_resistance": true,
+      "fail_tags": [
+        "electrode_0_pa missing value",
+        "Invalid seal (None)",
+        "Resistance ratio not available",
+        "Initial access resistance not available",
+        "No sweep states available",
+        "No current clamps sweeps passed QC"
+      ],
+      "failed_qc": true
+    },
+    "sweep_states": []
+  }
+}

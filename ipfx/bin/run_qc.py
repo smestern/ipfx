@@ -36,7 +36,6 @@ def run_qc(stimulus_ontology_file, cell_features, sweep_features, qc_criteria):
     if not stimulus_ontology_file:
         stimulus_ontology_file = StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE
         logging.info(F"Ontology is not provided, using default {StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE}")
-
     ont = StimulusOntology(ju.read(stimulus_ontology_file))
 
     cell_state, sweep_states = qcp.qc_experiment(ont,
