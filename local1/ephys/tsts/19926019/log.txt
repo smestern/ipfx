@@ -8,3 +8,134 @@ WARNING:root:Electrode 0 is not available
 WARNING:root:Seal is not available
 WARNING:root:Breakin sweep not found
 WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 2: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 2: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:sweep: 1, Long Square, ['pre-noise: 0.120 exceeded qc threshold: 0.070', 'post-noise: 0.120 exceeded qc threshold: 0.070', 'slow noise: 0.540 above threshold: 0.500', 'Vm delta: 7.143 above threshold:1.000']
+INFO:root:sweep: 3, Long Square, ['pre-noise: 0.117 exceeded qc threshold: 0.070', 'post-noise: 0.126 exceeded qc threshold: 0.070', 'slow noise: 0.669 above threshold: 0.500', 'Vm delta: 7.977 above threshold:1.000']
+INFO:root:sweep: 4, Long Square, ['pre-noise: 0.119 exceeded qc threshold: 0.070', 'post-noise: 0.109 exceeded qc threshold: 0.070', 'slow noise: 0.897 above threshold: 0.500', 'Vm delta: 15.979 above threshold:1.000']
+INFO:root:sweep: 5, Long Square, ['pre-noise: 0.112 exceeded qc threshold: 0.070', 'post-noise: 0.110 exceeded qc threshold: 0.070', 'slow noise: 1.279 above threshold: 0.500', 'Vm delta: 21.786 above threshold:1.000']
+INFO:root:sweep: 6, Long Square, ['pre-noise: 1.136 exceeded qc threshold: 0.070', 'post-noise: 0.123 exceeded qc threshold: 0.070', 'slow noise: 7.037 above threshold: 0.500', 'Vm delta: 28.752 above threshold:1.000']
+INFO:root:sweep: 7, Long Square, ['pre-noise: 0.121 exceeded qc threshold: 0.070', 'post-noise: 0.114 exceeded qc threshold: 0.070', 'slow noise: 7.852 above threshold: 0.500', 'Vm delta: 32.149 above threshold:1.000']
+INFO:root:sweep: 8, Long Square, ['pre-noise: 0.150 exceeded qc threshold: 0.070', 'post-noise: 0.109 exceeded qc threshold: 0.070', 'slow noise: 11.710 above threshold: 0.500', 'Vm delta: 32.117 above threshold:1.000']
+INFO:root:sweep: 9, Long Square, ['pre-noise: 3.548 exceeded qc threshold: 0.070', 'post-noise: 0.110 exceeded qc threshold: 0.070', 'slow noise: 12.698 above threshold: 0.500', 'Vm delta: 32.825 above threshold:1.000']
+INFO:root:sweep: 10, Long Square, ['pre-noise: 0.402 exceeded qc threshold: 0.070', 'post-noise: 0.105 exceeded qc threshold: 0.070', 'slow noise: 13.437 above threshold: 0.500', 'Vm delta: 34.794 above threshold:1.000']
+INFO:root:sweep: 11, Long Square, ['pre-noise: 0.376 exceeded qc threshold: 0.070', 'post-noise: 0.116 exceeded qc threshold: 0.070', 'slow noise: 13.933 above threshold: 0.500', 'Vm delta: 35.547 above threshold:1.000']
+INFO:root:sweep: 12, Long Square, ['pre-noise: 16.882 exceeded qc threshold: 0.070', 'post-noise: 0.116 exceeded qc threshold: 0.070', 'slow noise: 13.675 above threshold: 0.500', 'Vm delta: 36.224 above threshold:1.000']
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+INFO:root:Long Square sweeps passed: [], failed [ 1  3  4  5  6  7  8  9 10 11 12]
+WARNING:root:Failed QC. No ephys features extracted.
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 2: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:sweep: 1, Long Square, ['pre-noise: 0.120 exceeded qc threshold: 0.070', 'post-noise: 0.120 exceeded qc threshold: 0.070', 'slow noise: 0.540 above threshold: 0.500', 'Vm delta: 7.143 above threshold:1.000']
+INFO:root:sweep: 3, Long Square, ['pre-noise: 0.117 exceeded qc threshold: 0.070', 'post-noise: 0.126 exceeded qc threshold: 0.070', 'slow noise: 0.669 above threshold: 0.500', 'Vm delta: 7.977 above threshold:1.000']
+INFO:root:sweep: 4, Long Square, ['pre-noise: 0.119 exceeded qc threshold: 0.070', 'post-noise: 0.109 exceeded qc threshold: 0.070', 'slow noise: 0.897 above threshold: 0.500', 'Vm delta: 15.979 above threshold:1.000']
+INFO:root:sweep: 5, Long Square, ['pre-noise: 0.112 exceeded qc threshold: 0.070', 'post-noise: 0.110 exceeded qc threshold: 0.070', 'slow noise: 1.279 above threshold: 0.500', 'Vm delta: 21.786 above threshold:1.000']
+INFO:root:sweep: 6, Long Square, ['pre-noise: 1.136 exceeded qc threshold: 0.070', 'post-noise: 0.123 exceeded qc threshold: 0.070', 'slow noise: 7.037 above threshold: 0.500', 'Vm delta: 28.752 above threshold:1.000']
+INFO:root:sweep: 7, Long Square, ['pre-noise: 0.121 exceeded qc threshold: 0.070', 'post-noise: 0.114 exceeded qc threshold: 0.070', 'slow noise: 7.852 above threshold: 0.500', 'Vm delta: 32.149 above threshold:1.000']
+INFO:root:sweep: 8, Long Square, ['pre-noise: 0.150 exceeded qc threshold: 0.070', 'post-noise: 0.109 exceeded qc threshold: 0.070', 'slow noise: 11.710 above threshold: 0.500', 'Vm delta: 32.117 above threshold:1.000']
+INFO:root:sweep: 9, Long Square, ['pre-noise: 3.548 exceeded qc threshold: 0.070', 'post-noise: 0.110 exceeded qc threshold: 0.070', 'slow noise: 12.698 above threshold: 0.500', 'Vm delta: 32.825 above threshold:1.000']
+INFO:root:sweep: 10, Long Square, ['pre-noise: 0.402 exceeded qc threshold: 0.070', 'post-noise: 0.105 exceeded qc threshold: 0.070', 'slow noise: 13.437 above threshold: 0.500', 'Vm delta: 34.794 above threshold:1.000']
+INFO:root:sweep: 11, Long Square, ['pre-noise: 0.376 exceeded qc threshold: 0.070', 'post-noise: 0.116 exceeded qc threshold: 0.070', 'slow noise: 13.933 above threshold: 0.500', 'Vm delta: 35.547 above threshold:1.000']
+INFO:root:sweep: 12, Long Square, ['pre-noise: 16.882 exceeded qc threshold: 0.070', 'post-noise: 0.116 exceeded qc threshold: 0.070', 'slow noise: 13.675 above threshold: 0.500', 'Vm delta: 36.224 above threshold:1.000']
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+INFO:root:Long Square sweeps passed: [], failed [ 1  3  4  5  6  7  8  9 10 11 12]
+WARNING:root:Failed QC. No ephys features extracted.

@@ -5,14 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\run_x_to_nwb_conversion.py</StartupFile>
+    <StartupFile>ipfx\bin\run_feature_vector_extraction_hardcoded.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>MSBuild|env64|$(MSBuildProjectFullPath)</InterpreterId>
-    <CommandLineArguments>"C:\Users\smestern\source\repos\smestern\ipfx\ipfx\bin\19926019.abf"</CommandLineArguments>
+    <CommandLineArguments>--input "C:\Users\smestern\source\repos\smestern\ipfx\ipfx\bin\specids.txt"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
   </PropertyGroup>
@@ -80,6 +80,8 @@
     <Compile Include="ipfx\bin\plot_ephys_nwb.py" />
     <Compile Include="ipfx\bin\run_feature_collection.py" />
     <Compile Include="ipfx\bin\run_feature_extraction.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction_hardcoded.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction_nonlims.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
     <Compile Include="ipfx\bin\run_nwb1_to_nwb2_conversion.py" />
     <Compile Include="ipfx\bin\run_pipeline.py" />

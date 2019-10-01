@@ -1,0 +1,402 @@
+{
+  "sweep_extraction": {
+    "cell_features": {
+      "blowout_mv": null,
+      "electrode_0_pa": null,
+      "recording_date": "2019-09-26 14:52:24",
+      "seal_gohm": null,
+      "input_resistance_mohm": null,
+      "initial_access_resistance_mohm": null,
+      "input_access_resistance_ratio": null
+    },
+    "cell_tags": [
+      "Blowout is not available",
+      "Electrode 0 is not available",
+      "Seal is not available",
+      "Breakin sweep not found"
+    ],
+    "sweep_features": [
+      {
+        "sweep_number": 1,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": -100.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.11986327171325684,
+        "post_vm_mv": -69.83653259277344,
+        "post_noise_rms_mv": 0.12000132352113724,
+        "pre_vm_mv": -76.9796371459961,
+        "slow_vm_mv": -76.9796371459961,
+        "slow_noise_rms_mv": 0.5404829382896423,
+        "vm_delta_mv": 7.143104553222656,
+        "passed": false
+      },
+      {
+        "sweep_number": 3,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": -100.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.11726676672697067,
+        "post_vm_mv": -69.80099487304688,
+        "post_noise_rms_mv": 0.12594638764858246,
+        "pre_vm_mv": -61.8239860534668,
+        "slow_vm_mv": -61.8239860534668,
+        "slow_noise_rms_mv": 0.6694077849388123,
+        "vm_delta_mv": 7.977008819580078,
+        "passed": false
+      },
+      {
+        "sweep_number": 4,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": -100.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.11927908658981323,
+        "post_vm_mv": -70.61356353759766,
+        "post_noise_rms_mv": 0.10892205685377121,
+        "pre_vm_mv": -54.634544372558594,
+        "slow_vm_mv": -54.634544372558594,
+        "slow_noise_rms_mv": 0.89678955078125,
+        "vm_delta_mv": 15.979019165039062,
+        "passed": false
+      },
+      {
+        "sweep_number": 5,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 150.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.11175434291362762,
+        "post_vm_mv": -69.65419006347656,
+        "post_noise_rms_mv": 0.11023938655853271,
+        "pre_vm_mv": -47.8681755065918,
+        "slow_vm_mv": -47.8681755065918,
+        "slow_noise_rms_mv": 1.2793596982955933,
+        "vm_delta_mv": 21.786014556884766,
+        "passed": false
+      },
+      {
+        "sweep_number": 6,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 200.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 1.1363877058029175,
+        "post_vm_mv": -70.18486785888672,
+        "post_noise_rms_mv": 0.12251453846693039,
+        "pre_vm_mv": -41.432945251464844,
+        "slow_vm_mv": -41.432945251464844,
+        "slow_noise_rms_mv": 7.036652088165283,
+        "vm_delta_mv": 28.751922607421875,
+        "passed": false
+      },
+      {
+        "sweep_number": 7,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 249.99998474121094,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.12140730023384094,
+        "post_vm_mv": -70.05850982666016,
+        "post_noise_rms_mv": 0.1139141246676445,
+        "pre_vm_mv": -37.90920639038086,
+        "slow_vm_mv": -37.90920639038086,
+        "slow_noise_rms_mv": 7.851536273956299,
+        "vm_delta_mv": 32.1493034362793,
+        "passed": false
+      },
+      {
+        "sweep_number": 8,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 300.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.14991970360279083,
+        "post_vm_mv": -69.76631164550781,
+        "post_noise_rms_mv": 0.10944806039333344,
+        "pre_vm_mv": -37.649436950683594,
+        "slow_vm_mv": -37.649436950683594,
+        "slow_noise_rms_mv": 11.710410118103027,
+        "vm_delta_mv": 32.11687469482422,
+        "passed": false
+      },
+      {
+        "sweep_number": 9,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 350.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 3.5483787059783936,
+        "post_vm_mv": -70.06095886230469,
+        "post_noise_rms_mv": 0.11022531986236572,
+        "pre_vm_mv": -37.23613739013672,
+        "slow_vm_mv": -37.23613739013672,
+        "slow_noise_rms_mv": 12.698380470275879,
+        "vm_delta_mv": 32.82482147216797,
+        "passed": false
+      },
+      {
+        "sweep_number": 10,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 400.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.40162286162376404,
+        "post_vm_mv": -70.41720581054688,
+        "post_noise_rms_mv": 0.1045149639248848,
+        "pre_vm_mv": -35.62326431274414,
+        "slow_vm_mv": -35.62326431274414,
+        "slow_noise_rms_mv": 13.437263488769531,
+        "vm_delta_mv": 34.793941497802734,
+        "passed": false
+      },
+      {
+        "sweep_number": 11,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 450.0,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 0.37627896666526794,
+        "post_vm_mv": -69.80795288085938,
+        "post_noise_rms_mv": 0.11632318049669266,
+        "pre_vm_mv": -34.26108932495117,
+        "slow_vm_mv": -34.26108932495117,
+        "slow_noise_rms_mv": 13.932511329650879,
+        "vm_delta_mv": 35.5468635559082,
+        "passed": false
+      },
+      {
+        "sweep_number": 12,
+        "stimulus_units": "Amps",
+        "bridge_balance_mohm": null,
+        "leak_pa": null,
+        "stimulus_scale_factor": 1.0,
+        "stimulus_code": "IC1",
+        "stimulus_code_ext": "IC1",
+        "stimulus_name": "Long Square",
+        "clamp_mode": "CurrentClamp",
+        "stimulus_start_time": 0.2781,
+        "stimulus_amplitude": 499.9999694824219,
+        "stimulus_duration": 1.0,
+        "stimulus_interval": null,
+        "pre_noise_rms_mv": 16.881954193115234,
+        "post_vm_mv": -68.75447845458984,
+        "post_noise_rms_mv": 0.115627221763134,
+        "pre_vm_mv": -32.53077697753906,
+        "slow_vm_mv": -32.53077697753906,
+        "slow_noise_rms_mv": 13.675056457519531,
+        "vm_delta_mv": 36.22370147705078,
+        "passed": false
+      }
+    ]
+  },
+  "qc": {
+    "cell_state": {
+      "failed_blowout": false,
+      "failed_electrode_0": true,
+      "failed_seal": true,
+      "failed_input_access_resistance": true,
+      "fail_tags": [
+        "electrode_0_pa missing value",
+        "Invalid seal (None)",
+        "Resistance ratio not available",
+        "Initial access resistance not available",
+        "No current clamps sweeps passed QC"
+      ],
+      "failed_qc": true
+    },
+    "sweep_states": [
+      {
+        "sweep_number": 1,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.120 exceeded qc threshold: 0.070",
+          "post-noise: 0.120 exceeded qc threshold: 0.070",
+          "slow noise: 0.540 above threshold: 0.500",
+          "Vm delta: 7.143 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 3,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.117 exceeded qc threshold: 0.070",
+          "post-noise: 0.126 exceeded qc threshold: 0.070",
+          "slow noise: 0.669 above threshold: 0.500",
+          "Vm delta: 7.977 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 4,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.119 exceeded qc threshold: 0.070",
+          "post-noise: 0.109 exceeded qc threshold: 0.070",
+          "slow noise: 0.897 above threshold: 0.500",
+          "Vm delta: 15.979 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 5,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.112 exceeded qc threshold: 0.070",
+          "post-noise: 0.110 exceeded qc threshold: 0.070",
+          "slow noise: 1.279 above threshold: 0.500",
+          "Vm delta: 21.786 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 6,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 1.136 exceeded qc threshold: 0.070",
+          "post-noise: 0.123 exceeded qc threshold: 0.070",
+          "slow noise: 7.037 above threshold: 0.500",
+          "Vm delta: 28.752 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 7,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.121 exceeded qc threshold: 0.070",
+          "post-noise: 0.114 exceeded qc threshold: 0.070",
+          "slow noise: 7.852 above threshold: 0.500",
+          "Vm delta: 32.149 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 8,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.150 exceeded qc threshold: 0.070",
+          "post-noise: 0.109 exceeded qc threshold: 0.070",
+          "slow noise: 11.710 above threshold: 0.500",
+          "Vm delta: 32.117 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 9,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 3.548 exceeded qc threshold: 0.070",
+          "post-noise: 0.110 exceeded qc threshold: 0.070",
+          "slow noise: 12.698 above threshold: 0.500",
+          "Vm delta: 32.825 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 10,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.402 exceeded qc threshold: 0.070",
+          "post-noise: 0.105 exceeded qc threshold: 0.070",
+          "slow noise: 13.437 above threshold: 0.500",
+          "Vm delta: 34.794 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 11,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 0.376 exceeded qc threshold: 0.070",
+          "post-noise: 0.116 exceeded qc threshold: 0.070",
+          "slow noise: 13.933 above threshold: 0.500",
+          "Vm delta: 35.547 above threshold:1.000"
+        ]
+      },
+      {
+        "sweep_number": 12,
+        "passed": false,
+        "reasons": [
+          "pre-noise: 16.882 exceeded qc threshold: 0.070",
+          "post-noise: 0.116 exceeded qc threshold: 0.070",
+          "slow noise: 13.675 above threshold: 0.500",
+          "Vm delta: 36.224 above threshold:1.000"
+        ]
+      }
+    ]
+  }
+}
