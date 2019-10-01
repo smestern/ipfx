@@ -38,12 +38,12 @@
     "ScaleFactors": {
         "C1NSD1SHORT": 1.05,
         "C1NSD2SHORT": 1.05,
-        "IC1": 5,
+        "CHIRP": 1,
         "LSFINEST": 1.05,
         "SSFINEST": 7,
         "TRIPPLE": 7
     },
-    "timestamp": "2019-09-30T12:52:31.387664Z",
+    "timestamp": "2019-09-30T12:52:07.961664Z",
     "uids": {
         "IN0": "00830749_1"
     }

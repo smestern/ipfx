@@ -195,8 +195,8 @@ class MultiClampControl:
         # select the first one
         self.selectUniqueID(next(iter(self.mcDict)))
 
-        if not self.CheckAPIVersion():
-            raise IOError(f"The API version {API_VERSION_STR} is not supported")
+        #if not self.CheckAPIVersion():
+        #    raise IOError(f"The API version {API_VERSION_STR} is not supported")
 
     def __enter__(self):
         return self
@@ -243,15 +243,15 @@ class MultiClampControl:
         return val(ptr, ptype)
 
     def _getDLL(self, dllPath):
-        #olddir = os.getcwd()
+        olddir = os.getcwd()
 
-        #try:
+        try:
             os.chdir(dllPath)
             self.aDLL = ct.windll.AxMultiClampMsg
             os.chdir(olddir)
-        #except IOError:
+        except IOError:
             os.chdir(olddir)
-            #raise IOError('Multiclamp DLL not found! Check your install path!')
+            raise IOError('Multiclamp DLL not found! Check your install path!')
 
     def _returnUID(self, serial, channel):
         """ give demo mccs a unique id channel correspondence"""
