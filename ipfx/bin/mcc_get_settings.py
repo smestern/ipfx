@@ -152,7 +152,7 @@ class MultiClampControl:
 
     def __init__(self, dllPath=None):
 
-        dllPaths = [("C:/Program Files/Molecular Devices/MultiClamp 700B Commander/"
+        dllPaths = [("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
                      "3rd Party Support/AxMultiClampMsg/"),
                     ("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
                      "3rd Party Support/AxMultiClampMsg/")]
@@ -195,8 +195,8 @@ class MultiClampControl:
         # select the first one
         self.selectUniqueID(next(iter(self.mcDict)))
 
-        if not self.CheckAPIVersion():
-            raise IOError(f"The API version {API_VERSION_STR} is not supported")
+        #if not self.CheckAPIVersion():
+        #    raise IOError(f"The API version {API_VERSION_STR} is not supported")
 
     def __enter__(self):
         return self
@@ -1091,7 +1091,7 @@ def main():
     if not os.path.isdir(args.watchFolder):
         raise ValueError("The parameter watchFolder requires an existing folder.")
 
-    eventHandler = SettingsFetcher(args.settingsFile)
+    eventHandler = SettingsFetcher(args.settingsFile, )
     observer = Observer()
     observer.schedule(eventHandler, args.watchFolder, recursive=False)
     observer.start()
