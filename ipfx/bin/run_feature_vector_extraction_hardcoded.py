@@ -527,9 +527,9 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
 
 
 def main():
-        with open("C://Users//smestern//Source//Repos//smestern//ipfx//ipfx//bin//specids.txt", "r") as f:
+        with open("C://Users//SMest//source//repos//ipfx//ipfx//bin//specids.txt", "r") as f:
             ids = [int(line.strip("\n")) for line in f]
-        run_feature_vector_extraction("C://Users//smestern//Source//Repos//smestern//ipfx//ipfx//bin//", "sdk" , "test" ,None, "h5", "none", True, False, 2, ids=ids)
+        run_feature_vector_extraction("C://Users//SMest//source//repos//ipfx//ipfx//bin", "sdk" , "test" ,None, "h5", "none", True, False, 2, ids=ids)
     
 
 

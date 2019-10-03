@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\docs",
+    "\\docs\\gallery",
+    "\\docs\\gallery\\analysis_examples"
   ],
+  "SelectedNode": "\\docs\\gallery\\analysis_examples\\short_square_analysis.py",
   "PreviewInSolutionExplorer": false
 }

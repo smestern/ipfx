@@ -1,6 +1,6 @@
 # Sphinx gallery temp dir
 docs/auto_examples/
-
+cell_types/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

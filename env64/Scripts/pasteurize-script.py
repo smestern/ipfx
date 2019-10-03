@@ -1,4 +1,4 @@
-#!C:\Users\smestern\Source\Repos\smestern\ipfx\env64\Scripts\python.exe
+#!c:\users\smest\source\repos\ipfx\env64\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'future==0.17.1','console_scripts','pasteurize'
 __requires__ = 'future==0.17.1'
 import re
