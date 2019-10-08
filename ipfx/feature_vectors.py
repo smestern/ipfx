@@ -478,7 +478,11 @@ def first_ap_vectors(sweeps_list, spike_info_list,
 
         ap = first_ap_waveform(swp, si, length_in_points)
         ap_list.append(ap)
-
+    m =  len(max(ap_list,key=len))
+    ap_list = np.asanyarray(ap_list)
+    for l, k in enumerate(ap_list):
+        ap_list[l] = np.append(k, np.full(m - len(k), np.nan))
+        print(len(k))
     avg_ap = np.vstack(ap_list).mean(axis=0)
 
     if sampling_rate > target_sampling_rate:

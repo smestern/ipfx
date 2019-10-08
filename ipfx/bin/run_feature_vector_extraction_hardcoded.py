@@ -307,6 +307,13 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             logging.warning(detail)
             return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
     elif data_source == "sdk":
+        ctc = CellTypesCache()
+        
+        morph = ctc.get_reconstruction(specimen_id)
+        morph_table = ctc.get_morphology_features(specimen_id)
+        morph_table.to_csv('cell_types\\specimen_' + str(specimen_id) + '\\' +  'morphology_features.csv')
+        
+        print("morph dl failed")
         nwb_path, sweep_info = sdk_nwb_information(specimen_id)
         try:
             data_set = AibsDataSet(
@@ -359,77 +366,74 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
 
     # Calculate desired feature vectors
     result = {}
-    try:
-        (subthresh_hyperpol_dict,
+    
+    (subthresh_hyperpol_dict,
         hyperpol_deflect_dict) = fv.identify_subthreshold_hyperpol_with_amplitudes(lsq_features,
             lsq_sweeps)
-        target_amps_for_step_subthresh = [-90, -70, -50, -30, -10]
-        result["step_subthresh"] = fv.step_subthreshold(
+    target_amps_for_step_subthresh = [-90, -70, -50, -30, -10]
+    result["step_subthresh"] = fv.step_subthreshold(
             subthresh_hyperpol_dict, target_amps_for_step_subthresh,
             lsq_start, lsq_end, amp_tolerance=5)
-        result["subthresh_norm"] = fv.subthresh_norm(subthresh_hyperpol_dict, hyperpol_deflect_dict,
+    result["subthresh_norm"] = fv.subthresh_norm(subthresh_hyperpol_dict, hyperpol_deflect_dict,
             lsq_start, lsq_end)
-        (subthresh_depol_dict,
+    (subthresh_depol_dict,
         depol_deflect_dict) = fv.identify_subthreshold_depol_with_amplitudes(lsq_features,
             lsq_sweeps)
-        result["subthresh_depol_norm"] = fv.subthresh_depol_norm(subthresh_depol_dict,
+    result["subthresh_depol_norm"] = fv.subthresh_depol_norm(subthresh_depol_dict,
             depol_deflect_dict, lsq_start, lsq_end)
-        isi_sweep, isi_sweep_spike_info = fv.identify_sweep_for_isi_shape(
+    isi_sweep, isi_sweep_spike_info = fv.identify_sweep_for_isi_shape(
             lsq_sweeps, lsq_features, lsq_end - lsq_start)
-        result["isi_shape"] = fv.isi_shape(isi_sweep, isi_sweep_spike_info, lsq_end)
+    result["isi_shape"] = fv.isi_shape(isi_sweep, isi_sweep_spike_info, lsq_end)
 
         # Calculate waveforms from each type of sweep
-        spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
+    spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
             for swp_ind in ssq_features["common_amp_sweeps"].index]
-        spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
+    spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
             for swp_ind in ssq_features["common_amp_sweeps"].index]
-        ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
+    ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
             spiking_ssq_info_list,
             target_sampling_rate=target_sampling_rate,
             window_length=ap_window_length,
             skip_clipped=True)
 
-        rheo_ind = lsq_features["rheobase_sweep"].name
-        sweep = lsq_sweeps.sweeps[rheo_ind]
-        lsq_ap_v, lsq_ap_dv = fv.first_ap_vectors([sweep],
+    rheo_ind = lsq_features["rheobase_sweep"].name
+    sweep = lsq_sweeps.sweeps[rheo_ind]
+    lsq_ap_v, lsq_ap_dv = fv.first_ap_vectors([sweep],
             [lsq_features["spikes_set"][rheo_ind]],
             target_sampling_rate=target_sampling_rate,
             window_length=ap_window_length)
 
-        spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
+    spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
             for swp_ind in ramp_features["spiking_sweeps"].index]
-        spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
+    spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
             for swp_ind in ramp_features["spiking_sweeps"].index]
-        ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
+    ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
             spiking_ramp_info_list,
             target_sampling_rate=target_sampling_rate,
             window_length=ap_window_length,
             skip_clipped=True)
 
         # Combine so that differences can be assessed by analyses like sPCA
-        result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, ramp_ap_v])
-        result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, ramp_ap_dv])
+    result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, ramp_ap_v])
+    result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, ramp_ap_dv])
 
-        target_amplitudes = np.arange(0, 120, 20)
-        supra_info_list = fv.identify_suprathreshold_spike_info(
+    target_amplitudes = np.arange(0, 120, 20)
+    supra_info_list = fv.identify_suprathreshold_spike_info(
             lsq_features, target_amplitudes, shift=10)
-        result["psth"] = fv.psth_vector(supra_info_list, lsq_start, lsq_end)
-        result["inst_freq"] = fv.inst_freq_vector(supra_info_list, lsq_start, lsq_end)
+    result["psth"] = fv.psth_vector(supra_info_list, lsq_start, lsq_end)
+    result["inst_freq"] = fv.inst_freq_vector(supra_info_list, lsq_start, lsq_end)
 
-        spike_feature_list = [
+    spike_feature_list = [
             "upstroke_downstroke_ratio",
             "peak_v",
             "fast_trough_v",
             "threshold_v",
             "width",
         ]
-        for feature in spike_feature_list:
+    for feature in spike_feature_list:
             result["spiking_" + feature] = fv.spike_feature_vector(feature,
                 supra_info_list, lsq_start, lsq_end)
-    except Exception as detail:
-        logging.warning("Exception when processing specimen {:d}".format(specimen_id))
-        logging.warning(detail)
-        return {"error": {"type": "processing", "details": traceback.format_exc(limit=None)}}
+    
 
     return result
 
@@ -529,7 +533,7 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
 def main():
         with open("C://Users//SMest//source//repos//ipfx//ipfx//bin//specids.txt", "r") as f:
             ids = [int(line.strip("\n")) for line in f]
-        run_feature_vector_extraction("C://Users//SMest//source//repos//ipfx//ipfx//bin", "sdk" , "test" ,None, "h5", "none", True, False, 2, ids=ids)
+        run_feature_vector_extraction("C://Users//SMest//source//repos//ipfx//ipfx//bin", "sdk" , "test" ,None, "h5", "none", True, False, 0.003, ids=ids)
     
 
 
