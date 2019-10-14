@@ -308,12 +308,12 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
     elif data_source == "sdk":
         ctc = CellTypesCache()
-        
-        morph = ctc.get_reconstruction(specimen_id)
-        morph_table = ctc.get_morphology_features(specimen_id)
-        morph_table.to_csv('cell_types\\specimen_' + str(specimen_id) + '\\' +  'morphology_features.csv')
-        
-        print("morph dl failed")
+        Try:
+            morph = ctc.get_reconstruction(specimen_id)
+            morph_table = ctc.get_morphology_features(specimen_id)
+            morph_table.to_csv('cell_types\\specimen_' + str(specimen_id) + '\\' +  'morphology_features.csv')
+        except:
+            print("morph dl failed")
         nwb_path, sweep_info = sdk_nwb_information(specimen_id)
         try:
             data_set = AibsDataSet(
