@@ -1,0 +1,7 @@
+{
+    "output_dir": "/output/",
+    "input": "C://Users//SMest//source//repos//smestern//ipfx//ipfx//bin//local",
+    "datasource": "local",
+    "sweep_qc_option": "none",
+    "run_parallel":  "False"
+}

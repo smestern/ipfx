@@ -498,7 +498,9 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
                                sweep_qc_option=sweep_qc_option,
                                data_source=data_source,
                                ap_window_length=ap_window_length)
-
+    data_for_specimen_id(specimen_ids[0], sweep_qc_option=sweep_qc_option,
+                               data_source=data_source,
+                               ap_window_length=ap_window_length)
     if run_parallel:
         pool = Pool()
         results = pool.map(get_data_partial, specimen_ids)
@@ -531,9 +533,9 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
 
 
 def main():
-        with open("C://Users//SMest//source//repos//ipfx//ipfx//bin//specids2.txt", "r") as f:
+        with open("C://Users//SMest//source//repos//smestern//ipfx//ipfx//bin//specids.txt", "r") as f:
             ids = [int(line.strip("\n")) for line in f]
-        run_feature_vector_extraction("C://Users//SMest//source//repos//ipfx//ipfx//bin", "sdk" , "sample2" ,None, "h5", "none", True, True, 0.003, ids=ids)
+        run_feature_vector_extraction("C://Users//SMest//source//repos//smestern//ipfx//ipfx//bin//", "sdk" , "sample2" ,None, "h5", "none", True, True, 0.003, ids=ids)
     
 
 
