@@ -91,16 +91,26 @@ class AibsDataSet(EphysDataSet):
     def get_clamp_mode(self, sweep_num):
 
         attrs = self.nwb_data.get_sweep_attrs(sweep_num)
-        ancestry = attrs["ancestry"]
+        try:
+            ancestry = attrs["ancestry"]
 
-        time_series_type = to_str(ancestry[-1])
-        if "CurrentClamp" in time_series_type:
-            clamp_mode = self.CURRENT_CLAMP
-        elif "VoltageClamp" in time_series_type:
-            clamp_mode = self.VOLTAGE_CLAMP
-        else:
-            raise Exception("Unable to determine clamp mode in {}".format(sweep_num))
-
+            time_series_type = to_str(ancestry[-1])
+            if "CurrentClamp" in time_series_type:
+                clamp_mode = self.CURRENT_CLAMP
+            elif "VoltageClamp" in time_series_type:
+                clamp_mode = self.VOLTAGE_CLAMP
+            else:
+                raise Exception("Unable to determine clamp mode in {}".format(sweep_num))
+            return clamp_mode
+        except:
+            logging.debug("Error in reading stim from ancestry")
+        try:
+            if "CurrentClamp" in attrs['neurodata_type']:
+                clamp_mode = self.CURRENT_CLAMP
+            elif "VoltageClamp" in attrs['neurodata_type']:
+                clamp_mode = self.VOLTAGE_CLAMP
+        except:
+            logging.debug("Error in reading stim from neurodata")
         return clamp_mode
 
     def get_sweep_data(self, sweep_number):

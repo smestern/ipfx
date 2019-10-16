@@ -1,0 +1,50 @@
+{
+    "00830749_1": {
+        "GetFastCompCap": 7.385518412117431e-12,
+        "GetFastCompTau": 9.270073064726603e-07,
+        "GetHolding": -0.0699935033917427,
+        "GetHoldingEnable": false,
+        "GetLeakSubEnable": false,
+        "GetLeakSubResist": 10000000.0,
+        "GetMeterIrmsEnable": false,
+        "GetMeterResistEnable": false,
+        "GetMode": 0,
+        "GetModeSwitchEnable": false,
+        "GetOscKillerEnable": false,
+        "GetOutputZeroEnable": false,
+        "GetPipetteOffset": 0.03935899958014488,
+        "GetPrimarySignal": 0,
+        "GetPrimarySignalGain": 5.0,
+        "GetPrimarySignalHPF": 0.0,
+        "GetPrimarySignalLPF": 1600.0,
+        "GetPulseAmplitude": 0.009999999776482582,
+        "GetPulseDuration": 0.009999999776482582,
+        "GetRsCompBandwidth": 1020.47998046875,
+        "GetRsCompCorrection": 0.0,
+        "GetRsCompEnable": false,
+        "GetRsCompPrediction": 0.0,
+        "GetScopeSignalLPF": 0.0,
+        "GetSecondarySignal": 1,
+        "GetSecondarySignalGain": 1.0,
+        "GetSecondarySignalLPF": 10000.0,
+        "GetSlowCompCap": 1.4285714538403438e-12,
+        "GetSlowCompTau": 0.00010256410314468667,
+        "GetSlowCompTauX20Enable": false,
+        "GetWholeCellCompCap": 3.300633377723017e-11,
+        "GetWholeCellCompEnable": false,
+        "GetWholeCellCompResist": 9997999.0,
+        "GetZapDuration": 0.0005000000237487257
+    },
+    "ScaleFactors": {
+        "C1NSD1SHORT": 1.05,
+        "C1NSD2SHORT": 1.05,
+        "IC1": 5,
+        "LSFINEST": 1.05,
+        "SSFINEST": 7,
+        "TRIPPLE": 7
+    },
+    "timestamp": "2019-09-30T12:52:31.387664Z",
+    "uids": {
+        "IN0": "00830749_1"
+    }
+}

@@ -1,0 +1,16 @@
+h5py>=2.3.1
+matplotlib>=1.4.3
+numpy>=1.12.1
+pandas>=0.17.0
+scipy>=0.15.1
+simplejson>=3.10.0
+pillow
+argschema
+allensdk
+dictdiffer
+hdmf==1.1.2
+pyabf==2.0.25
+pynwb==1.0.2
+six
+watchdog
+pg8000
