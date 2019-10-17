@@ -2053,5 +2053,178 @@
             "core",
             "Core 1"
         ]
+    ],
+    [
+        [
+            "code",
+            "C1NSSEED"
+        ],
+        [
+            "name",
+            "Noise",
+            "Noise 1"
+        ],
+        [
+            "core",
+            "Core 1"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_25 pA per sec ramp"
+        ],
+        [
+            "name",
+            "Ramp"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_0.5ms square pulse 1"
+        ],
+        [
+            "name",
+            "Square - 0.5ms Subthreshold"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_3 ms step"
+        ],
+        [
+            "name",
+            "Short Square"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_1000 ms step"
+        ],
+        [
+            "name",
+            "Long Square"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Gapfree"
+        ],
+        [
+            "name",
+            "Unknown"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey Gap free"
+        ],
+        [
+            "name",
+            "Unknown"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_3 ms step_addsweep"
+        ],
+        [
+            "name",
+            "Short Square"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_CC_RAMP_NEW"
+        ],
+        [
+            "name",
+            "Ramp"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_1nA_pulse"
+        ],
+        [
+            "name",
+            "Short Square"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_3 ms step_addsweep"
+        ],
+        [
+            "name",
+            "Short Square"
+        ]
+    ],
+    [
+        [
+            "name",
+            "Noise",
+            "Noise 1"
+        ],
+        [
+            "code",
+            "noise10pA",
+            "noise30pA",
+            "noise50pA",
+            "noise70pA",
+            "noise90pA",
+            "noise110pA",
+            "noise130pA",
+            "noise150pA",
+            "noise170pA",
+            "noise190pA",
+            "noise210pA"
+
+        ],
+        [
+            "core",
+            "Core 1"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_3 ms step2"
+        ],
+        [
+            "name",
+            "Short Square"
+        ]
+    ],
+    [
+        [
+            "code",
+            "Monkey_1000 ms steplong",
+            "Monkey_1000 ms stepExtra"
+
+        ],
+        [
+            "name",
+            "Long Square"
+        ]
+    ],
+    [
+        [
+            "name",
+            "Test"
+        ],
+        [
+            "code",
+            "vclampRNA"
+        ]
     ]
 ]

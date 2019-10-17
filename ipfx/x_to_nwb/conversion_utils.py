@@ -31,6 +31,8 @@ def parseUnit(unitString):
 
     if unitString == "pA":
         return 1e-12, "A"
+    elif unitString == "nA":
+        return 1e-9, "A"
     elif unitString == "A":
         return 1.0, "A"
     elif unitString == "mV":
@@ -38,7 +40,8 @@ def parseUnit(unitString):
     elif unitString == "V":
         return 1.0, "V"
     else:
-        raise ValueError(f"Unsupported unit string {unitString}.")
+        #raise ValueError(f"Unsupported unit string {unitString}.")
+        print("unit fail")
 
 
 def getStimulusSeriesClass(clampMode):
@@ -51,7 +54,8 @@ def getStimulusSeriesClass(clampMode):
     elif clampMode == I_CLAMP_MODE:
         return CurrentClampStimulusSeries
     else:
-        raise ValueError(f"Unsupported clamp mode {clampMode}.")
+        return CurrentClampStimulusSeries
+        #raise ValueError(f"Unsupported clamp mode {clampMode}.")
 
 
 def getAcquiredSeriesClass(clampMode):
@@ -64,7 +68,8 @@ def getAcquiredSeriesClass(clampMode):
     elif clampMode == I_CLAMP_MODE:
         return CurrentClampSeries
     else:
-        raise ValueError(f"Unsupported clamp mode {clampMode}.")
+        return CurrentClampSeries
+        #raise ValueError(f"Unsupported clamp mode {clampMode}.")
 
 
 def createSeriesName(prefix, number, total):
@@ -189,4 +194,5 @@ def clampModeToString(clampMode):
     elif clampMode == V_CLAMP_MODE:
         return "V_CLAMP_MODE"
     else:
-        raise ValueError(f"Unknown clampMode {clampMode}")
+        return "V_CLAMP_MODE"
+        #raise ValueError(f"Unknown clampMode {clampMode}")

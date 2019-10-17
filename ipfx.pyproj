@@ -80,7 +80,6 @@
     <Compile Include="ipfx\bin\plot_ephys_nwb.py" />
     <Compile Include="ipfx\bin\run_feature_collection.py" />
     <Compile Include="ipfx\bin\run_feature_extraction.py" />
-    <Compile Include="ipfx\bin\run_feature_vector_extraction_hardcoded.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local _noerror catch.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
@@ -89,6 +88,7 @@
     <Compile Include="ipfx\bin\run_qc.py" />
     <Compile Include="ipfx\bin\run_sweep_extraction.py" />
     <Compile Include="ipfx\bin\run_synphys_feature_vector_extraction.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion.py" />
     <Compile Include="ipfx\bin\run_x_to_nwb_conversion.py" />
     <Compile Include="ipfx\bin\validate_experiment.py" />
     <Compile Include="ipfx\bin\__init__.py" />

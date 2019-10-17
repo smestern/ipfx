@@ -200,9 +200,10 @@ class ABFConverter:
                     continue
 
                 if np.isnan(abf.sweepC).any():
-                    raise ValueError(f"Found at least one 'Not a Number' "
-                                     f"entry in stimulus channel {channel} of sweep {sweep} "
-                                     f"in file {abf.abfFilePath} using protocol {abf.protocol}.")
+                    abf.sweepC = np.nan_to_num(abf.sweepC, copy=False, nan=0)
+                   # raise ValueError(f"Found at least one 'Not a Number' "
+                    #                 f"entry in stimulus channel {channel} of sweep {sweep} "
+                     #                f"in file {abf.abfFilePath} using protocol {abf.protocol}.")
 
     def _reduceChannelList(self, abf):
         """
@@ -570,6 +571,8 @@ class ABFConverter:
                                              sort_keys=True, indent=4)
 
                     clampMode = self._getClampMode(abf, channel)
+                    if clampMode == 2:
+                        clampMode = I_CLAMP_MODE
                     settings = self._getAmplifierSettings(abf, clampMode, adcName)
                     seriesClass = getAcquiredSeriesClass(clampMode)
 
