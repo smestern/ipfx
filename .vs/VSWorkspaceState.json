@@ -3,8 +3,10 @@
     "",
     "\\docs",
     "\\docs\\gallery",
-    "\\docs\\gallery\\analysis_examples"
+    "\\docs\\gallery\\analysis_examples",
+    "\\ipfx",
+    "\\ipfx\\bin"
   ],
-  "SelectedNode": "\\docs\\gallery\\analysis_examples\\short_square_analysis.py",
+  "SelectedNode": "\\ipfx.sln",
   "PreviewInSolutionExplorer": false
 }

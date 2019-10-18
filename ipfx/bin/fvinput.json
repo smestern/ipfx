@@ -3,5 +3,5 @@
     "input": "C:\\Users\\SMest\\Documents\\NHP\\",
     "datasource": "local",
     "sweep_qc_option": "none",
-    "run_parallel": "False"
+    "run_parallel": "True"
 }

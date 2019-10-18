@@ -24,7 +24,7 @@ import ipfx.time_series_utils as tsu
 import ipfx.error as er
 
 from ipfx.aibs_data_set import AibsDataSet
-
+from ipfx.hbg_dataset import HBGDataSet
 from allensdk.core.cell_types_cache import CellTypesCache
 
 files = []
@@ -206,7 +206,7 @@ def validate_sweeps(data_set, sweep_numbers, extra_dur=0.2):
     start = None
     dur = None
     for swp in check_sweeps.sweeps:
-        swp_start, swp_dur, _, _, _ = stf.get_stim_characteristics(swp.i, swp.t)
+        swp_start, swp_dur, _, _, _ = stf.get_stim_characteristics(swp.i, swp.t, False)
         if swp_start is None:
             valid_sweep_stim.append(False)
         else:
@@ -277,7 +277,7 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 
     ramp_sweeps = data_set.sweep_set(sweep_numbers)
 
-    ramp_start, ramp_dur, _, _, _ = stf.get_stim_characteristics(ramp_sweeps.sweeps[0].i, ramp_sweeps.sweeps[0].t)
+    ramp_start, ramp_dur, _, _, _ = stf.get_stim_characteristics(ramp_sweeps.sweeps[0].i, ramp_sweeps.sweeps[0].t, False)
     ramp_spx, ramp_spfx = dsf.extractors_for_sweeps(ramp_sweeps,
                                                 start = ramp_start,
                                                 **dsf.detection_parameters(data_set.RAMP))
@@ -288,23 +288,22 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 
 
 def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
-        ap_window_length=0.005, target_sampling_rate=50000):
+        ap_window_length=0.005, target_sampling_rate=50000,nfiles=None):
     logging.debug("specimen_id: {}".format(specimen_id))
-    global files
-    global ids
+    
     # Find or retrieve NWB file and ancillary info and construct an AibsDataSet object
     ontology = StimulusOntology(ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE))
     if data_source == "local":
-        spec_loc = ids.index(specimen_id)
-        nwb_path = files[spec_loc]
+        #spec_loc = ids.index(specimen_id)
+        nwb_path = nfiles[specimen_id]
         if type(nwb_path) is dict and "error" in nwb_path:
             logging.warning("Problem getting NWB file for specimen {:d}".format(specimen_id))
             return nwb_path
-        sweep_info_path, _ = nwb_path.split('.', 2)
-        sweep_info_path += '_s.json'
-        sweep_info = ju.read(sweep_info_path)
-        data_set = AibsDataSet(
-                nwb_file=nwb_path, sweep_info=sweep_info, ontology=ontology)
+        #sweep_info_path, _ = nwb_path.split('.', 2)
+        #sweep_info_path += '_s.json'
+        #sweep_info = ju.read(sweep_info_path)
+        data_set = HBGDataSet(
+                nwb_file=nwb_path, ontology=ontology)
         #xcept Exception as detail:
   
            #logging.warning(detail)
@@ -470,7 +469,7 @@ def save_to_h5(specimen_ids, results_dict, output_dir, output_code):
 
 def run_feature_vector_extraction(output_dir, data_source, output_code, project,
         output_file_type, sweep_qc_option, include_failed_cells, run_parallel,
-        ap_window_length, ids=None, **kwargs):
+        ap_window_length, ids=None, nfiles=None, **kwargs):
     if ids is not None:
         specimen_ids = ids
     elif data_source == "lims":
@@ -487,7 +486,7 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
     get_data_partial = partial(data_for_specimen_id,
                                sweep_qc_option=sweep_qc_option,
                                data_source=data_source,
-                               ap_window_length=ap_window_length)
+                               ap_window_length=ap_window_length, nfiles=nfiles)
     #data_for_specimen_id(specimen_ids[0], sweep_qc_option=sweep_qc_option,
     #                           data_source=data_source,
      #                          ap_window_length=ap_window_length)
@@ -530,15 +529,16 @@ def main():
     path = module.args["input"]
             
     
-    
+    no = 0
     # r=root, d=directories, f = files
     for r, d, f in os.walk(path):
         for file in f:
             if '.nwb' in file:
                 files.append(os.path.join(r, file))
-                ids.append(int(re.sub("[^0-9]", "", file)))
+                ids.append(no)
+                no += 1
 
-    run_feature_vector_extraction(ids=ids, **module.args)
+    run_feature_vector_extraction(ids=ids, nfiles=files, **module.args)
   
         
 

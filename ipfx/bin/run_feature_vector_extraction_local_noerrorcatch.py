@@ -14,7 +14,7 @@ import json
 import h5py
 from ipfx.stimulus import StimulusOntology
 import allensdk.core.json_utilities as ju
-
+from h5py import special_dtype
 import ipfx.feature_vectors as fv
 import ipfx.bin.lims_queries as lq
 import ipfx.stim_features as stf
@@ -206,7 +206,7 @@ def validate_sweeps(data_set, sweep_numbers, extra_dur=0.2):
     start = None
     dur = None
     for swp in check_sweeps.sweeps:
-        swp_start, swp_dur, _, _, _ = stf.get_stim_characteristics(swp.i, swp.t)
+        swp_start, swp_dur, _, _, _ = stf.get_stim_characteristics(swp.i, swp.t, False)
         if swp_start is None:
             valid_sweep_stim.append(False)
         else:
@@ -277,7 +277,7 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 
     ramp_sweeps = data_set.sweep_set(sweep_numbers)
 
-    ramp_start, ramp_dur, _, _, _ = stf.get_stim_characteristics(ramp_sweeps.sweeps[0].i, ramp_sweeps.sweeps[0].t)
+    ramp_start, ramp_dur, _, _, _ = stf.get_stim_characteristics(ramp_sweeps.sweeps[0].i, ramp_sweeps.sweeps[0].t, False)
     ramp_spx, ramp_spfx = dsf.extractors_for_sweeps(ramp_sweeps,
                                                 start = ramp_start,
                                                 **dsf.detection_parameters(data_set.RAMP))
@@ -312,17 +312,17 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         logging.error("invalid data source specified ({})".format(data_source))
     print("specimen_id: {}".format(specimen_id))
     # Identify and preprocess long square sweeps
-    
-    lsq_sweep_numbers = categorize_iclamp_sweeps(data_set,
+    try:
+        lsq_sweep_numbers = categorize_iclamp_sweeps(data_set,
             ontology.long_square_names, sweep_qc_option=sweep_qc_option,
             specimen_id=specimen_id)
-    (lsq_sweeps,
+        (lsq_sweeps,
         lsq_features,
         lsq_start,
         lsq_end,
         lsq_spx) = preprocess_long_square_sweeps(data_set, lsq_sweep_numbers)
-    
-    print('no lsq sweeps')
+    except:
+        print('no lsq sweeps')
 
     # Identify and preprocess short square sweeps
     try:
@@ -434,10 +434,23 @@ def organize_results(specimen_ids, results):
                     result_sizes[k] = len(r[k])
         data = np.array([r[k] if k in r else np.nan * np.zeros(result_sizes[k])
                         for r in results])
+        data = check_mismatch_size(data)
         output[k] = data
 
     return output
 
+def check_mismatch_size(data):
+    if data.dtype == 'O':
+        max_len = len(max(data,key=len))
+        for a, el in enumerate(data):
+           len_fill = max_len - len(el)
+           data[a] = np.append(el, np.full(len_fill, np.nan)).astype(np.float64)
+        nudata = np.vstack(data[:])
+        return nudata
+    else:
+        return data
+        
+    
 
 def save_to_npy(specimen_ids, results_dict, output_dir, output_code):
     k_sizes = {}
@@ -454,6 +467,7 @@ def save_to_h5(specimen_ids, results_dict, output_dir, output_code):
         dset = h5_file.create_dataset(k, data.shape, dtype=data.dtype,
             compression="gzip")
         dset[...] = data
+
     dset = h5_file.create_dataset("ids", ids_arr.shape,
         dtype=ids_arr.dtype, compression="gzip")
     dset[...] = ids_arr
@@ -480,9 +494,6 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
                                sweep_qc_option=sweep_qc_option,
                                data_source=data_source,
                                ap_window_length=ap_window_length, files=files)
-    #data_for_specimen_id(specimen_ids[0], sweep_qc_option=sweep_qc_option,
-    #                           data_source=data_source,
-     #                          ap_window_length=ap_window_length)
     if run_parallel:
         pool = Pool()
         results = pool.map(get_data_partial, specimen_ids)
@@ -500,7 +511,7 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
     logging.info("Finished with {:d} processed specimens".format(len(used_ids)))
 
     results_dict = organize_results(used_ids, results)
-
+   
     if output_file_type == "h5":
         save_to_h5(used_ids, results_dict, output_dir, output_code)
     elif output_file_type == "npy":

@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\run_feature_vector_extraction_local _noerror catch.py</StartupFile>
+    <StartupFile>ipfx\bin\run_feature_vector_extraction_local_noerrorcatch.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -80,7 +80,7 @@
     <Compile Include="ipfx\bin\plot_ephys_nwb.py" />
     <Compile Include="ipfx\bin\run_feature_collection.py" />
     <Compile Include="ipfx\bin\run_feature_extraction.py" />
-    <Compile Include="ipfx\bin\run_feature_vector_extraction_local _noerror catch.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction_local_noerrorcatch.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
     <Compile Include="ipfx\bin\run_nwb1_to_nwb2_conversion.py" />
