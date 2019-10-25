@@ -307,8 +307,8 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             logging.warning(detail)
             return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
     elif data_source == "sdk":
-        nwb_path, sweep_info = sdk_nwb_information(specimen_id)
         try:
+            nwb_path, sweep_info = sdk_nwb_information(specimen_id)
             data_set = AibsDataSet(
                 nwb_file=nwb_path, sweep_info=sweep_info, ontology=ontology)
         except Exception as detail:
@@ -448,6 +448,7 @@ def organize_results(specimen_ids, results):
                     result_sizes[k] = len(r[k])
         data = np.array([r[k] if k in r else np.nan * np.zeros(result_sizes[k])
                         for r in results])
+        data = check_mismatch_size(data)
         output[k] = data
 
     return output
@@ -465,6 +466,7 @@ def save_to_h5(specimen_ids, results_dict, output_dir, output_code):
     h5_file = h5py.File(os.path.join(output_dir, "fv_{}.h5".format(output_code)), "w")
     for k in results_dict:
         data = results_dict[k]
+        data = check_mismatch_size(data)
         dset = h5_file.create_dataset(k, data.shape, dtype=data.dtype,
             compression="gzip")
         dset[...] = data
@@ -473,6 +475,16 @@ def save_to_h5(specimen_ids, results_dict, output_dir, output_code):
     dset[...] = ids_arr
     h5_file.close()
 
+def check_mismatch_size(data):
+    if data.dtype == 'O': ##Arrays of floats stacked with mismatched sizes will throw an error if they are saved to h5
+        max_len = len(max(data,key=len)) ##find the longest array's length
+        for a, el in enumerate(data): ## For each array
+           len_fill = max_len - len(el) ## Take the length difference
+           data[a] = np.append(el, np.full(len_fill, np.nan)).astype(np.float64) ###and append that difference as nan values to the array
+        nudata = np.vstack(data[:])##restack the data to convert it to np.dtype('float64')
+        return nudata
+    else:
+        return data
 
 def run_feature_vector_extraction(output_dir, data_source, output_code, project,
         output_file_type, sweep_qc_option, include_failed_cells, run_parallel,

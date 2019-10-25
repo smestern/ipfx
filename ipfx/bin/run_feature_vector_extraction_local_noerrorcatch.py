@@ -293,21 +293,18 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
     
     # Find or retrieve NWB file and ancillary info and construct an AibsDataSet object
     ontology = StimulusOntology(ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE))
+    lsq_fail = False
+    ssq_fail = False
+    ramp_fail = False
     if data_source == "local":
         #spec_loc = ids.index()
         nwb_path = files[specimen_id]
         if type(nwb_path) is dict and "error" in nwb_path:
             logging.warning("Problem getting NWB file for specimen {:d}".format(specimen_id))
             return nwb_path
-        #sweep_info_path, _ = nwb_path.split('.', 2)
-        #sweep_info_path += '_s.json'
-        #sweep_info = ju.read(sweep_info_path)
         data_set = HBGDataSet(
                 nwb_file=nwb_path, ontology=ontology)
-        #xcept Exception as detail:
-  
-           #logging.warning(detail)
-            #eturn {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
+       
     else:
         logging.error("invalid data source specified ({})".format(data_source))
     print("specimen_id: {}".format(specimen_id))
@@ -333,6 +330,7 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             ssq_sweep_numbers)
     except:
         print("no ssq")
+        ssq_fail = True
 
     # Identify and preprocess ramp sweeps
     try:
@@ -343,10 +341,12 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             ramp_sweep_numbers)
     except:
         print('no ramp sweep')
+        ramp_fail = True
     # Calculate desired feature vectors
     result = {}
 
     try:
+
         (subthresh_hyperpol_dict,
             hyperpol_deflect_dict) = fv.identify_subthreshold_hyperpol_with_amplitudes(lsq_features,
                 lsq_sweeps)
@@ -364,18 +364,21 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         isi_sweep, isi_sweep_spike_info = fv.identify_sweep_for_isi_shape(
                 lsq_sweeps, lsq_features, lsq_end - lsq_start)
         result["isi_shape"] = fv.isi_shape(isi_sweep, isi_sweep_spike_info, lsq_end)
-    
-        # Calculate waveforms from each type of sweep
-        spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
-            for swp_ind in ssq_features["common_amp_sweeps"].index]
-        spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
-            for swp_ind in ssq_features["common_amp_sweeps"].index]
-        ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
-            spiking_ssq_info_list,
-            target_sampling_rate=target_sampling_rate,
-            window_length=ap_window_length,
-            skip_clipped=True)
-    
+
+        if ssq_fail == False:
+         # Calculate waveforms from each type of sweep
+            spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
+                for swp_ind in ssq_features["common_amp_sweeps"].index]
+            spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
+                for swp_ind in ssq_features["common_amp_sweeps"].index]
+            ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
+                spiking_ssq_info_list,
+                target_sampling_rate=target_sampling_rate,
+                window_length=ap_window_length,
+                skip_clipped=True)
+        else:
+            ssq_ap_v, ssq_ap_dv = np.nan, np.nan
+
         rheo_ind = lsq_features["rheobase_sweep"].name
         sweep = lsq_sweeps.sweeps[rheo_ind]
         lsq_ap_v, lsq_ap_dv = fv.first_ap_vectors([sweep],
@@ -383,19 +386,33 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             target_sampling_rate=target_sampling_rate,
             window_length=ap_window_length)
 
-        spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
-            for swp_ind in ramp_features["spiking_sweeps"].index]
-        spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
-            for swp_ind in ramp_features["spiking_sweeps"].index]
-        ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
-            spiking_ramp_info_list,
-            target_sampling_rate=target_sampling_rate,
-            window_length=ap_window_length,
-            skip_clipped=True)
+        if ramp_fail == False:
 
-        # Combine so that differences can be assessed by analyses like sPCA
-        result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, ramp_ap_v])
-        result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, ramp_ap_dv])
+            spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
+                for swp_ind in ramp_features["spiking_sweeps"].index]
+            spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
+                for swp_ind in ramp_features["spiking_sweeps"].index]
+            ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
+                spiking_ramp_info_list,
+                target_sampling_rate=target_sampling_rate,
+                window_length=ap_window_length,
+                skip_clipped=True)
+        else:
+            ramp_ap_v, ramp_ap_dv = np.nan, np.nan
+
+        if ramp_fail == True and ssq_fail == True:
+            result["first_ap_v"] = np.hstack([lsq_ap_v, lsq_ap_v, lsq_ap_v])
+            result["first_ap_dv"] = np.hstack([lsq_ap_dv, lsq_ap_dv, lsq_ap_dv])
+        elif ssq_fail == True and ramp_fail == False:
+            result["first_ap_v"] = np.hstack([lsq_ap_v, lsq_ap_v, ramp_ap_v])
+            result["first_ap_dv"] = np.hstack([lsq_ap_dv, lsq_ap_dv, ramp_ap_dv])
+        elif ramp_fail == True and ssq_fail == False:
+            result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, lsq_ap_v])
+            result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, lsq_ap_dv])
+        else:
+            # Combine so that differences can be assessed by analyses like sPCA
+            result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, ramp_ap_v])
+            result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, ramp_ap_dv])
 
         target_amplitudes = np.arange(0, 120, 20)
         supra_info_list = fv.identify_suprathreshold_spike_info(

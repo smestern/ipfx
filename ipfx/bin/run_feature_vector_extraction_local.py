@@ -78,7 +78,7 @@ class CollectFeatureVectorParameters(ags.ArgSchema):
     )
     ap_window_length = ags.fields.Float(
         description="Duration after threshold for AP shape (s)",
-        default=0.003
+        default=0.005
     )
 
 
@@ -290,24 +290,22 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         ap_window_length=0.005, target_sampling_rate=50000,nfiles=None):
     logging.debug("specimen_id: {}".format(specimen_id))
-    
+
+    lsq_fail = False
+    ssq_fail = False
+    ramp_fail = False
     # Find or retrieve NWB file and ancillary info and construct an AibsDataSet object
     ontology = StimulusOntology(ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE))
     if data_source == "local":
-        #spec_loc = ids.index(specimen_id)
+        
         nwb_path = nfiles[specimen_id]
         if type(nwb_path) is dict and "error" in nwb_path:
             logging.warning("Problem getting NWB file for specimen {:d}".format(specimen_id))
             return nwb_path
-        #sweep_info_path, _ = nwb_path.split('.', 2)
-        #sweep_info_path += '_s.json'
-        #sweep_info = ju.read(sweep_info_path)
+        
         data_set = HBGDataSet(
                 nwb_file=nwb_path, ontology=ontology)
-        #xcept Exception as detail:
-  
-           #logging.warning(detail)
-            #eturn {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
+        
     else:
         logging.error("invalid data source specified ({})".format(data_source))
 
@@ -322,6 +320,7 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         lsq_end,
         lsq_spx) = preprocess_long_square_sweeps(data_set, lsq_sweep_numbers)
     except Exception as detail:
+        lsq_fail = True
         logging.warning("Exception when preprocessing long square sweeps from specimen {:d}".format(specimen_id))
         logging.warning(detail)
         return {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=None)}}
@@ -334,9 +333,10 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         ssq_sweeps, ssq_features = preprocess_short_square_sweeps(data_set,
             ssq_sweep_numbers)
     except Exception as detail:
+        ssq_fail = True
         logging.warning("Exception when preprocessing short square sweeps from specimen {:d}".format(specimen_id))
         logging.warning(detail)
-        return {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=None)}}
+        {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=None)}}
 
     # Identify and preprocess ramp sweeps
     try:
@@ -346,9 +346,10 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         ramp_sweeps, ramp_features = preprocess_ramp_sweeps(data_set,
             ramp_sweep_numbers)
     except Exception as detail:
+        ramp_fail = True
         logging.warning("Exception when preprocessing ramp sweeps from specimen {:d}".format(specimen_id))
         logging.warning(detail)
-        return {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=None)}}
+        {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=None)}}
 
     # Calculate desired feature vectors
     result = {}
@@ -371,16 +372,19 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             lsq_sweeps, lsq_features, lsq_end - lsq_start)
         result["isi_shape"] = fv.isi_shape(isi_sweep, isi_sweep_spike_info, lsq_end)
 
-        # Calculate waveforms from each type of sweep
-        spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
-            for swp_ind in ssq_features["common_amp_sweeps"].index]
-        spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
-            for swp_ind in ssq_features["common_amp_sweeps"].index]
-        ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
-            spiking_ssq_info_list,
-            target_sampling_rate=target_sampling_rate,
-            window_length=ap_window_length,
-            skip_clipped=True)
+        if ssq_fail == False:
+         # Calculate waveforms from each type of sweep
+            spiking_ssq_sweep_list = [ssq_sweeps.sweeps[swp_ind]
+                for swp_ind in ssq_features["common_amp_sweeps"].index]
+            spiking_ssq_info_list = [ssq_features["spikes_set"][swp_ind]
+                for swp_ind in ssq_features["common_amp_sweeps"].index]
+            ssq_ap_v, ssq_ap_dv = fv.first_ap_vectors(spiking_ssq_sweep_list,
+                spiking_ssq_info_list,
+                target_sampling_rate=target_sampling_rate,
+                window_length=ap_window_length,
+                skip_clipped=True)
+        else:
+            ssq_ap_v, ssq_ap_dv = np.nan, np.nan
 
         rheo_ind = lsq_features["rheobase_sweep"].name
         sweep = lsq_sweeps.sweeps[rheo_ind]
@@ -389,19 +393,32 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
             target_sampling_rate=target_sampling_rate,
             window_length=ap_window_length)
 
-        spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
-            for swp_ind in ramp_features["spiking_sweeps"].index]
-        spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
-            for swp_ind in ramp_features["spiking_sweeps"].index]
-        ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
-            spiking_ramp_info_list,
-            target_sampling_rate=target_sampling_rate,
-            window_length=ap_window_length,
-            skip_clipped=True)
+        if ramp_fail == False:
+
+            spiking_ramp_sweep_list = [ramp_sweeps.sweeps[swp_ind]
+                for swp_ind in ramp_features["spiking_sweeps"].index]
+            spiking_ramp_info_list = [ramp_features["spikes_set"][swp_ind]
+                for swp_ind in ramp_features["spiking_sweeps"].index]
+            ramp_ap_v, ramp_ap_dv = fv.first_ap_vectors(spiking_ramp_sweep_list,
+                spiking_ramp_info_list,
+                target_sampling_rate=target_sampling_rate,
+                window_length=ap_window_length,
+                skip_clipped=True)
+        else:
+            ramp_ap_v, ramp_ap_dv = np.nan, np.nan
+
+        if ramp_fail == True:
+            ramp_ap_dv = np.copy(lsq_ap_dv)
+            ramp_ap_v = np.copy (lsq_ap_v)
+
+        if ssq_fail == True:
+            ssq_ap_dv = np.copy(lsq_ap_dv)
+            ssq_ap_v = np.copy (lsq_ap_v)
 
         # Combine so that differences can be assessed by analyses like sPCA
         result["first_ap_v"] = np.hstack([ssq_ap_v, lsq_ap_v, ramp_ap_v])
         result["first_ap_dv"] = np.hstack([ssq_ap_dv, lsq_ap_dv, ramp_ap_dv])
+
 
         target_amplitudes = np.arange(0, 120, 20)
         supra_info_list = fv.identify_suprathreshold_spike_info(
@@ -441,9 +458,22 @@ def organize_results(specimen_ids, results):
                     result_sizes[k] = len(r[k])
         data = np.array([r[k] if k in r else np.nan * np.zeros(result_sizes[k])
                         for r in results])
+        data = check_mismatch_size(data)
         output[k] = data
 
     return output
+
+
+def check_mismatch_size(data):
+    if data.dtype == 'O':
+        max_len = len(max(data,key=len))
+        for a, el in enumerate(data):
+           len_fill = max_len - len(el)
+           data[a] = np.append(el, np.full(len_fill, np.nan)).astype(np.float64)
+        nudata = np.vstack(data[:])
+        return nudata
+    else:
+        return data
 
 
 def save_to_npy(specimen_ids, results_dict, output_dir, output_code):
