@@ -288,7 +288,7 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 
 
 def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
-        ap_window_length=0.005, target_sampling_rate=50000,nfiles=None):
+        ap_window_length=0.005, target_sampling_rate=10000,nfiles=None):
     logging.debug("specimen_id: {}".format(specimen_id))
 
     lsq_fail = False
@@ -567,7 +567,7 @@ def main():
                 files.append(os.path.join(r, file))
                 ids.append(no)
                 no += 1
-
+    np.savetxt('test.csv', np.array([files,ids]), delimiter=',', fmt="%s")
     run_feature_vector_extraction(ids=ids, nfiles=files, **module.args)
   
         
