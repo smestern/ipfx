@@ -82,20 +82,6 @@ def main():
                for c in celldir:
                    c = os.path.join(mr, c)
                    shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
-                   #shutil.copy("C:\\Users\\SMest\\source\\repos\\smestern\\ipfx\\ipfx\\defaults\\stimulus_ontology.json",c)
-                   #for _,_,f1 in os.walk(c):
-                   #     for file in f1:
-                   #        if '.abf' in file:
-                   #            abf = pyabf.ABF(os.path.join(c, file))
-                   #            pabf = abf.protocol
-                   #            if pabf in protocol:
-                   #                 dawda = 1
-                   #            else:
-                   #                 protocol.append(pabf)
-                   #                 print(pabf)
-                   #        if '.json' in file:
-                   #             os.remove(os.path.join(c, file))
-                   #             print(file)
                    print(f"Converting {c}")
                    convert(c,
                         overwrite=True,
@@ -104,7 +90,7 @@ def main():
                         outputFeedbackChannel=False,
                         multipleGroupsPerFile=True,
                         compression=True)
-    #np.savetxt("C:\\Users\\SMest\\Documents\\NHP\\protocol.csv", protocol, fmt="%s") 
+    np.savetxt("C:\\Users\\SMest\\Documents\\NHP\\protocol.csv", protocol, fmt="%s") 
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,634 @@
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing']
+WARNING:root:sweep 11: ['test epoch is missing']
+WARNING:root:sweep 12: ['test epoch is missing']
+WARNING:root:sweep 13: ['test epoch is missing']
+WARNING:root:sweep 14: ['test epoch is missing']
+WARNING:root:sweep 100: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 101: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 102: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 103: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 104: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 105: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 106: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 107: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 108: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 109: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 110: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 111: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 112: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 113: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 114: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 115: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 116: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 117: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 118: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 119: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 120: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 121: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 122: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 123: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 124: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 125: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 126: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 127: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 128: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 129: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 130: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 131: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 132: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 133: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 134: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 135: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 136: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 137: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 138: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 139: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 140: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 141: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 142: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 143: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 144: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 145: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 146: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 147: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 148: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 149: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 150: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 151: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 152: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 153: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 154: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 155: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 156: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 157: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 158: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 159: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 160: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 161: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 162: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 163: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 164: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 165: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 166: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 167: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 168: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 169: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 170: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 171: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 172: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 173: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 174: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 175: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 176: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 177: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 178: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 179: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 180: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 181: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 182: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 183: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing']
+WARNING:root:sweep 11: ['test epoch is missing']
+WARNING:root:sweep 12: ['test epoch is missing']
+WARNING:root:sweep 13: ['test epoch is missing']
+WARNING:root:sweep 14: ['test epoch is missing']
+WARNING:root:sweep 100: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 101: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 102: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 103: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 104: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 105: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 106: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 107: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 108: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 109: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 110: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 111: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 112: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 113: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 114: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 115: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 116: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 117: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 118: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 119: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 120: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 121: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 122: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 123: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 124: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 125: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 126: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 127: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 128: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 129: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 130: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 131: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 132: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 133: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 134: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 135: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 136: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 137: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 138: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 139: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 140: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 141: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 142: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 143: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 144: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 145: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 146: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 147: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 148: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 149: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 150: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 151: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 152: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 153: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 154: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 155: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 156: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 157: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 158: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 159: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 160: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 161: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 162: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 163: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 164: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 165: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 166: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 167: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 168: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 169: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 170: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 171: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 172: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 173: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 174: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 175: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 176: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 177: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 178: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 179: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 180: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 181: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 182: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 183: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+WARNING:root:Failed QC. No ephys features extracted.
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing']
+WARNING:root:sweep 11: ['test epoch is missing']
+WARNING:root:sweep 12: ['test epoch is missing']
+WARNING:root:sweep 13: ['test epoch is missing']
+WARNING:root:sweep 14: ['test epoch is missing']
+WARNING:root:sweep 100: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 101: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 102: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 103: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 104: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 105: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 106: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 107: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 108: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 109: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 110: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 111: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 112: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 113: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 114: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 115: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 116: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 117: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 118: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 119: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 120: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 121: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 122: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 123: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 124: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 125: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 126: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 127: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 128: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 129: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 130: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 131: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 132: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 133: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 134: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 135: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 136: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 137: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 138: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 139: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 140: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 141: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 142: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 143: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 144: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 145: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 146: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 147: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 148: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 149: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 150: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 151: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 152: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 153: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 154: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 155: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 156: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 157: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 158: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 159: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 160: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 161: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 162: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 163: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 164: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 165: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 166: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 167: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 168: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 169: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 170: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 171: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 172: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 173: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 174: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 175: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 176: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 177: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 178: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 179: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 180: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 181: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 182: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 183: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing']
+WARNING:root:sweep 11: ['test epoch is missing']
+WARNING:root:sweep 12: ['test epoch is missing']
+WARNING:root:sweep 13: ['test epoch is missing']
+WARNING:root:sweep 14: ['test epoch is missing']
+WARNING:root:sweep 100: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 101: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 102: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 103: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 104: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 105: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 106: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 107: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 108: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 109: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 110: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 111: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 112: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 113: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 114: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 115: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 116: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 117: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 118: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 119: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 120: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 121: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 122: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 123: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 124: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 125: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 126: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 127: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 128: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 129: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 130: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 131: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 132: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 133: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 134: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 135: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 136: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 137: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 138: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 139: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 140: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 141: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 142: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 143: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 144: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 145: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 146: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 147: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 148: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 149: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 150: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 151: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 152: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 153: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 154: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 155: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 156: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 157: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 158: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 159: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 160: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 161: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 162: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 163: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 164: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 165: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 166: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 167: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 168: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 169: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 170: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 171: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 172: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 173: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 174: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 175: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 176: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 177: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 178: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 179: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 180: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 181: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 182: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 183: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:sweep 0: ['test epoch is missing']
+WARNING:root:sweep 1: ['test epoch is missing']
+WARNING:root:sweep 2: ['test epoch is missing']
+WARNING:root:sweep 3: ['test epoch is missing']
+WARNING:root:sweep 4: ['test epoch is missing']
+WARNING:root:sweep 5: ['test epoch is missing']
+WARNING:root:sweep 6: ['test epoch is missing']
+WARNING:root:sweep 7: ['test epoch is missing']
+WARNING:root:sweep 8: ['test epoch is missing']
+WARNING:root:sweep 9: ['test epoch is missing']
+WARNING:root:sweep 10: ['test epoch is missing']
+WARNING:root:sweep 11: ['test epoch is missing']
+WARNING:root:sweep 12: ['test epoch is missing']
+WARNING:root:sweep 13: ['test epoch is missing']
+WARNING:root:sweep 14: ['test epoch is missing']
+WARNING:root:sweep 100: ['test epoch is missing', 'experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 101: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 102: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 103: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 104: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 105: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 106: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 107: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 108: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 109: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 110: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 111: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 112: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 113: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 114: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 115: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 116: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 117: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 118: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 119: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 120: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 121: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 122: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 123: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 124: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 125: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 126: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 127: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 128: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 129: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 130: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 131: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 132: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 133: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 134: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 135: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 136: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 137: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 138: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 139: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 140: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 141: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 142: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 143: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 144: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 145: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 146: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 147: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 148: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 149: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 150: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 151: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 152: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 153: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 154: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 155: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 156: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 157: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 158: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 159: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 160: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 161: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 162: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 163: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 164: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 165: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 166: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 167: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 168: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 169: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 170: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 171: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 172: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 173: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 174: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 175: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 176: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 177: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 178: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 179: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 180: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 181: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 182: ['experiment epoch is missing', 'stim epoch is missing']
+WARNING:root:sweep 183: ['experiment epoch is missing', 'stim epoch is missing']
+INFO:root:  
+INFO:root:***** ***** ***** Perform QC checks ***** ***** *****
+INFO:root:=====================================================
+INFO:root:  
+WARNING:root:No current clamps sweeps passed QC
+INFO:root:  
+INFO:root:***** ***** ***** QC Summary: ***** ***** *****
+INFO:root:-----------------------------------------------
+INFO:root:  
+INFO:root:Cell State:
+INFO:root:failed_blowout:False
+INFO:root:failed_electrode_0:True
+INFO:root:failed_seal:True
+INFO:root:failed_input_access_resistance:True
+INFO:root:fail_tags:['electrode_0_pa missing value', 'Invalid seal (None)', 'Resistance ratio not available', 'Initial access resistance not available', 'No sweep states available', 'No current clamps sweeps passed QC']
+INFO:root:failed_qc:True
+INFO:root:Sweep States:
+WARNING:root:No current clamp sweeps available for QC
+WARNING:root:Failed QC. No ephys features extracted.
