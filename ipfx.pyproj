@@ -85,6 +85,7 @@
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local_noerrorcatch.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion_backup.py" />
     <Compile Include="ipfx\bin\run_nwb1_to_nwb2_conversion.py" />
     <Compile Include="ipfx\bin\run_pipeline.py" />
     <Compile Include="ipfx\bin\run_qc.py" />

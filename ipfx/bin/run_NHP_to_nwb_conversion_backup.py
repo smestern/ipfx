@@ -75,23 +75,11 @@ def main():
     NHPPath = "C://Users//SMest//Documents//NHP"
 
     protocol = []
-    
-    for r, celldir, f in os.walk(NHPPath):
-              
-              for c in celldir: ##Walks through each folder (cell folder) in the root folder
-                   c = os.path.join(r, c) ##loads the subdirectory path
-                   
-                   shutil.copy("/content/example-abf-files/mcc-settings.json",c) ### this path should point todays the mcc-settings.json we created earlier.
-                                                                                ## copys the mcc-settings.json into the cell folder for conversion. 
-                                                                       ##otherwise throws an error
-                   print(f"Converting {c}")
-                   convert(c,
-                        overwrite=True,
-                        fileType='.abf',
-                        outputMetadata=False,
-                        outputFeedbackChannel=False,
-                        multipleGroupsPerFile=True,
-                        compression=True) ## this calls the conver command. It tells the command to look for all possible ABF files in the sub-folder.
+    for r, d, f in os.walk(NHPPath):
+        for subdir in d:
+            subdir = os.path.join(r, subdir)
+            for mr, celldir, l in os.walk(subdir):
+               for c in celldir:
                    c = os.path.join(mr, c)
                    shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
                    print(f"Converting {c}")
