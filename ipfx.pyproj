@@ -66,6 +66,7 @@
     <Compile Include="docs\gallery\spikes_examples\detect_spikes_single_sweep_window.py" />
     <Compile Include="docs\gallery\spikes_examples\estimate_params.py" />
     <Compile Include="docs\gallery\spikes_examples\spike_train_features.py" />
+    <Compile Include="ipfx\bin\run_ABF_chrip.py" />
     <Compile Include="ipfx\chirp.py" />
     <Compile Include="ipfx\abf_chirp.py" />
     <Compile Include="ipfx\aibs_data_set.py" />
