@@ -34,12 +34,13 @@ def calculate_dvdt(v, t, filter=None):
     -------
     dvdt : numpy array of time-derivative of voltage (V/s = mV/ms)
     """
+
     if has_fixed_dt(t) and filter:
         delta_t = t[1] - t[0]
         sample_freq = 1. / delta_t
         filt_coeff = (filter * 1e3) / (sample_freq / 2.) # filter kHz -> Hz, then get fraction of Nyquist frequency
         if filt_coeff < 0 or filt_coeff >= 1:
-            filt_coeff = 0.1
+            filt_coeff=0.99
         b, a = signal.bessel(4, filt_coeff, "low")
         v_filt = signal.filtfilt(b, a, v, axis=0)
         dv = np.diff(v_filt)
@@ -47,7 +48,7 @@ def calculate_dvdt(v, t, filter=None):
         dv = np.diff(v)
 
     dt = np.diff(t)
-    dvdt = 1e-3 * dv / dt # in V/s = mV/ms
+    dvdt = 1e-3 * (dv / dt) # in V/s = mV/ms
 
     # Remove nan values (in case any dt values == 0)
     dvdt = dvdt[~np.isnan(dvdt)]

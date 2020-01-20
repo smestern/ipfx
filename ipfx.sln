@@ -5,6 +5,13 @@ VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ipfx", "ipfx.pyproj", "{EDC86DA0-6DAF-4775-99B2-34AA6A7EB333}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9DD3C7D0-2EDB-4B6A-8266-C33D062C92E3}"
+	ProjectSection(SolutionItems) = preProject
+		ipfx\bin\fvinput.json = ipfx\bin\fvinput.json
+		ipfx\bin\m_input.json = ipfx\bin\m_input.json
+		ipfx\bin\misc-settings.json = ipfx\bin\misc-settings.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

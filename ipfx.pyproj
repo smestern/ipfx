@@ -5,14 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\run_feature_vector_extraction.py</StartupFile>
+    <StartupFile>ipfx\abf_chirp.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
-    <CommandLineArguments>--input_json "C:\Users\SMest\source\repos\smestern\ipfx\ipfx\bin\m_input.json"</CommandLineArguments>
+    <CommandLineArguments>--input_json "C:\Users\SMest\source\repos\smestern\ipfx\ipfx\bin\fvinput.json"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
     <IsWindowsApplication>False</IsWindowsApplication>
@@ -66,6 +66,8 @@
     <Compile Include="docs\gallery\spikes_examples\detect_spikes_single_sweep_window.py" />
     <Compile Include="docs\gallery\spikes_examples\estimate_params.py" />
     <Compile Include="docs\gallery\spikes_examples\spike_train_features.py" />
+    <Compile Include="ipfx\chirp.py" />
+    <Compile Include="ipfx\abf_chirp.py" />
     <Compile Include="ipfx\aibs_data_set.py" />
     <Compile Include="ipfx\bin\generate_fx_input.py" />
     <Compile Include="ipfx\bin\generate_pipeline_input.py" />
@@ -81,9 +83,11 @@
     <Compile Include="ipfx\bin\plot_ephys_nwb.py" />
     <Compile Include="ipfx\bin\run_feature_collection.py" />
     <Compile Include="ipfx\bin\run_feature_extraction.py" />
+    <Compile Include="ipfx\bin\run_custom_QC_for_NHP.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local_noerrorcatch.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction_local.py" />
     <Compile Include="ipfx\bin\run_feature_vector_extraction.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion_backup.py" />
     <Compile Include="ipfx\bin\run_nwb1_to_nwb2_conversion.py" />
     <Compile Include="ipfx\bin\run_pipeline.py" />
     <Compile Include="ipfx\bin\run_qc.py" />
@@ -101,6 +105,7 @@
     <Compile Include="ipfx\feature_extractor.py" />
     <Compile Include="ipfx\feature_record.py" />
     <Compile Include="ipfx\feature_vectors.py" />
+    <Compile Include="ipfx\abf_dataset.py" />
     <Compile Include="ipfx\hbg_dataset.py" />
     <Compile Include="ipfx\lab_notebook_reader.py" />
     <Compile Include="ipfx\logging_utils.py" />

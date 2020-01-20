@@ -1,7 +1,9 @@
 {
     "output_dir": "C:\\Users\\SMest\\Documents\\",
+    "output_code":  "test_6s_50hz",
     "input": "C:\\Users\\SMest\\Documents\\NHP\\",
     "datasource": "local",
     "sweep_qc_option": "none",
-    "run_parallel": "True"
+    "run_parallel": "true"
+      
 }

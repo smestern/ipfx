@@ -78,7 +78,7 @@ class CollectFeatureVectorParameters(ags.ArgSchema):
     )
     ap_window_length = ags.fields.Float(
         description="Duration after threshold for AP shape (s)",
-        default=0.005
+        default=0.006
     )
 
 
@@ -288,7 +288,7 @@ def preprocess_ramp_sweeps(data_set, sweep_numbers):
 
 
 def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
-        ap_window_length=0.005, target_sampling_rate=10000,nfiles=None):
+        ap_window_length=0.006, target_sampling_rate=10000, nfiles=None):
     logging.debug("specimen_id: {}".format(specimen_id))
 
     lsq_fail = False
@@ -436,6 +436,8 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         for feature in spike_feature_list:
             result["spiking_" + feature] = fv.spike_feature_vector(feature,
                 supra_info_list, lsq_start, lsq_end)
+            if feature == 'width':
+                result["spiking_width"] = result["spiking_width"] / 2
     except Exception as detail:
         logging.warning("Exception when processing specimen {:d}".format(specimen_id))
         logging.warning(detail)
