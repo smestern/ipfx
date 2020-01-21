@@ -4,20 +4,27 @@ import logging
 import pyabf
 from ipfx.sweep import Sweep,SweepSet
 import ipfx.chirp as chirp
-import abf_dataset
+import ipfx.abf_dataset
 import ipfx.feature_vectors as fv
 import ipfx.time_series_utils as tsu
-
+import matplotlib.pyplot as plt
 import scipy.fftpack as fftpack
-abf = pyabf.ABF('C:\\Users\\SMest\\Pictures\\Cluszter-Images\\20116112.abf')
-abf_chrip = pyabf.ABF('C:\\Users\\SMest\\Pictures\\Cluster-Images\\10mv Chirp.abf')
+import scipy.signal as signal
+abf = pyabf.ABF('H:\\Sam\\20116101.abf')
+#abf_chrip = pyabf.ATF('h:\\Sam\\Monkey\\Chirp Proto\\20mv Chirp.atf')
 #abf_set = abf_dataset.ABFDataSet(abf_file=abf)
-for x in abf.sweepCount
-v = abf.sweepY
-i = abf_chrip.sweepY
+t = abf.sweepX
+v = t
+i = abf.sweepC[:-1]
+for x in range(0,abf.sweepCount):
+    abf.setSweep(x)
+    v = np.vstack((v,abf.sweepY))
+    i = np.vstack((i,abf.sweepC[:-1]))
+v = v[1:]
+i = i[1:]
 t = abf.sweepX
 
-def chirp_amp_phase(v,i, t, start=0.0, end=19.9, down_rate=20000.0,
+def chirp_amp_phase(v,i, t, start=0.3, end=19.68, down_rate=20000.0,
         min_freq=0.2, max_freq=20.):
     """ Calculate amplitude and phase of chirp responses
 
@@ -45,17 +52,17 @@ def chirp_amp_phase(v,i, t, start=0.0, end=19.9, down_rate=20000.0,
     freq: array
         Frequencies for amplitude and phase results
     """
-    v_list = []
-    i_list = []
-    for swp in range(1):
-        v_list.append(v)
-        i_list.append(i)
+    v_list = v
+    i_list = i
+   
 
 
     avg_v = np.vstack(v_list).mean(axis=0)
     avg_i = np.vstack(i_list).mean(axis=0)
 
-
+    plt.plot(t, avg_v)
+    plt.plot(t, avg_i)
+    plt.show()
     current_rate = np.rint(1 / (t[1] - t[0]))
     if current_rate > down_rate:
         width = int(current_rate / down_rate)
@@ -89,5 +96,5 @@ def chirp_amp_phase(v,i, t, start=0.0, end=19.9, down_rate=20000.0,
     return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
 
 feat = np.vstack(chirp_amp_phase(v,i,t))
-np.savetxt('CHIRP.csv', feat, delimiter=",", fmt='%12.5f')
-print(abf_set)
+np.savetxt('H:\\Sam\\' + abf.abfID + 'CHIRP.csv', feat, delimiter=",", fmt='%12.5f')
+#print(abf_set)
