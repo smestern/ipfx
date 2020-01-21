@@ -10,7 +10,7 @@ import ipfx.time_series_utils as tsu
 
 import scipy.fftpack as fftpack
 abf = pyabf.ABF('C:\\Users\\SMest\\Pictures\\Cluszter-Images\\20116112.abf')
-abf_chrip = pyabf.ABF('C:\\Users\\SMest\\Pictures\\Cluster-Images\\10mv Chirp.abf')
+abf_chrip = pyabf.ABF('C:\\Users\\SMest\\Pictures\\Cluster-Images\\10mv Chirp.atf')
 #abf_set = abf_dataset.ABFDataSet(abf_file=abf)
 for x in abf.sweepCount
 v = abf.sweepY
