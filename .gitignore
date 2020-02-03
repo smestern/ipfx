@@ -1,5 +1,6 @@
 # Sphinx gallery temp dir
 docs/auto_examples/
+biomodel/
 cell_types/
 env64/
 env32/
