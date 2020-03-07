@@ -1,5 +1,3 @@
-from __future__ import print_function
-from __future__ import absolute_import
 import numpy as np
 import pandas as pd
 import argschema as ags
@@ -13,18 +11,12 @@ import json
 import h5py
 from ipfx.stimulus import StimulusOntology
 import allensdk.core.json_utilities as ju
-
 import ipfx.feature_vectors as fv
-import ipfx.bin.lims_queries as lq
-import ipfx.stim_features as stf
-import ipfx.stimulus_protocol_analysis as spa
-import ipfx.data_set_features as dsf
-import ipfx.time_series_utils as tsu
+import ipfx.lims_queries as lq
+import ipfx.script_utils as su
 import ipfx.error as er
 
 from ipfx.aibs_data_set import AibsDataSet
-
-from allensdk.core.cell_types_cache import CellTypesCache
 
 
 class CollectFeatureVectorParameters(ags.ArgSchema):
@@ -322,14 +314,15 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
 
     # Identify and preprocess long square sweeps
     try:
-        lsq_sweep_numbers = categorize_iclamp_sweeps(data_set,
+        lsq_sweep_numbers = su.categorize_iclamp_sweeps(data_set,
             ontology.long_square_names, sweep_qc_option=sweep_qc_option,
             specimen_id=specimen_id)
         (lsq_sweeps,
         lsq_features,
+        _,
         lsq_start,
-        lsq_end,
-        lsq_spx) = preprocess_long_square_sweeps(data_set, lsq_sweep_numbers)
+        lsq_end) = su.preprocess_long_square_sweeps(data_set, lsq_sweep_numbers)
+
     except Exception as detail:
         logging.warning("Exception when preprocessing long square sweeps from specimen {:d}".format(specimen_id))
         logging.warning(detail)
@@ -337,10 +330,10 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
 
     # Identify and preprocess short square sweeps
     try:
-        ssq_sweep_numbers = categorize_iclamp_sweeps(data_set,
+        ssq_sweep_numbers = su.categorize_iclamp_sweeps(data_set,
             ontology.short_square_names, sweep_qc_option=sweep_qc_option,
             specimen_id=specimen_id)
-        ssq_sweeps, ssq_features = preprocess_short_square_sweeps(data_set,
+        ssq_sweeps, ssq_features, _ = su.preprocess_short_square_sweeps(data_set,
             ssq_sweep_numbers)
     except Exception as detail:
         logging.warning("Exception when preprocessing short square sweeps from specimen {:d}".format(specimen_id))
@@ -349,10 +342,10 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
 
     # Identify and preprocess ramp sweeps
     try:
-        ramp_sweep_numbers = categorize_iclamp_sweeps(data_set,
+        ramp_sweep_numbers = su.categorize_iclamp_sweeps(data_set,
             ontology.ramp_names, sweep_qc_option=sweep_qc_option,
             specimen_id=specimen_id)
-        ramp_sweeps, ramp_features = preprocess_ramp_sweeps(data_set,
+        ramp_sweeps, ramp_features, _ = su.preprocess_ramp_sweeps(data_set,
             ramp_sweep_numbers)
     except Exception as detail:
         logging.warning("Exception when preprocessing ramp sweeps from specimen {:d}".format(specimen_id))
@@ -503,10 +496,13 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
         h5_file = h5py.File(os.path.join(output_dir, "fv_{}.h5".format(output_code)))
         h5_file.close()
 
+    ontology = StimulusOntology(ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE))
+
     logging.info("Number of specimens to process: {:d}".format(len(specimen_ids)))
     get_data_partial = partial(data_for_specimen_id,
                                sweep_qc_option=sweep_qc_option,
                                data_source=data_source,
+                               ontology=ontology,
                                ap_window_length=ap_window_length)
 
     if run_parallel:
@@ -515,27 +511,20 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
     else:
         results = map(get_data_partial, specimen_ids)
 
-    filtered_set = [(i, r) for i, r in zip(specimen_ids, results) if not "error" in r.keys()]
-    error_set = [{"id": i, "error": d} for i, d in zip(specimen_ids, results) if "error" in d.keys()]
-    if len(filtered_set) == 0:
-        logging.info("No specimens had results")
-        return
-
-    used_ids, results = zip(*filtered_set)
+    used_ids, results, error_set = su.filter_results(specimen_ids, results)
 
     logging.info("Finished with {:d} processed specimens".format(len(used_ids)))
 
-    results_dict = organize_results(used_ids, results)
+    results_dict = su.organize_results(used_ids, results)
 
     if output_file_type == "h5":
-        save_to_h5(used_ids, results_dict, output_dir, output_code)
+        su.save_results_to_h5(used_ids, results_dict, output_dir, output_code)
     elif output_file_type == "npy":
-        save_to_npy(used_ids, results_dict, output_dir, output_code)
+        su.save_results_to_npy(used_ids, results_dict, output_dir, output_code)
     else:
         raise ValueError("Unknown output_file_type option {} (allowed values are h5 and npy)".format(output_file_type))
 
-    with open(os.path.join(output_dir, "fv_errors_{:s}.json".format(output_code)), "w") as f:
-        json.dump(error_set, f, indent=4)
+    su.save_errors_to_json(error_set, output_dir, output_code)
 
     logging.info("Finished saving")
 

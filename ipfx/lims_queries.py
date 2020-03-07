@@ -125,7 +125,12 @@ def get_specimen_info_from_lims_by_id(specimen_id):
                   SELECT s.name, s.ephys_roi_result_id, s.id
                   FROM specimens s
                   WHERE s.id = %s
-                  """ % specimen_id)[0]
+                  """ % specimen_id)
+    if len(result) == 0:
+        logging.info("No result from query to find specimen information")
+        return None, None, None
+
+    result = result[0]
 
     if result:
         return result["name"], result["ephys_roi_result_id"], result["id"]
@@ -135,13 +140,38 @@ def get_specimen_info_from_lims_by_id(specimen_id):
 
 
 def get_nwb_path_from_lims(ephys_roi_result):
+    """
+    Try to find NWBIgor file preferentially
+    If not found, look for a processed NWB file
 
-    # well known file type ID for NWB files is 475137571
+    well known file type ID for NWB files is 475137571
+    well known file type ID for NWBIgor files is 570280085
+
+
+    Parameters
+    ----------
+    ephys_roi_result: int
+
+    Returns
+    -------
+    full path of the nwb file
+
+    """
 
     result = query("""
     SELECT f.filename, f.storage_directory FROM well_known_files f
-    WHERE f.attachable_type = 'EphysRoiResult' AND f.attachable_id = %s AND f.well_known_file_type_id = 475137571
-    """ % (ephys_roi_result,))[0]
+    WHERE f.attachable_type = 'EphysRoiResult' AND f.attachable_id = %s AND f.well_known_file_type_id = 570280085
+    """ % (ephys_roi_result,))
+
+    if len(result) == 0:
+        logging.warning("Fall back to looking for NWB type")
+
+        result = query("""
+        SELECT f.filename, f.storage_directory FROM well_known_files f
+        WHERE f.attachable_type = 'EphysRoiResult' AND f.attachable_id = %s AND f.well_known_file_type_id = 475137571
+        """ % (ephys_roi_result,))
+
+    result = result[0]
 
     if result:
         nwb_path = result["storage_directory"] + result["filename"]
@@ -161,7 +191,12 @@ def get_igorh5_path_from_lims(ephys_roi_result):
     AND f.well_known_file_type_id = 306905526
     """ % ephys_roi_result
 
-    result = query(sql)[0]
+    result = query(sql)
+    if len(result) == 0:
+        logging.info("No result from query to find Igor H5 file")
+        return None
+
+    result = result[0]
 
     if result:
         h5_path = result["storage_directory"] + result["filename"]

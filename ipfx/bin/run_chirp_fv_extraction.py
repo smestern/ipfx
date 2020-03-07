@@ -2,7 +2,6 @@ import numpy as np
 import argschema as ags
 import lims_utils
 import ipfx.chirp as chirp
-from ipfx.aibs_data_set import AibsDataSet
 import logging
 import traceback
 from multiprocessing import Pool
@@ -12,7 +11,8 @@ import os
 import json
 import allensdk.core.json_utilities as ju
 from ipfx.stimulus import StimulusOntology
-from ipfx.bin.run_feature_vector_extraction import lims_nwb_information, sdk_nwb_information
+import ipfx.script_utils as su
+
 
 class CollectChirpFeatureVectorParameters(ags.ArgSchema):
     input_file = ags.fields.InputFile(
@@ -29,7 +29,7 @@ class CollectChirpFeatureVectorParameters(ags.ArgSchema):
     output_code = ags.fields.String(
         description="output code for naming files", default=None)
     chirp_stimulus_codes = ags.fields.List(ags.fields.String,
-        description="stimulus code for chirps",
+        description="stimulus codes for chirps",
         default=[
             "C2CHIRP180503",
             "C2CHIRP171129",
@@ -43,64 +43,42 @@ class CollectChirpFeatureVectorParameters(ags.ArgSchema):
         )
 
 
-def data_for_specimen_id(specimen_id, data_source, chirp_stimulus_codes):
-    logging.debug("specimen_id: {}".format(specimen_id))
-
-    # Manual edit ontology to identify chirp sweeps
-    ontology_data = ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE)
+def edit_ontology_data(original_ontology_data, codes_to_rename,
+        new_name_tag, new_core_tag):
+    ontology_data = original_ontology_data.copy()
     mask = []
     for od in ontology_data:
         mask_val = True
         for tagset in od:
-            for c in chirp_stimulus_codes:
+            for c in codes_to_rename:
                 if c in tagset and "code" in tagset:
                     mask_val = False
                     break
         mask.append(mask_val)
     ontology_data = [od for od, m in zip(ontology_data, mask) if m is True]
     ontology_data.append([
-        ["code"] + chirp_stimulus_codes,
+        ["code"] + codes_to_rename,
         [
           "name",
-          "Chirp",
+          new_name_tag,
         ],
         [
           "core",
-          "Core 2"
+          new_core_tag
         ]
     ])
+    return ontology_data
 
-    ontology = StimulusOntology(ontology_data)
 
-    # Find or retrieve NWB file and ancillary info and construct an AibsDataSet object
-    if data_source == "lims":
-        nwb_path, h5_path = lims_nwb_information(specimen_id)
-        if type(nwb_path) is dict and "error" in nwb_path:
-            logging.warning("Problem getting NWB file for specimen {:d} from LIMS".format(specimen_id))
-            return nwb_path
+def data_for_specimen_id(specimen_id, data_source, ontology):
+    logging.debug("specimen_id: {}".format(specimen_id))
 
-        try:
-            data_set = AibsDataSet(
-                nwb_file=nwb_path, h5_file=h5_path, ontology=ontology)
-        except Exception as detail:
-            logging.warning("Exception when loading specimen {:d} from LIMS".format(specimen_id))
-            logging.warning(detail)
-            return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
-    elif data_source == "sdk":
-        nwb_path, sweep_info = sdk_nwb_information(specimen_id)
-        try:
-            data_set = AibsDataSet(
-                nwb_file=nwb_path, sweep_info=sweep_info, ontology=ontology)
-        except Exception as detail:
-            logging.warning("Exception when loading specimen {:d} via Allen SDK".format(specimen_id))
-            logging.warning(detail)
-            return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
-    else:
-        logging.error("invalid data source specified ({})".format(data_source))
-
+    data_set = su.dataset_for_specimen_id(specimen_id, data_source, ontology)
+    if type(data_set) is dict and "error" in data_set:
+        logging.warning("Problem getting AibsDataSet for specimen {:d} from LIMS".format(specimen_id))
+        return data_set
 
     # Identify chirp sweeps
-
     try:
         iclamp_st = data_set.filtered_sweep_table(clamp_mode=data_set.CURRENT_CLAMP)
         iclamp_st = data_set.filtered_sweep_table(clamp_mode=data_set.CURRENT_CLAMP, stimuli=["Chirp"])
@@ -127,38 +105,34 @@ def data_for_specimen_id(specimen_id, data_source, chirp_stimulus_codes):
 def run_chirp_feature_vector_extraction(output_dir, output_code, include_failed_cells,
         specimen_ids, chirp_stimulus_codes, data_source="lims", run_parallel=True):
     logging.info("Number of specimens to process: {:d}".format(len(specimen_ids)))
+
+    # Include and name chirp stimulus codes in ontology
+    ontology_data = ju.read(StimulusOntology.DEFAULT_STIMULUS_ONTOLOGY_FILE)
+    edited_ontology_data = edit_ontology_data(
+        ontology_data, chirp_stimulus_codes,
+        new_name_tag="Chirp", new_core_tag="Core 2")
+    ontology = StimulusOntology(edited_ontology_data)
+
     get_data_partial = partial(data_for_specimen_id,
                                data_source=data_source,
-                               chirp_stimulus_codes=chirp_stimulus_codes)
+                               ontology=ontology)
+
     if run_parallel:
         pool = Pool()
         results = pool.map(get_data_partial, specimen_ids)
     else:
         results = map(get_data_partial, specimen_ids)
-    filtered_set = [(i, r) for i, r in zip(specimen_ids, results) if not "error" in r.keys()]
-    error_set = [{"id": i, "error": d} for i, d in zip(specimen_ids, results) if "error" in d.keys()]
-    if len(filtered_set) == 0:
-        logging.info("No specimens had results")
-        return
 
-    used_ids, results = zip(*filtered_set)
+    used_ids, results, error_set = su.filter_results(specimen_ids, results)
+
     logging.info("Finished with {:d} processed specimens".format(len(used_ids)))
-    k_sizes = {}
-    for k in results[0].keys():
-        if k not in k_sizes and results[0][k] is not None:
-            k_sizes[k] = len(results[0][k])
-        data = np.array([r[k] if k in r else np.nan * np.zeros(k_sizes[k])
-                        for r in results])
-        if len(data) < len(used_ids):
-            logging.warning("Missing data!")
-            missing = np.array([k not in r for r in results])
-            print(k, np.array(used_ids)[missing])
-        np.save(os.path.join(output_dir, "fv_{:s}_{:s}.npy".format(k, output_code)), data)
 
-    with open(os.path.join(output_dir, "fv_errors_{:s}.json".format(output_code)), "w") as f:
-        json.dump(error_set, f, indent=4)
+    results_dict = su.organize_results(used_ids, results)
 
-    np.save(os.path.join(output_dir, "fv_ids_{:s}.npy".format(output_code)), used_ids)
+    su.save_results_to_npy(used_ids, results_dict, output_dir, output_code)
+    su.save_errors_to_json(error_set, output_dir, output_code)
+
+    logging.info("Finished saving")
 
 
 def main(output_dir, output_code, input_file, include_failed_cells,
