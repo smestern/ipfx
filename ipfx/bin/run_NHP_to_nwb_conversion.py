@@ -72,30 +72,22 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 
 def main():
 
-    NHPPath = "C://Users//SMest//Documents//NHP"
+    NHPPath = "C:\\Users\\SMest\\Downloads\\Data for Seminar (cluster)\\"
 
     protocol = []
     
     for r, celldir, f in os.walk(NHPPath):
               
               for c in celldir: ##Walks through each folder (cell folder) in the root folder
+
                    c = os.path.join(r, c) ##loads the subdirectory path
-                   
-                   shutil.copy("/content/example-abf-files/mcc-settings.json",c) ### this path should point todays the mcc-settings.json we created earlier.
-                                                                                ## copys the mcc-settings.json into the cell folder for conversion. 
-                                                                       ##otherwise throws an error
-                   print(f"Converting {c}")
-                   convert(c,
-                        overwrite=True,
-                        fileType='.abf',
-                        outputMetadata=False,
-                        outputFeedbackChannel=False,
-                        multipleGroupsPerFile=True,
-                        compression=True) ## this calls the conver command. It tells the command to look for all possible ABF files in the sub-folder.
-                   c = os.path.join(mr, c)
                    shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
+              for file in f:
+                  if '.abf' in file:
+                   file_path = os.path.join(r,file)
                    print(f"Converting {c}")
-                   convert(c,
+                   convert(file_path
+                           ,
                         overwrite=True,
                         fileType='.abf',
                         outputMetadata=False,

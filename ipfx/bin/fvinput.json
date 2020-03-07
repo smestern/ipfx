@@ -1,9 +1,9 @@
 {
     "output_dir": "C:\\Users\\SMest\\Documents\\",
-    "output_code":  "test_6s_50hz",
-    "input": "C:\\Users\\SMest\\Documents\\NHP\\",
+    "output_code": "parv_magno_clustering_debug",
+    "input": "C:\\Users\\SMest\\Downloads\\Data for Seminar (cluster)\\",
     "datasource": "local",
     "sweep_qc_option": "none",
-    "run_parallel": "true"
-      
+    "run_parallel": "false"
+
 }

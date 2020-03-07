@@ -113,7 +113,7 @@ class RampAnalysis(StimulusProtocolAnalysis):
 class LongSquareAnalysis(StimulusProtocolAnalysis):
 
     SUBTHRESH_MAX_AMP = 0
-    SAG_TARGET = -100.
+    SAG_TARGET = -100
     HERO_MIN_AMP_OFFSET = 39.0
     HERO_MAX_AMP_OFFSET = 61.0
 

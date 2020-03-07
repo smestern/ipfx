@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\bio_model.py</StartupFile>
+    <StartupFile>ipfx\bin\run_feature_vector_extraction_local_ic1.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -68,6 +68,7 @@
     <Compile Include="docs\gallery\spikes_examples\spike_train_features.py" />
     <Compile Include="ipfx\bin\run_ABF_chrip.py" />
     <Compile Include="ipfx\bin\bio_model.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction_local_ic1.py" />
     <Compile Include="ipfx\chirp.py" />
     <Compile Include="ipfx\abf_chirp.py" />
     <Compile Include="ipfx\aibs_data_set.py" />
