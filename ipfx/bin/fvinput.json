@@ -1,7 +1,7 @@
 {
     "output_dir": "C:\\Users\\SMest\\Documents\\",
-    "output_code": "parv_magno_clustering_debug",
-    "input": "C:\\Users\\SMest\\Downloads\\Data for Seminar (cluster)\\",
+    "output_code": "parvo_mouse_RRS",
+    "input": "C:\\Users\\SMest\\Downloads\\Data for Seminar (cluster)\\Mouse-RRS",
     "datasource": "local",
     "sweep_qc_option": "none",
     "run_parallel": "false"

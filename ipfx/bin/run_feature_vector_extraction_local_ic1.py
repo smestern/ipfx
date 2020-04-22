@@ -16,7 +16,7 @@ from ipfx.stimulus import StimulusOntology
 import allensdk.core.json_utilities as ju
 
 import ipfx.feature_vectors as fv
-import ipfx.bin.lims_queries as lq
+#import ipfx.bin.lims_queries as lq
 import ipfx.stim_features as stf
 import ipfx.stimulus_protocol_analysis as spa
 import ipfx.data_set_features as dsf
@@ -365,7 +365,7 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
         (subthresh_hyperpol_dict,
         hyperpol_deflect_dict) = fv.identify_subthreshold_hyperpol_with_amplitudes(lsq_features,
             lsq_sweeps)
-        target_amps_for_step_subthresh = [-70]
+        target_amps_for_step_subthresh = [-80]
         result["step_subthresh"] = fv.step_subthreshold(
             subthresh_hyperpol_dict, target_amps_for_step_subthresh,
             lsq_start, lsq_end, amp_tolerance=5)

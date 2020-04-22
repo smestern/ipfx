@@ -8,7 +8,10 @@ import pyabf
 from ipfx.x_to_nwb.ABFConverter import ABFConverter
 from ipfx.x_to_nwb.DatConverter import DatConverter
 import numpy as np
-
+import pandas as pd
+import pynput
+import time
+import pyperclip
 def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False, outputFeedbackChannel=False, multipleGroupsPerFile=False, compression=True):
     """
     Convert the given file to a NeuroDataWithoutBorders file using pynwb
@@ -72,10 +75,129 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 
 def main():
 
-    NHPPath = "C:\\Users\\SMest\\Downloads\\Data for Seminar (cluster)\\"
-
+    NHPPath = "C://Users//SMest//Documents//NHP"
+    sweep_qc = pd.read_csv("C:\\Users\\SMest\\Documents\\clustering-data\\sweep_qc.csv", index_col=0)
     protocol = []
-    
+    cell_list = sweep_qc.index.values
+    mouse = pynput.mouse.Controller()
+    key = pynput.keyboard.Controller()
+    stimlist = []
+    for r, celldir, f in os.walk(NHPPath):
+              
+              for c in celldir: ##Walks through each folder (cell folder) in the root folder
+
+                   c = os.path.join(r, c) ##loads the subdirectory path
+                   shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
+              for file in f:
+                  try:
+                      if '.abf' in file and '.png' not in file:
+                       cell_name = r.split('\\')[-1]
+                       if cell_name in cell_list:
+                            file_path = os.path.join(r,file)
+                            
+                            abf = pyabf.ABF(file_path)
+
+                            if '1000' in abf.protocol:
+                                out = 0
+                                cell_qc = sweep_qc.loc[cell_name].values.astype(np.int32).ravel()
+                                abf.sweepList
+                                for sweepNumber in cell_qc:
+                                    abf.setSweep(sweepNumber)
+                                    
+                                
+                                    try:
+                                        current = abf.sweepC[np.nonzero(abf.sweepC)[0][0]]
+                                    except:
+                                        current = 0
+                                    out = np.hstack((out, current))
+                                out = np.hstack((cell_name, out))
+                                stimlist.append(out)
+
+                                #cell_qc = np.nonzero(sweep_qc.loc[cell_name].values)[0] + 1
+                                #cell_qc_s = np.array2string(cell_qc, threshold=99, separator=',')
+                                #cell_qc_s = cell_qc_s.split('[')[-1].split(']')[0]
+                                #pyperclip.copy(cell_qc_s)
+                                #print(cell_qc_s)
+                                #abf.launchInClampFit()
+                                #time.sleep(3)
+                                #with key.pressed(pynput.keyboard.Key.cmd):
+                                #       key.press(pynput.keyboard.Key.up)
+                                #       key.release(pynput.keyboard.Key.up)
+                                #time.sleep(3)
+                                #key.release(pynput.keyboard.Key.cmd)
+                                #mouse.position = (609, 347)
+                                #mouse.press(pynput.mouse.Button.left)
+                                #mouse.release(pynput.mouse.Button.left)
+                                #time.sleep(1)
+                                #mouse.position = (76, 31)
+                                #mouse.press(pynput.mouse.Button.left)
+                                #mouse.release(pynput.mouse.Button.left)
+                                #time.sleep(1)
+                                #mouse.position = (141, 505)
+                                
+                                #time.sleep(1)
+                                
+                                #mouse.press(pynput.mouse.Button.left)
+                                #mouse.release(pynput.mouse.Button.left)
+                                #time.sleep(1)
+                                #mouse.position = (831, 610)
+                                #mouse.press(pynput.mouse.Button.left)
+                                #mouse.release(pynput.mouse.Button.left)
+                                #time.sleep(1)
+                                #mouse.position = (928, 634)
+                                #time.sleep(1)
+                                #mouse.click(pynput.mouse.Button.left, 1)
+                                #time.sleep(1)
+                                #for p in np.arange(4):
+                                #    time.sleep(1)
+                                #    key.press(pynput.keyboard.Key.backspace)
+                                #    key.release(pynput.keyboard.Key.backspace)
+                                
+                                
+                                #time.sleep(1)
+                                #key.type(cell_qc_s)
+                                #for p in np.arange(100):
+                                #    time.sleep(0.05)
+                                #    key.press(pynput.keyboard.Key.left)
+                                #    key.release(pynput.keyboard.Key.left)
+                                #key.press(pynput.keyboard.Key.right)
+                                #key.release(pynput.keyboard.Key.right)
+                                #key.press(pynput.keyboard.Key.backspace)
+                                #key.release(pynput.keyboard.Key.backspace)
+                                #time.sleep(1)
+                                #mouse.position = (863, 687)
+                                #mouse.click(pynput.mouse.Button.left, 1)
+                                #time.sleep(1)
+                                #mouse.position = (11, 32)
+                                #mouse.click(pynput.mouse.Button.left, 1)
+                                #time.sleep(1)
+                                #mouse.position = (85, 277)
+                                #mouse.click(pynput.mouse.Button.left, 1)
+                                #time.sleep(1)
+                                #key.type(cell_name)
+                                #key.press(pynput.keyboard.Key.enter)
+                                #key.release(pynput.keyboard.Key.enter)
+                                #key.press(pynput.keyboard.Key.enter)
+                                #key.release(pynput.keyboard.Key.enter)
+                                #key.press(pynput.keyboard.Key.enter)
+                                #key.release(pynput.keyboard.Key.enter)
+                                #key.press(pynput.keyboard.Key.enter)
+                                #key.release(pynput.keyboard.Key.enter)
+                                #time.sleep(1)
+                                #mouse.position = (1891, 11)
+                                #mouse.click(pynput.mouse.Button.left, 1)
+                                
+                                #time.sleep(10)
+                  except: 
+                       print("fail")
+    NHPPath = "C:\\Users\\SMest\\Documents\\New folder"
+    maxlen = max(stimlist,key=len).shape[0]
+    for x,l in enumerate(stimlist):
+        if x==0:
+            astim =  np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))
+        else:
+            astim = np.vstack((astim, np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))))
+    np.savetxt('stimlist.csv', astim , delimiter=",", fmt='%s')
     for r, celldir, f in os.walk(NHPPath):
               
               for c in celldir: ##Walks through each folder (cell folder) in the root folder
@@ -85,7 +207,7 @@ def main():
               for file in f:
                   if '.abf' in file:
                    file_path = os.path.join(r,file)
-                   print(f"Converting {c}")
+                   #print(f"Converting {c}")
                    convert(file_path
                            ,
                         overwrite=True,
