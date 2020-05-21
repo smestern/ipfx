@@ -45,6 +45,15 @@
     },
     "timestamp": "2019-09-30T12:52:07.961664Z",
     "uids": {
-        "IN0": "00830749_1"
+        "IN0": "00830749_1",
+        "IN 0": "00830749_1"
+    },
+    "session_description": "TEST DESC",
+    "acquisition": {
+        "index_000": {
+            "gain": 555
+        }
     }
+
+    
 }

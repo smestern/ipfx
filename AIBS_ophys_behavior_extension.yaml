@@ -1,0 +1,11 @@
+groups:
+- neurodata_type_def: OphysBehaviorMetaData
+  neurodata_type_inc: LabMetaData
+  doc: AIBS Visual Behavior ophys lab metadata extension
+  attributes:
+  - name: ophys_experiment_id
+    dtype: int
+    doc: HW
+  - name: test
+    dtype: text
+    doc: HW
