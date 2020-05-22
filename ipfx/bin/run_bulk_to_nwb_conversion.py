@@ -155,7 +155,7 @@ def confirm_metadata(file, mjson, meta_field=True):
        
         
         f_io.write(NWB_f)
-        f_io.close()
+        
 
 
 
