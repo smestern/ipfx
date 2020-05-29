@@ -1,0 +1,10 @@
+INFO:root:  
+INFO:root:***** ***** ***** Extract QC features ***** ***** *****
+INFO:root:=======================================================
+INFO:root:  
+WARNING:root:Could not compute input/access resistance ratio (sr: None, ir:: None)
+WARNING:root:Blowout is not available
+WARNING:root:Electrode 0 is not available
+WARNING:root:Seal is not available
+WARNING:root:Breakin sweep not found
+WARNING:root:No current clamp sweeps available to compute QC features

@@ -76,6 +76,7 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 def main():
 
     NHPPath = "C://Users//SMest//Documents//NHP"
+    new_path =  "C:\\Users\\SMest\\Documents\\New folder2\\"
     sweep_qc = pd.read_csv("C:\\Users\\SMest\\Documents\\clustering-data\\sweep_qc.csv", index_col=0)
     protocol = []
     cell_list = sweep_qc.index.values
@@ -112,85 +113,10 @@ def main():
                                     out = np.hstack((out, current))
                                 out = np.hstack((cell_name, out))
                                 stimlist.append(out)
-
-                                #cell_qc = np.nonzero(sweep_qc.loc[cell_name].values)[0] + 1
-                                #cell_qc_s = np.array2string(cell_qc, threshold=99, separator=',')
-                                #cell_qc_s = cell_qc_s.split('[')[-1].split(']')[0]
-                                #pyperclip.copy(cell_qc_s)
-                                #print(cell_qc_s)
-                                #abf.launchInClampFit()
-                                #time.sleep(3)
-                                #with key.pressed(pynput.keyboard.Key.cmd):
-                                #       key.press(pynput.keyboard.Key.up)
-                                #       key.release(pynput.keyboard.Key.up)
-                                #time.sleep(3)
-                                #key.release(pynput.keyboard.Key.cmd)
-                                #mouse.position = (609, 347)
-                                #mouse.press(pynput.mouse.Button.left)
-                                #mouse.release(pynput.mouse.Button.left)
-                                #time.sleep(1)
-                                #mouse.position = (76, 31)
-                                #mouse.press(pynput.mouse.Button.left)
-                                #mouse.release(pynput.mouse.Button.left)
-                                #time.sleep(1)
-                                #mouse.position = (141, 505)
-                                
-                                #time.sleep(1)
-                                
-                                #mouse.press(pynput.mouse.Button.left)
-                                #mouse.release(pynput.mouse.Button.left)
-                                #time.sleep(1)
-                                #mouse.position = (831, 610)
-                                #mouse.press(pynput.mouse.Button.left)
-                                #mouse.release(pynput.mouse.Button.left)
-                                #time.sleep(1)
-                                #mouse.position = (928, 634)
-                                #time.sleep(1)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
-                                #for p in np.arange(4):
-                                #    time.sleep(1)
-                                #    key.press(pynput.keyboard.Key.backspace)
-                                #    key.release(pynput.keyboard.Key.backspace)
-                                
-                                
-                                #time.sleep(1)
-                                #key.type(cell_qc_s)
-                                #for p in np.arange(100):
-                                #    time.sleep(0.05)
-                                #    key.press(pynput.keyboard.Key.left)
-                                #    key.release(pynput.keyboard.Key.left)
-                                #key.press(pynput.keyboard.Key.right)
-                                #key.release(pynput.keyboard.Key.right)
-                                #key.press(pynput.keyboard.Key.backspace)
-                                #key.release(pynput.keyboard.Key.backspace)
-                                #time.sleep(1)
-                                #mouse.position = (863, 687)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
-                                #mouse.position = (11, 32)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
-                                #mouse.position = (85, 277)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
-                                #key.type(cell_name)
-                                #key.press(pynput.keyboard.Key.enter)
-                                #key.release(pynput.keyboard.Key.enter)
-                                #key.press(pynput.keyboard.Key.enter)
-                                #key.release(pynput.keyboard.Key.enter)
-                                #key.press(pynput.keyboard.Key.enter)
-                                #key.release(pynput.keyboard.Key.enter)
-                                #key.press(pynput.keyboard.Key.enter)
-                                #key.release(pynput.keyboard.Key.enter)
-                                #time.sleep(1)
-                                #mouse.position = (1891, 11)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                
-                                #time.sleep(10)
+                                shutil.copy(file_path, (new_path+cell_name+'.abf'))
                   except: 
                        print("fail")
-    NHPPath = "C:\\Users\\SMest\\Documents\\New folder"
+    NHPPath = "C:\\Users\\SMest\\Documents\\New folder2"
     maxlen = max(stimlist,key=len).shape[0]
     for x,l in enumerate(stimlist):
         if x==0:

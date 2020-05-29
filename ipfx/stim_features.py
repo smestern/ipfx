@@ -3,14 +3,13 @@ import numpy as np
 from . import time_series_utils as tsu
 
 
-def get_stim_characteristics(i, t, test_pulse=True):
+def get_stim_characteristics(i, t, test_pulse=True, start_epoch=None, end_epoch=None):
     """
     Identify the start time, duration, amplitude, start index, and end index of a general stimulus.
     """
 
     di = np.diff(i)
     di_idx = np.flatnonzero(di)   # != 0
-
     start_idx_idx = 2 if test_pulse else 0     # skip the first up/down (test pulse) if present
 
     if len(di_idx[start_idx_idx:]) == 0:    # if no stimulus is found
@@ -18,6 +17,9 @@ def get_stim_characteristics(i, t, test_pulse=True):
 
     start_idx = di_idx[start_idx_idx] + 1   # shift by one to compensate for diff()
     end_idx = di_idx[-1]
+    if start_idx >= end_idx: # sweep has been cut off before stimulus end
+        return None, None, 0.0, None, None
+
     start_time = float(t[start_idx])
     duration = float(t[end_idx] - t[start_idx-1])
 

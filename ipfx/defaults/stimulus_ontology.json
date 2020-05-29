@@ -2216,5 +2216,15 @@
             "code",
             "vclampRNA"
         ]
+    ],
+    [
+        [
+            "code",
+            "IC1"
+        ],
+        [
+            "name",
+            "Long Square"
+        ]
     ]
 ]

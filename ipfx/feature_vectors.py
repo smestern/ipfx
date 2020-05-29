@@ -744,6 +744,47 @@ def psth_vector(spike_info_list, start, end, width=50):
     output_vector = _combine_and_interpolate(vector_list)
     return output_vector
 
+def latency_vector(spike_info_list, start, end, width=50):
+    """ Create binned latency, concatenated
+        across sweeps
+
+    Parameters
+    ----------
+    spike_info_list: list
+        Spike info DataFrames for each sweep
+    start: float
+        Start of stimulus interval (seconds)
+    end: float
+        End of stimulus interval (seconds)
+    width: float (optional, default 50)
+        Bin width in ms
+
+    Returns
+    -------
+    output: array
+        Concatenated vector of binned spike rates (spikes/s)
+    """
+
+    vector_list = []
+    si = spike_info_list['latency']
+    if si is None:
+            vector_list.append(None)
+    else:
+        vector_list.append(si.values.tolist())
+        vector_list = vector_list[0]
+    if len(vector_list) > 10:
+        vector_list = vector_list[:10]
+    elif len(vector_list) < 10:
+        poly_ = np.polyfit(np.arange(len(vector_list)), vector_list, 3)
+        for a in np.arange(10 - len(vector_list)):
+            a += len(vector_list)
+            val_a = np.polyval(poly_, a)
+            vector_list.append(val_a)
+
+
+    output_vector = _combine_and_interpolate(vector_list)
+    return output_vector
+
 
 def inst_freq_vector(spike_info_list, start, end, width=20):
     """ Create binned instantaneous frequency feature vector,

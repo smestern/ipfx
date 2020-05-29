@@ -113,7 +113,7 @@ class RampAnalysis(StimulusProtocolAnalysis):
 class LongSquareAnalysis(StimulusProtocolAnalysis):
 
     SUBTHRESH_MAX_AMP = 0
-    SAG_TARGET = -100.
+    SAG_TARGET = -100
     HERO_MIN_AMP_OFFSET = 39.0
     HERO_MAX_AMP_OFFSET = 61.0
 
@@ -192,7 +192,7 @@ class LongSquareAnalysis(StimulusProtocolAnalysis):
 
         calc_subthresh_features = subthreshold_sweep_features[ (subthreshold_sweep_features["stim_amp"] < self.SUBTHRESH_MAX_AMP) & \
                                                             (subthreshold_sweep_features["stim_amp"] > self.subthresh_min_amp) ].copy()
-        print(subthreshold_sweep_features["stim_amp"])
+        #print(subthreshold_sweep_features["stim_amp"])
         if len(calc_subthresh_features) == 0:
             error_string = F"No subthreshold long square sweeps with stim_amp " \
                            F"in range [{self.subthresh_min_amp,self.SUBTHRESH_MAX_AMP}] " \

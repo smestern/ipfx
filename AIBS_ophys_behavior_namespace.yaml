@@ -1,0 +1,7 @@
+namespaces:
+- doc: AIBS Visual Behavior ophys lab metadata extension
+  name: AIBS_ophys_behavior
+  schema:
+  - namespace: core
+  - source: AIBS_ophys_behavior_extension.yaml
+  version: '1'

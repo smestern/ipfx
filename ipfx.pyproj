@@ -5,14 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\mcc_get_settings.py</StartupFile>
+    <StartupFile>ipfx\bin\run_bulk_to_nwb_conversion.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
-    <InterpreterId>Global|PythonCore|3.7-32</InterpreterId>
-    <CommandLineArguments>--settingsFile "C:\Users\smestern\source\repos\smestern\ipfx\ipfx\bin\misc-settings.json" --filename "mcc-o.json"</CommandLineArguments>
+    <InterpreterId>Global|PythonCore|3.7</InterpreterId>
+    <CommandLineArguments>"C:\Users\SMest\Downloads\Data for Seminar (cluster)" --additionalMetadata "C:\Users\SMest\source\repos\smestern\ipfx\test.json"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
     <IsWindowsApplication>False</IsWindowsApplication>
@@ -68,6 +68,12 @@
     <Compile Include="docs\gallery\spikes_examples\spike_train_features.py" />
     <Compile Include="ipfx\bin\run_ABF_chrip.py" />
     <Compile Include="ipfx\bin\bio_model.py" />
+    <Compile Include="ipfx\bin\run_feature_vector_extraction_local_ic1.py" />
+    <Compile Include="ipfx\bin\run_sweep_QC.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion - Copy %282%29 - Copy.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion - Copy %282%29.py" />
+    <Compile Include="ipfx\bin\run_bulk_to_nwb_conversion.py" />
+    <Compile Include="ipfx\bin\run_NHP_to_nwb_conversion - Copy.py" />
     <Compile Include="ipfx\chirp.py" />
     <Compile Include="ipfx\abf_chirp.py" />
     <Compile Include="ipfx\aibs_data_set.py" />
