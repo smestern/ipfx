@@ -103,13 +103,13 @@ def abf_chirp(abf):
 
         low_ind = tsu.find_time_index(xf, min_freq)
         high_ind = tsu.find_time_index(xf, max_freq)
+        v2 = R[0:N//2]
+        return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind], v2[low_ind:high_ind]
 
-        return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
+    resist, react, _, v2 = chirp_amp_phase(v,i,t)
+    return resist, react, _, v2
 
-    resist, react, _ = chirp_amp_phase(v,i,t)
-    return resist, react, _
-
-len_f = 1000
+len_f = 400
 
 full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
@@ -119,12 +119,12 @@ for root,dir,fileList in os.walk(files):
         abf = pyabf.ABF(file_path)
         if abf.dataRate > 10000:
             print(abf.abfID + ' loaded')
-            abf_name = np.vstack([abf.abfID,abf.abfID, abf.abfID, abf.abfID])
-            abf_label = np.vstack(['resist','react', 'freq','detrend resist'])
+            abf_name = np.vstack([abf.abfID,abf.abfID, abf.abfID, abf.abfID, abf.abfID])
+            abf_label = np.vstack(['resist','react', 'freq','detrend resist', 'v2'])
             abf_feat = abf_chirp(abf)
             abf_feat = np.vstack((abf_feat, signal.detrend(abf_feat[0])))
             abf_ar = np.hstack((abf_name, abf_label, abf_feat))
-            abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
+            abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
             full = np.vstack((full, abf_ar))
 
 np.savetxt('H:\Sam\CHIRP.csv', full, delimiter=",", fmt='%s')
