@@ -1,4 +1,5 @@
 {
   "SuppressEnvironmentCreationPrompt": true,
-  "Interpreter": "Global|PythonCore|3.7"
+  "Interpreter": "Global|PythonCore|3.7",
+  "SuppressConfigureTestFrameworkPrompt": "true"
 }
