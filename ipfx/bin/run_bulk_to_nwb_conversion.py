@@ -314,11 +314,10 @@ def main():
                                 outputFeedbackChannel=args.outputFeedbackChannel,
                                 multipleGroupsPerFile=True,
                                 compression=args.compression)
-
-                       confirm_metadata(nwb,meta)
+                       if bmeta== True:
+                        confirm_metadata(nwb,meta)
                        
-                       os.remove(os.path.join(c,os.path.basename(meta)))
-     
-
+                        os.remove(os.path.join(c,os.path.basename(meta)))
+                       
 if __name__ == "__main__":
     main()

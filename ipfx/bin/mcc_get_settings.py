@@ -10,7 +10,7 @@ import time
 import json
 import datetime
 import argparse
-
+from smes_QC import LiveQC
 from watchdog.events import RegexMatchingEventHandler
 from watchdog.observers import Observer
 
@@ -1092,8 +1092,11 @@ def main():
         raise ValueError("The parameter watchFolder requires an existing folder.")
 
     eventHandler = SettingsFetcher(args.settingsFile, )
+    eventHandler2 = LiveQC(args.settingsFile, )
     observer = Observer()
+    observer.schedule(eventHandler2, args.watchFolder, recursive=False)
     observer.schedule(eventHandler, args.watchFolder, recursive=False)
+    
     observer.start()
 
     print(f"Starting to watch {args.watchFolder} for ABF files to appear. Press Ctrl + Break to stop.")

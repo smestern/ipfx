@@ -1,3 +1,4 @@
+
 import pandas as pd
 import numpy as np
 import logging
@@ -21,23 +22,62 @@ files = filedialog.askdirectory(
                                    )
 root_fold = files
 
+def moving_avg(ar, window):
+    ar_fix = np.hstack((ar, np.full(1000 - ar.shape[0], np.nan)))
+    size = int(ar_fix.shape[0]/window)
+
+    ar_change = np.vstack(np.split(ar_fix,size))
+    running_mean = np.nanmean(ar_change, axis=1, keepdims=True)
+    repeat = np.repeat(running_mean,window)
+    return repeat
+
+
+def moving_avg2(ar, window):
+    series_ar = pd.Series(data=ar)
+    running_mean = series_ar.rolling(window).mean().to_numpy()
+    series_ar = pd.Series(data=np.flip(ar))
+    running_mean_start = series_ar.rolling(window).mean().to_numpy()
+    replace = int(window-1)
+    running_mean[:replace] = running_mean_start[-replace:]
+    return running_mean
+
+
+def find_peak(x, y, freq_cut=0):
+    y = y[x>freq_cut]
+    x = x[x>freq_cut]
+    ds_mean = np.nanmean(y)
+    width_peak = 101
+    peaks = np.array([[]])
+    min_peaks = [np.full(999,9), 0]
+    while width_peak > 0:
+     
+        peaks = signal.find_peaks(y, height=ds_mean, width=width_peak)
+        if len(peaks[0]) < len(min_peaks[0]):
+            min_peaks = peaks
+        if len(peaks[0]) <= 2 and len(peaks[0]) >= 1:
+            min_peaks = peaks
+            break;
+        width_peak -=1
+    min_peaks[1]['x-heights'] = x[min_peaks[0]]
+    return [min_peaks[1], width_peak]
+    
 #abf_chrip = pyabf.ATF('h:\\Sam\\Monkey\\Chirp Proto\\20mv Chirp.atf')
 #abf_set = abf_dataset.ABFDataSet(abf_file=abf)
 def abf_chirp(abf):
     t = abf.sweepX
     v = t
-    abf_chrip = pyabf.ATF('H:\\Sam\\Protocol\\Monkey\\Chirp Proto\\Old Chirp\\20mv Chirp.atf')
-    i = abf_chrip.sweepY[:-1]
+    abf_chrip = pyabf.ATF('H:\\Sam\\Protocol\\Monkey\\Chirp Proto\\0_20hz_in50s_vs.atf')
+    i = abf_chrip.sweepY[:]
     for x in range(0,abf.sweepCount):
         abf.setSweep(x)
         v = np.vstack((v,abf.sweepY))
-        i = np.vstack((i,abf_chrip.sweepY[:-1]))
+        i = np.vstack((i,abf_chrip.sweepY[:]))
     v = v[1:]
     i = i[1:]
     t = abf.sweepX
 
-    def chirp_amp_phase(v,i, t, start=0.3, end=19.68, down_rate=20000.0,
-            min_freq=0.1, max_freq=17.5):
+    def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
+            min_freq=0.1, max_freq=19.5):
         """ Calculate amplitude and phase of chirp responses
 
         Parameters
@@ -72,8 +112,9 @@ def abf_chirp(abf):
         avg_v = np.vstack(v_list).mean(axis=0)
         avg_i = np.vstack(i_list).mean(axis=0)
 
-        plt.plot(t, avg_v)
-        plt.plot(t, avg_i)
+        #plt.plot(t, avg_v)
+        #
+        #plt.plot(t, avg_i)
         
         current_rate = np.rint(1 / (t[1] - t[0]))
         if current_rate > down_rate:
@@ -109,8 +150,8 @@ def abf_chirp(abf):
     resist, react, _, v2 = chirp_amp_phase(v,i,t)
     return resist, react, _, v2
 
-len_f = 400
-
+len_f = 1000
+peaks = pd.DataFrame()
 full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
  for filename in fileList:
@@ -120,12 +161,20 @@ for root,dir,fileList in os.walk(files):
         if abf.dataRate > 10000:
             print(abf.abfID + ' loaded')
             abf_name = np.vstack([abf.abfID,abf.abfID, abf.abfID, abf.abfID, abf.abfID])
-            abf_label = np.vstack(['resist','react', 'freq','detrend resist', 'v2'])
+            abf_label = np.vstack(['resist','react', 'freq','Z', 'resist running avg'])
             abf_feat = abf_chirp(abf)
-            abf_feat = np.vstack((abf_feat, signal.detrend(abf_feat[0])))
+            running_mean =  moving_avg2(abf_feat[0], 5)#[:abf_feat[0].shape[0]]
+
+            tpeaks = find_peak(abf_feat[2], running_mean)
+            temp = pd.DataFrame().from_dict(tpeaks[0])
+            temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
+            temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
+            peaks = peaks.append(temp)
+            abf_feat = np.vstack((abf_feat, running_mean))
             abf_ar = np.hstack((abf_name, abf_label, abf_feat))
             abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
             full = np.vstack((full, abf_ar))
 
 np.savetxt('H:\Sam\CHIRP.csv', full, delimiter=",", fmt='%s')
+peaks.to_csv("H:\Sam\CHIRP_resist_peaks.csv")
 plt.show()
