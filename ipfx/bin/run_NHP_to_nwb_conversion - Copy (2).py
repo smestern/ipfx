@@ -75,9 +75,9 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 
 def main():
 
-    NHPPath = "C://Users//SMest//Documents//NHP"
-    new_path =  "C:\\Users\\SMest\\Documents\\New folder2\\"
-    sweep_qc = pd.read_csv("C:\\Users\\SMest\\Documents\\clustering-data\\sweep_qc.csv", index_col=0)
+    NHPPath = "C:\\Users\\SMest\\Downloads\\Final_LP_selection"
+    new_path =  "C:\\Users\\SMest\\Documents\\New folder3\\"
+    sweep_qc = pd.read_csv("C:\\Users\\SMest\\Downloads\\QCed_NHP_cells_website.csv", index_col=0)
     protocol = []
     cell_list = sweep_qc.index.values
     mouse = pynput.mouse.Controller()
@@ -101,8 +101,8 @@ def main():
                             if '1000' in abf.protocol:
                                 out = 0
                                 cell_qc = sweep_qc.loc[cell_name].values.astype(np.int32).ravel()
-                                abf.sweepList
-                                for sweepNumber in cell_qc:
+                                
+                                for sweepNumber in abf.sweepList:
                                     abf.setSweep(sweepNumber)
                                     
                                 
@@ -113,7 +113,7 @@ def main():
                                     out = np.hstack((out, current))
                                 out = np.hstack((cell_name, out))
                                 stimlist.append(out)
-                                shutil.copy(file_path, (new_path+cell_name+'.abf'))
+                                #shutil.copy(file_path, (new_path+cell_name+'.abf'))
                   except: 
                        print("fail")
     NHPPath = "C:\\Users\\SMest\\Documents\\New folder2"

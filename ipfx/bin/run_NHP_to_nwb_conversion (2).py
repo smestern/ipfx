@@ -75,46 +75,46 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 
 def main():
 
-    NHPPath = "C://Users//SMest//Documents//NHP"
-    sweep_qc = pd.read_csv("C:\\Users\\SMest\\Documents\\clustering-data\\sweep_qc.csv", index_col=0)
+    NHPPath = "C:\\Users\\SMest\\Downloads\\Final_LP_selection"
+    sweep_qc = pd.read_csv("C:\\Users\\SMest\\Downloads\\QCed_NHP_cells_website.csv", index_col=0)
     protocol = []
     cell_list = sweep_qc.index.values
     mouse = pynput.mouse.Controller()
     key = pynput.keyboard.Controller()
     stimlist = []
-    for r, celldir, f in os.walk(NHPPath):
+    #for r, celldir, f in os.walk(NHPPath):
               
-              for c in celldir: ##Walks through each folder (cell folder) in the root folder
+              #for c in celldir: ##Walks through each folder (cell folder) in the root folder
 
-                   c = os.path.join(r, c) ##loads the subdirectory path
-                   shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
-              for file in f:
-                  try:
-                      if '.abf' in file and '.png' not in file:
-                       cell_name = r.split('\\')[-1]
-                       if cell_name in cell_list:
-                            file_path = os.path.join(r,file)
+                   #c = os.path.join(r, c) ##loads the subdirectory path
+                   #shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
+              #for file in f:
+               #   try:
+                #      if '.abf' in file and '.png' not in file:
+                 #      cell_name = r.split('\\')[-1]
+                    #   if cell_name in cell_list:
+                            #file_path = os.path.join(r,file)
                             
-                            abf = pyabf.ABF(file_path)
+                            #abf = pyabf.ABF(file_path)
 
-                            if '1000' in abf.protocol:
-                                out = 0
-                                cell_qc = sweep_qc.loc[cell_name].values.astype(np.int32).ravel()
-                                abf.sweepList
-                                for sweepNumber in cell_qc:
-                                    abf.setSweep(sweepNumber)
+                            #if '1000' in abf.protocol:
+                            #    out = 0
+                            #    cell_qc = sweep_qc.loc[cell_name].values.astype(np.int32).ravel()
+                            #    abf.sweepList
+                            #    for sweepNumber in cell_qc:
+                            #        abf.setSweep(sweepNumber)
                                     
                                 
-                                    try:
-                                        current = abf.sweepC[np.nonzero(abf.sweepC)[0][0]]
-                                    except:
-                                        current = 0
-                                    out = np.hstack((out, current))
-                                out = np.hstack((cell_name, out))
-                                stimlist.append(out)
+                            #        try:
+                            #            current = abf.sweepC[np.nonzero(abf.sweepC)[0][0]]
+                            #        except:
+                            #            current = 0
+                            #        out = np.hstack((out, current))
+                            #    out = np.hstack((cell_name, out))
+                            #    stimlist.append(out)
 
-                                #cell_qc = np.nonzero(sweep_qc.loc[cell_name].values)[0] + 1
-                                #cell_qc_s = np.array2string(cell_qc, threshold=99, separator=',')
+                            #    cell_qc = np.nonzero(sweep_qc.loc[cell_name].values)[0] + 1
+                            #    cell_qc_s = np.array2string(cell_qc, threshold=99, separator=',')
                                 #cell_qc_s = cell_qc_s.split('[')[-1].split(']')[0]
                                 #pyperclip.copy(cell_qc_s)
                                 #print(cell_qc_s)
@@ -125,26 +125,26 @@ def main():
                                 #       key.release(pynput.keyboard.Key.up)
                                 #time.sleep(3)
                                 #key.release(pynput.keyboard.Key.cmd)
-                                #mouse.position = (609, 347)
+                                #mouse.position = (640, 347)
                                 #mouse.press(pynput.mouse.Button.left)
                                 #mouse.release(pynput.mouse.Button.left)
                                 #time.sleep(1)
-                                #mouse.position = (76, 31)
+                                #mouse.position = (85, 31)
                                 #mouse.press(pynput.mouse.Button.left)
                                 #mouse.release(pynput.mouse.Button.left)
                                 #time.sleep(1)
-                                #mouse.position = (141, 505)
+                                #mouse.position = (141, 450)
                                 
                                 #time.sleep(1)
                                 
                                 #mouse.press(pynput.mouse.Button.left)
                                 #mouse.release(pynput.mouse.Button.left)
                                 #time.sleep(1)
-                                #mouse.position = (831, 610)
+                                #mouse.position = (731, 500)
                                 #mouse.press(pynput.mouse.Button.left)
                                 #mouse.release(pynput.mouse.Button.left)
                                 #time.sleep(1)
-                                #mouse.position = (928, 634)
+                                #mouse.position = (740, 520)
                                 #time.sleep(1)
                                 #mouse.click(pynput.mouse.Button.left, 1)
                                 #time.sleep(1)
@@ -165,15 +165,17 @@ def main():
                                 #key.press(pynput.keyboard.Key.backspace)
                                 #key.release(pynput.keyboard.Key.backspace)
                                 #time.sleep(1)
-                                #mouse.position = (863, 687)
+                                #key.press(pynput.keyboard.Key.enter)
+                                #key.release(pynput.keyboard.Key.enter)
+                                ##mouse.position = (863, 687)
+                                ##mouse.click(pynput.mouse.Button.left, 1)
+                                #time.sleep(1)
+                                #mouse.position = (25, 32)
                                 #mouse.click(pynput.mouse.Button.left, 1)
                                 #time.sleep(1)
-                                #mouse.position = (11, 32)
+                                #mouse.position = (85, 245)
                                 #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
-                                #mouse.position = (85, 277)
-                                #mouse.click(pynput.mouse.Button.left, 1)
-                                #time.sleep(1)
+                                #time.sleep(2)
                                 #key.type(cell_name)
                                 #key.press(pynput.keyboard.Key.enter)
                                 #key.release(pynput.keyboard.Key.enter)
@@ -188,26 +190,24 @@ def main():
                                 #mouse.click(pynput.mouse.Button.left, 1)
                                 
                                 #time.sleep(10)
-                  except: 
-                       print("fail")
-    NHPPath = "C:\\Users\\SMest\\Documents\\New folder"
-    maxlen = max(stimlist,key=len).shape[0]
-    for x,l in enumerate(stimlist):
-        if x==0:
-            astim =  np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))
-        else:
-            astim = np.vstack((astim, np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))))
-    np.savetxt('stimlist.csv', astim , delimiter=",", fmt='%s')
+                  #except: 
+                   #    print("fail")
+    #NHPPath = "C:\\Users\\SMest\\Documents\\New folder"
+    #maxlen = max(stimlist,key=len).shape[0]
+    #for x,l in enumerate(stimlist):
+       # if x==0:
+       #     astim =  np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))
+       # else:
+      #      astim = np.vstack((astim, np.hstack((l,np.full(maxlen - l.shape[0], np.nan)))))
+    #np.savetxt('stimlist.csv', astim , delimiter=",", fmt='%s')
+
     for r, celldir, f in os.walk(NHPPath):
               
               for c in celldir: ##Walks through each folder (cell folder) in the root folder
-
+                 try:
                    c = os.path.join(r, c) ##loads the subdirectory path
                    shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
-              for file in f:
-                  if '.abf' in file:
-                   file_path = os.path.join(r,file)
-                   #print(f"Converting {c}")
+                   file_path = os.path.join(r, c)
                    convert(file_path
                            ,
                         overwrite=True,
@@ -216,6 +216,8 @@ def main():
                         outputFeedbackChannel=False,
                         multipleGroupsPerFile=True,
                         compression=True)
+                 except:
+                      pass
     np.savetxt("C:\\Users\\SMest\\Documents\\NHP\\protocol.csv", protocol, fmt="%s") 
 
 if __name__ == "__main__":
