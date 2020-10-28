@@ -1,6 +1,5 @@
 {
   "SuppressEnvironmentCreationPrompt": true,
-  "Interpreter": "Global|PythonCore|3.7",
-  "SuppressConfigureTestFrameworkPrompt": "true",
-  "SuppressPackageInstallationPrompt": true
+  "SuppressPackageInstallationPrompt": true,
+  "Interpreter": "Global|PythonCore|3.7-32"
 }
