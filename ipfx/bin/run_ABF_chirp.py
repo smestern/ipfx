@@ -4,9 +4,6 @@ import numpy as np
 import logging
 import pyabf
 from ipfx.sweep import Sweep,SweepSet
-import ipfx.chirp as chirp
-import ipfx.abf_dataset
-import ipfx.feature_vectors as fv
 import ipfx.time_series_utils as tsu
 import matplotlib.pyplot as plt
 import scipy.fftpack as fftpack
@@ -14,7 +11,12 @@ import scipy.signal as signal
 import tkinter as tk
 from tkinter import filedialog
 import os
-
+import glob
+dir_script = os.path.dirname(os.path.abspath(__file__))
+atf_files = glob.glob(dir_script+"\\*.atf")
+_20_in_50 = dir_script + "\\0_20hz_in50s_vs.atf"
+_20_in_30 = dir_script + "\\0_20hz_in30s.atf"
+_50_in_50 = dir_script + "\\0_50hz_in50s_vs.atf"
 
 def moving_avg(ar, window):
     ar_fix = np.hstack((ar, np.full(1000 - ar.shape[0], np.nan)))
@@ -186,10 +188,20 @@ root.withdraw()
 files = filedialog.askdirectory(
                                    title='Select dir File'
                                    )
-stimuli = filedialog.askopenfilename(
-                                   title='Select Select Stimuli file (ATF/ABF)'
-                                   )
+
 root_fold = files
+print("Stimuli options")
+stim_names = [os.path.basename(x) for x in atf_files]
+stim_file = atf_files
+for x,name in enumerate(stim_names):
+    print(str(x+1)+ ". " + name)
+
+stim_num = input("Please Enter the number of the stimuli used:")
+try: 
+    stim_num  = int(stim_num) - 1
+    stimuli = stim_file[stim_num]
+except:
+    stimuli = stim_file[0]
 
 tag = input("tag to apply output to files: ")
 try: 
@@ -239,5 +251,5 @@ for root,dir,fileList in os.walk(files):
             full = np.vstack((full, abf_ar))
 
 np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
-#p.to_csv("CHIRP_resist_peaks.csv")
+
 
