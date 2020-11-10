@@ -2,34 +2,31 @@
 All Analysis
 ============
 
-Run all analyses on NWB file
+Run analysis for all stimulus types on data in the NWB file
 """
-from __future__ import print_function
-
 import os
 
-from allensdk.api.queries.cell_types_api import CellTypesApi
-from ipfx.data_set_utils import create_data_set
+from ipfx.dataset.create import create_ephys_data_set
 from ipfx.data_set_features import extract_data_set_features
+from ipfx.utilities import drop_failed_sweeps
 
-# download a specific experiment NWB file via AllenSDK
-ct = CellTypesApi()
+# Download and access the experimental data from DANDI archive per instructions in the documentation
+# Example below will use an nwb file provided with the package
 
-specimen_id = 595570553
-nwb_file = "%d.nwb" % specimen_id
-if not os.path.exists(nwb_file):
-    ct.save_ephys_data(specimen_id, nwb_file)
+nwb_file = os.path.join(
+    os.path.dirname(os.getcwd()),
+    "data",
+    "nwb2_H17.03.008.11.03.05.nwb"
+)
 
-# Download extracted sweeps, excluding any without a proper stimulus presented
-sweep_info = ct.get_ephys_sweeps(specimen_id)
-sweep_info = [
-    sweep for sweep in sweep_info 
-    if sweep["stimulus_name"] != "Test"
-]
+# Create Ephys Data Set
+data_set = create_ephys_data_set(nwb_file=nwb_file)
 
-data_set = create_data_set(sweep_info=sweep_info, nwb_file=nwb_file)
+# Drop failed sweeps: sweeps with incomplete recording or failing QC criteria
+drop_failed_sweeps(data_set)
 
-cell_features, sweep_features, cell_record, sweep_records = \
+# Calculate ephys features
+cell_features, sweep_features, cell_record, sweep_records, _, _ = \
     extract_data_set_features(data_set, subthresh_min_amp=-100.0)
 
 print(cell_record)

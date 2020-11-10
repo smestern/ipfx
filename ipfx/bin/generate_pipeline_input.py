@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import ipfx.qc_feature_evaluator as qcp
 import allensdk.core.json_utilities as ju
 import os.path
@@ -9,7 +8,8 @@ import ipfx.lims_queries as lq
 def generate_pipeline_input(cell_dir=None,
                             specimen_id=None,
                             input_nwb_file=None,
-                            plot_figures=False):
+                            plot_figures=False,
+                            qc_fig_dirname="qc_figs"):
 
     se_input = generate_se_input(cell_dir,
                                  specimen_id=specimen_id,
@@ -24,7 +24,7 @@ def generate_pipeline_input(cell_dir=None,
         pipe_input['manual_sweep_states'] = []
 
     if plot_figures:
-        pipe_input['qc_fig_dir'] = os.path.join(cell_dir,"qc_figs")
+        pipe_input['qc_fig_dir'] = os.path.join(cell_dir, qc_fig_dirname)
 
     pipe_input['output_nwb_file'] = os.path.join(cell_dir, "output.nwb")
     pipe_input['qc_criteria'] = ju.read(qcp.DEFAULT_QC_CRITERIA_FILE)

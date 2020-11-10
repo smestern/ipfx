@@ -7,12 +7,15 @@ import pandas as pd
 import pytest
 from dictdiffer import diff
 
+path_to_current_file = os.path.realpath(__file__)
+current_directory = os.path.split(path_to_current_file)[0]
 
-TEST_OUTPUT_DIR = "/allen/aibs/informatics/module_test_data/ipfx/test_feature_vector"
+TEST_OUTPUT_DIR = os.path.join(current_directory, "data", "feature_vector")
 
+nwb2_file1 = os.path.join(current_directory, "data", "Vip-IRES-Cre;Ai14(IVSCC)-226110.03.01.nwb")
+nwb2_file2 = os.path.join(current_directory, "data", "Vip-IRES-Cre;Ai14(IVSCC)-236654.04.02.nwb")
+test_nwb2_files = dict({500844783: nwb2_file1, 509604672: nwb2_file2})
 
-@pytest.mark.requires_lims
-@pytest.mark.slow
 def test_feature_vector_extraction(tmpdir_factory):
 
     temp_output_dir = str(tmpdir_factory.mktemp("feature_vector"))
@@ -36,14 +39,15 @@ def test_feature_vector_extraction(tmpdir_factory):
 
     run_feature_vector_extraction(ids=[500844783, 509604672],
                                   output_dir=temp_output_dir,
-                                  data_source="lims",
+                                  data_source="filesystem",
                                   output_code="TEMP",
                                   project=None,
                                   output_file_type="npy",
                                   sweep_qc_option="none",
                                   include_failed_cells=True,
                                   run_parallel=False,
-                                  ap_window_length=0.003
+                                  ap_window_length=0.003,
+                                  file_list=test_nwb2_files
                                   )
 
     for feature in features:
@@ -52,8 +56,7 @@ def test_feature_vector_extraction(tmpdir_factory):
 
         assert np.allclose(test_data, temp_data)
 
-@pytest.mark.requires_lims
-@pytest.mark.slow
+
 def test_feature_collection(tmpdir_factory):
 
     temp_output_dir = str(tmpdir_factory.mktemp("feature_vector"))
@@ -63,7 +66,10 @@ def test_feature_collection(tmpdir_factory):
     test_output_file = os.path.join(test_output_dir, "features_T301.csv")
 
     run_feature_collection(ids=[500844783, 509604672],
-                           output_file=temp_output_file)
+                           output_file=temp_output_file,
+                           data_source="filesystem",
+                           run_parallel=False,
+                           file_list=test_nwb2_files)
 
     test_table = pd.read_csv(test_output_file, sep=",").to_dict()
     temp_table = pd.read_csv(temp_output_file, sep=",").to_dict()
@@ -71,5 +77,3 @@ def test_feature_collection(tmpdir_factory):
     output_diff = list(diff(test_table, temp_table, tolerance=0.001))
 
     assert len(output_diff) == 0
-
-

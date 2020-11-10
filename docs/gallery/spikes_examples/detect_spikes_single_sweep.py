@@ -7,24 +7,21 @@ Detect spikes for a single sweep
 
 import os
 import matplotlib.pyplot as plt
-from allensdk.api.queries.cell_types_api import CellTypesApi
-from ipfx.data_set_utils import create_data_set
+from ipfx.dataset.create import create_ephys_data_set
 from ipfx.feature_extractor import SpikeFeatureExtractor
 
-# Download and access the experimental data
-ct = CellTypesApi()
+# Download and access the experimental data from DANDI archive per instructions in the documentation
+# Example below will use an nwb file provided with the package
 
-specimen_id = 595570553
-nwb_file = "%d.nwb" % specimen_id
-sweep_info = ct.get_ephys_sweeps(specimen_id)
+nwb_file = os.path.join(
+    os.path.dirname(os.getcwd()),
+    "data",
+    "nwb2_H17.03.008.11.03.05.nwb"
+)
 
-if not os.path.exists(nwb_file):
-    ct.save_ephys_data(specimen_id, nwb_file)
-
-# Get the data for the sweep into a format we can use
-dataset = create_data_set(sweep_info=sweep_info, nwb_file=nwb_file)
-sweep_number = 39
-sweep = dataset.sweep(sweep_number)
+# Create data set from the nwb file and choose a sweeep
+dataset = create_ephys_data_set(nwb_file=nwb_file)
+sweep = dataset.sweep(sweep_number=39)
 
 # Extract information about the spikes
 ext = SpikeFeatureExtractor()
@@ -42,5 +39,3 @@ plt.ylabel("Membrane potential (mV)")
 
 plt.show()
 
-##################################
-# Link to the example data used here: http://celltypes.brain-map.org/experiment/electrophysiology/488679042

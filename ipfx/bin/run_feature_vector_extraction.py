@@ -1,22 +1,17 @@
 import numpy as np
-import pandas as pd
 import argschema as ags
-import warnings
 import logging
 import traceback
 from multiprocessing import Pool
 from functools import partial
 import os
-import json
 import h5py
 from ipfx.stimulus import StimulusOntology
 import allensdk.core.json_utilities as ju
 import ipfx.feature_vectors as fv
 import ipfx.lims_queries as lq
 import ipfx.script_utils as su
-import ipfx.error as er
-
-from ipfx.aibs_data_set import AibsDataSet
+from ipfx.dataset.create import create_ephys_data_set
 
 
 class CollectFeatureVectorParameters(ags.ArgSchema):
@@ -31,9 +26,9 @@ class CollectFeatureVectorParameters(ags.ArgSchema):
         allow_none=True
     )
     data_source = ags.fields.String(
-        description="Source of NWB files ('sdk' or 'lims')",
+        description="Source of NWB files ('sdk' or 'lims' or 'filesystem')",
         default="sdk",
-        validate=lambda x: x in ["sdk", "lims"]
+        validate=lambda x: x in ["sdk", "lims", "filesystem"]
         )
     output_code = ags.fields.String(
         description="Code used for naming of output files",
@@ -73,6 +68,37 @@ class CollectFeatureVectorParameters(ags.ArgSchema):
         default=0.003
     )
 
+def data_for_specimen_id(
+    specimen_id,
+    sweep_qc_option,
+    data_source,
+    ontology,
+    ap_window_length=0.005,
+    target_sampling_rate=50000,
+    file_list=None,
+):
+    """
+    Extract feature vector from given cell identified by the specimen_id
+    Parameters
+    ----------
+    specimen_id : int
+        cell identified
+    sweep_qc_option : str
+        see CollectFeatureVectorParameters input schema for details
+    data_source: str
+        see CollectFeatureVectorParameters input schema for details
+    ontology : stimulus.StimulusOntology
+        mapping of stimuli names to stimulus codes
+    ap_window_length : float
+        see CollectFeatureVectorParameters input schema for details
+    target_sampling_rate : float
+        sampling rate
+    file_list : list of str
+        nwbfile names
+    Returns
+    -------
+    dict :
+        features for a given cell specimen_id
 
 def categorize_iclamp_sweeps(data_set, stimuli_names, sweep_qc_option="none", specimen_id=None):
     exist_sql = """
@@ -354,6 +380,10 @@ def data_for_specimen_id(specimen_id, sweep_qc_option, data_source,
 
     # Calculate desired feature vectors
     result = {}
+
+    if data_source == "filesystem":
+        result["id"] = [specimen_id]
+
     try:
         (subthresh_hyperpol_dict,
         hyperpol_deflect_dict) = fv.identify_subthreshold_hyperpol_with_amplitudes(lsq_features,
@@ -481,9 +511,53 @@ def check_mismatch_size(data):
     else:
         return data
 
-def run_feature_vector_extraction(output_dir, data_source, output_code, project,
-        output_file_type, sweep_qc_option, include_failed_cells, run_parallel,
-        ap_window_length, ids=None, **kwargs):
+def run_feature_vector_extraction(
+    output_dir,
+    data_source,
+    output_code,
+    project,
+    output_file_type,
+    sweep_qc_option,
+    include_failed_cells,
+    run_parallel,
+    ap_window_length,
+    ids=None,
+    file_list=None,
+    **kwargs
+):
+    """
+    Extract feature vector from a list of cells and save result to the output file(s)
+
+    Parameters
+    ----------
+    output_dir : str
+        see CollectFeatureVectorParameters input schema for details
+    data_source : str
+        see CollectFeatureVectorParameters input schema for details
+    output_code: str
+        see CollectFeatureVectorParameters input schema for details
+    project : str
+        see CollectFeatureVectorParameters input schema for details
+    output_file_type : str
+        see CollectFeatureVectorParameters input schema for details
+    sweep_qc_option: str
+        see CollectFeatureVectorParameters input schema for details
+    include_failed_cells: bool
+        see CollectFeatureVectorParameters input schema for details
+    run_parallel: bool
+        see CollectFeatureVectorParameters input schema for details
+    ap_window_length: float
+        see CollectFeatureVectorParameters input schema for details
+    ids: int
+        ids associated to each cell.
+    file_list: list of str
+        nwbfile names
+    kwargs
+
+    Returns
+    -------
+
+    """
     if ids is not None:
         specimen_ids = ids
     elif data_source == "lims":
@@ -503,7 +577,8 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
                                sweep_qc_option=sweep_qc_option,
                                data_source=data_source,
                                ontology=ontology,
-                               ap_window_length=ap_window_length)
+                               ap_window_length=ap_window_length,
+                               file_list=file_list)
 
     if run_parallel:
         pool = Pool()
@@ -527,7 +602,6 @@ def run_feature_vector_extraction(output_dir, data_source, output_code, project,
     su.save_errors_to_json(error_set, output_dir, output_code)
 
     logging.info("Finished saving")
-
 
 def main():
     module = ags.ArgSchemaParser(schema_type=CollectFeatureVectorParameters)

@@ -8,9 +8,10 @@ sphinx:
   builder: html
 
 python:
-   version: 3.7
+   version: 3.6
    install:
       - requirements: requirements_docs.txt
+      - requirements: requirements.txt
 
 formats:
   - epub

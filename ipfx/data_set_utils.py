@@ -1,41 +1,10 @@
-from ipfx.hbg_dataset import HBGDataSet
-from ipfx.aibs_data_set import AibsDataSet
-from ipfx.nwb_reader import get_nwb_version
+"""A shim for backwards compatible imports of create_data_set
+"""
 
+from allensdk.deprecated import deprecated
 
-def create_data_set(sweep_info=None, nwb_file=None, ontology=None, api_sweeps=True, h5_file=None,validate_stim=True):
-    """Create an appropriate EphysDataSet derived class for the given nwb_file
-
-    Parameters
-    ----------
-    nwb_file: str file name
-
-    Returns
-    -------
-    EphysDataSet derived object
-    """
-
-    if nwb_file is None:
-        raise ValueError("Can not decide which EphysDataSet class to create without nwb_file")
-
-    nwb_version = get_nwb_version(nwb_file)
-
-    if nwb_version["major"] == 2:
-        return HBGDataSet(sweep_info=sweep_info,
-                          nwb_file=nwb_file,
-                          ontology=ontology,
-                          api_sweeps=api_sweeps,
-                          validate_stim=validate_stim,
-                          deprecation_warning=False)
-
-    elif nwb_version["major"] == 1 or nwb_version["major"] == 0:
-        return AibsDataSet(sweep_info=sweep_info,
-                           nwb_file=nwb_file,
-                           ontology=ontology,
-                           api_sweeps=api_sweeps,
-                           h5_file=h5_file,
-                           validate_stim=validate_stim,
-                           deprecation_warning=False)
-    else:
-        raise ValueError("Unsupported or unknown NWB major" +
-                         "version {} ({})".format(nwb_version["major"], nwb_version["full"]))
+from ipfx.dataset.create import create_ephys_data_set
+create_data_set = deprecated(  # type: ignore
+    "Instead of using ipfx.data_set_utils.create_data_set, use "
+    "ipfx.dataset.create.create_ephys_data_set"
+)(create_ephys_data_set)
