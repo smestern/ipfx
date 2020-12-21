@@ -22,8 +22,6 @@ import ipfx.stimulus_protocol_analysis as spa
 import ipfx.data_set_features as dsf
 import ipfx.time_series_utils as tsu
 import ipfx.error as er
-
-from ipfx.aibs_data_set import AibsDataSet
 from ipfx.hbg_dataset import HBGDataSet
 from allensdk.core.cell_types_cache import CellTypesCache
 

@@ -5,14 +5,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{edc86da0-6daf-4775-99b2-34aa6a7eb333}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>ipfx\bin\run_sweep_QC.py</StartupFile>
+    <StartupFile>ipfx\bin\run_feature_vector_extraction_local_ic1.py</StartupFile>
     <SearchPath />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <InterpreterId>Global|PythonCore|3.7</InterpreterId>
-    <CommandLineArguments>"C:\Users\SMest\Downloads\Data for Seminar (cluster)" --additionalMetadata "C:\Users\SMest\source\repos\smestern\ipfx\test.json"</CommandLineArguments>
+    <CommandLineArguments>--input_json "C:\Users\SMest\source\repos\smestern\ipfx\ipfx\bin\fvinput.json"</CommandLineArguments>
     <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
     <SuppressPackageInstallationPrompt>True</SuppressPackageInstallationPrompt>
     <IsWindowsApplication>False</IsWindowsApplication>

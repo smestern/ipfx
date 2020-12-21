@@ -57,7 +57,7 @@ setup(
     author="Allen Institute for Brain Science",
     author_email="Marmot@AllenInstitute.onmicrosoft.com",
     url="https://github.com/AllenInstitute/ipfx",
-    packages=find_packages(exclude=["tests", "tests.*"]),
+    packages=find_packages(exclude=["tests", "tests.*", "cell_types", "cell_types*"]),
     install_requires=required,
     include_package_data=True,
     setup_requires=['pytest-runner'],
