@@ -155,7 +155,8 @@ class MultiClampControl:
         dllPaths = [("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
                      "3rd Party Support/AxMultiClampMsg/"),
                     ("C:/Program Files (x86)/Molecular Devices/MultiClamp 700B Commander/"
-                     "3rd Party Support/AxMultiClampMsg/")]
+                     "3rd Party Support/AxMultiClampMsg/"),
+                     ("C:/Program Files/Molecular Devices/MultiClamp 700B Commander/3rd Party Support/AxMultiClampMsg/")]
 
         if dllPath:
             dllPaths.insert(0, dllPath)
@@ -1094,9 +1095,9 @@ def main():
     eventHandler = SettingsFetcher(args.settingsFile, )
     eventHandler2 = LiveQC(args.settingsFile, )
     observer = Observer()
-    observer.schedule(eventHandler2, args.watchFolder, recursive=False)
-    observer.schedule(eventHandler, args.watchFolder, recursive=False)
     
+    observer.schedule(eventHandler, args.watchFolder, recursive=False)
+    observer.schedule(eventHandler2, args.watchFolder, recursive=False)
     observer.start()
 
     print(f"Starting to watch {args.watchFolder} for ABF files to appear. Press Ctrl + Break to stop.")
