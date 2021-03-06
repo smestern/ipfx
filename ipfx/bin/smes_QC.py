@@ -16,34 +16,38 @@ class LiveQC(RegexMatchingEventHandler):
         self.settingsFile = settingsFile
 
     def on_created(self, event):
-
         print(f"Running QC for file {event.src_path}.")
-
         base, _ = os.path.splitext(event.src_path)
-        
         i = 0
-        while i < 101:
+        while i < 280:
             i+=1
-            time.sleep(5)
-            try:
-                dataX, dataY, dataC = loadABF(event.src_path)
-                break
-            except:
+            time.sleep(3)
+            current_time = time.time()
+            last_mod = os.path.getmtime(event.src_path)
+            time_since = (current_time-last_mod)
+            if time_since>60:
+                try:
+                    dataX, dataY, dataC = loadABF(event.src_path)
+                    break
+                except:
+                    break
+            else:
+                timeout = (180-i)*3
+                print(f"Waiting for file to finish - {time_since} seconds last write to file - {timeout} sec til timeout", end="\r")
                 continue
-        
         try:
-            qc = run_qc(dataY, dataC)
-            rms_okay, drif_okay = eval_qc(qc)
-            print("==== QC RESULTS ====")
-            if rms_okay:
-                print(f"[QC] {event.src_path} passes RMS QC")
-            else:
-                print(f"[QC] {event.src_path} fails RMS QC [PLEASE DOUBLE CHECK]")
+                qc = run_qc(dataY, dataC)
+                rms_okay, drif_okay = eval_qc(qc)
+                print("==== QC RESULTS ====")
+                if rms_okay:
+                    print(f"[QC] {event.src_path} passes RMS QC with {qc[0]} mV")
+                else:
+                    print(f"[QC] {event.src_path} fails RMS QC with {qc[0]} mV [PLEASE DOUBLE CHECK]")
 
-            if drif_okay:
-                print(f"[QC] {event.src_path} passes Voltage QC")
-            else:
-                print(f"[QC] {event.src_path} fails Voltage QC [PLEASE DOUBLE CHECK]")
+                if drif_okay:
+                    print(f"[QC] {event.src_path} passes Voltage QC {qc[2]} mV")
+                else:
+                    print(f"[QC] {event.src_path} fails Voltage QC {qc[2]} mV [PLEASE DOUBLE CHECK]")
         
         except Exception as e:
             print(f"Ignoring exception {e}.")
