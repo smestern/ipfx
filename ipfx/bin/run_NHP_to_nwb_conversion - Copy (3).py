@@ -102,17 +102,17 @@ def main():
     #                            pyabf.abfWriter.writeABF1(mask_sweep_data, 'C:\\Users\\SMest\\Documents\\NHP-QC\\' + cell_name +'.abf', abf.dataRate, abf.sweepUnitsY)
     #              except:
     #                   print("fail")
-    NHPPath = "C:\\Users\\SMest\\Documents\\NHPACells"
+    NHPPath = "C:\\Users\\SMest\\Documents\\NHP_MARM\\210204_Marm"
     for r, celldir, f in os.walk(NHPPath):
               
-              for c in celldir: ##Walks through each folder (cell folder) in the root folder
+              #for c in celldir: ##Walks through each folder (cell folder) in the root folder
 
-                   c = os.path.join(r, c) ##loads the subdirectory path
-                   shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
+                   #c = os.path.join(r, c) ##loads the subdirectory path
+                   #shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
               for file in f:
                   if '.abf' in file:
                    file_path = os.path.join(r,file)
-                   #print(f"Converting {c}")
+                   print(f"Converting {c}")
                    convert(file_path
                            ,
                         overwrite=True,

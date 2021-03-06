@@ -1,6 +1,6 @@
 {
   "SuppressEnvironmentCreationPrompt": true,
   "SuppressPackageInstallationPrompt": true,
-  "Interpreter": "Global|PythonCore|3.7-32",
-  "SuppressConfigureTestFrameworkPrompt": "true"
+  "SuppressConfigureTestFrameworkPrompt": "true",
+  "Interpreter": "CondaEnv|CondaEnv|Anaconda3"
 }

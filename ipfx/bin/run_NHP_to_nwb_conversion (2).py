@@ -75,7 +75,7 @@ def convert(inFileOrFolder, overwrite=False, fileType=None, outputMetadata=False
 
 def main():
 
-    NHPPath = "C:\\Users\\SMest\\Downloads\\Final_LP_selection"
+    NHPPath = "C:\\Users\\SMest\\Documents\\NHP_MARM\\210227_Marmoset"
     sweep_qc = pd.read_csv("C:\\Users\\SMest\\Downloads\\QCed_NHP_cells_website.csv", index_col=0)
     protocol = []
     cell_list = sweep_qc.index.values
@@ -206,8 +206,9 @@ def main():
               for c in celldir: ##Walks through each folder (cell folder) in the root folder
                  try:
                    c = os.path.join(r, c) ##loads the subdirectory path
-                   shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
+                   #shutil.copy("C:\\Users\\SMest\\Documents\\NHP\\default.json",c)
                    file_path = os.path.join(r, c)
+                   print(f"converting {file_path}")
                    convert(file_path
                            ,
                         overwrite=True,
