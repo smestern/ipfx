@@ -247,6 +247,8 @@ def generate_abf_array(file_path, stimuli):
     abf_name = np.vstack([abf.abfID,abf.abfID, abf.abfID, abf.abfID, abf.abfID])
     abf_label = np.vstack(['resist','react', 'freq', 'resist running avg', 'react running avg'])
     abf_feat = analyze_abf_chirp(abf, stimuli_abf, average)
+    #VALIENTE ANALYSIS
+    out = plot_impedance_trace(abf_feat[0])
     running_mean_resist =  moving_avg2(abf_feat[0], 10)
     running_mean_react =  moving_avg2(abf_feat[1], 10)
     #tpeaks = find_peak(abf_feat[2], running_mean)
