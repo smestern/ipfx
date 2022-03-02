@@ -81,3 +81,5 @@ sandbox/
 .vs/ipfx/v16/.suo
 *.csv
 *.atf
+ipfx/bin/abf_impedance_calc_all.py
+ipfx/bin/config_chirp.yaml

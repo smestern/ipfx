@@ -4,9 +4,11 @@ import numpy as np
 import logging
 import pyabf
 from ipfx.sweep import Sweep,SweepSet
+from ipfx import feature_vectors as fv
 import ipfx.time_series_utils as tsu
 import matplotlib.pyplot as plt
 import scipy.fftpack as fftpack
+from scipy.interpolate import interp1d
 import scipy.signal as signal
 import tkinter as tk
 from tkinter import filedialog
@@ -52,7 +54,7 @@ def find_peak(x, y, freq_cut=0):
             min_peaks = peaks
         if len(peaks[0]) <= 2 and len(peaks[0]) >= 1:
             min_peaks = peaks
-            break;
+            break
         width_peak -=1
     min_peaks[1]['x-heights'] = x[min_peaks[0]]
     return [min_peaks[1], width_peak]
@@ -107,6 +109,83 @@ def preprocess_data(v_list, i_list, t, average=True):
         ds_t = t
     return ds_v, ds_i, ds_t
 
+def moving_average(x,window_size):
+    #moving average across data x within a window_size
+    half_window_size=int(window_size/2)
+    time_len=len(x)
+    moving_average_trace=[]
+    max_lim=(time_len-window_size/2)
+    min_lim=half_window_size
+    for i in range(time_len):
+        if i >=min_lim and i <=max_lim :
+            moving_average_trace.append(np.mean(x[i-half_window_size:i+half_window_size]))
+        elif i<min_lim:
+            moving_average_trace.append(np.mean(x[0:i+half_window_size]))
+        elif i>max_lim:
+            moving_average_trace.append(np.mean(x[i-half_window_size:time_len]))
+
+    return np.asarray(moving_average_trace)
+
+def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered_method):
+    #From VALIENTAE et Al.
+    #generate impedance trace over frequency with peak and cutoff frequency detection
+    imp=imp/1e6
+    plt.plot(freq,imp)
+    
+    prominence_factor=1.01
+    if filtered_method==1:
+       filtered_imp=moving_average(imp,moving_avg_wind)
+    elif filtered_method==2:
+       start_idx=np.argmin(freq-0.5)
+       freq=freq[start_idx:]
+       imp=imp[start_idx:]
+       filtered_imp=moving_average(imp,moving_avg_wind)
+
+#    filtered_imp = savgol_filter(imp, moving_avg_wind, 1)
+    plt.plot(freq,filtered_imp)
+    plt.ylim([np.min(imp)*0.9,np.max(imp)*1.1])
+    idx_max_mag=np.argmax(filtered_imp)
+    cen_freq=freq[idx_max_mag]
+
+    
+    left_imp_mean=np.median(filtered_imp[0:idx_max_mag-1])
+    right_imp_mean=np.median(filtered_imp[idx_max_mag+1:])
+    max_imp=filtered_imp[idx_max_mag]
+    
+    if (left_imp_mean*prominence_factor)>max_imp  or  (right_imp_mean*prominence_factor)>max_imp or cen_freq<0.5 :
+        cen_freq=0  
+        
+    if cen_freq>0:
+        res_sharpness=max_imp/filtered_imp[np.argmin(freq-0.5)]
+    else:
+        res_sharpness=0
+        
+    if sharpness_thr>res_sharpness:
+        cen_freq=0  
+    #find cutoff freq(3dB below max)
+    if cen_freq>0:
+        i_3db_cutoff=np.argmin(abs(filtered_imp-max_imp/np.sqrt(2)))
+        freq_3db=freq[i_3db_cutoff]
+    else:
+        freq_3db=0
+        
+        
+    plt.xlabel('Frequency[Hz]')
+    plt.ylabel('Impedance[MOhms]')
+    if cen_freq is not None:
+        if freq_3db is not None:
+            plt.title('Trial {fig_idx}, '.format(fig_idx=fig_idx)+'Fr={:.2f} Hz, Cutoff Freq={:.2f}Hz, Sharpness={:.2f}'.format(cen_freq,freq_3db,res_sharpness))
+        else:
+            plt.title('Trial {fig_idx}, '.format(fig_idx=fig_idx)+'Fr={:.2f} Hz, Cutoff Freq=None'.format(cen_freq))
+    else:
+        plt.title('Trial {fig_idx}, No Resonance')
+    plt.legend(['Raw Trace','Moving Averaged'])
+    
+    
+    return cen_freq,freq_3db,res_sharpness
+
+
+
 def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
             min_freq=0.1, max_freq=19.5):
         """ Calculate amplitude and phase of chirp responses
@@ -150,6 +229,7 @@ def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
         X = np.imag(Z)
         resistance = np.abs(Z)[0:N//2]
         reactance = np.arctan(X / R)[0:N//2]
+        
 
         low_ind = tsu.find_time_index(xf, min_freq)
         high_ind = tsu.find_time_index(xf, max_freq)
