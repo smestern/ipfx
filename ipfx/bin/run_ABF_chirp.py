@@ -60,7 +60,7 @@ def find_peak(x, y, freq_cut=0):
     return [min_peaks[1], width_peak]
     
 
-def analyze_abf_chirp(abf, stimuli_abf, average='input'):
+def analyze_abf_chirp(abf, stimuli_abf, average='input', min_freq=0.1, max_freq=10):
     t = abf.sweepX
     v = t
     i = stimuli_abf.sweepY[:]
@@ -73,7 +73,7 @@ def analyze_abf_chirp(abf, stimuli_abf, average='input'):
         i = i[1:]
         t = abf.sweepX
         v, i, t = preprocess_data(v, i, t)
-        resist, react, z = chirp_amp_phase(v,i,t)
+        resist, react, z = chirp_amp_phase(v,i,t, min_freq=min_freq, max_freq=max_freq)
     elif average=='output':
         resistance = []
         reactance = []
@@ -82,7 +82,7 @@ def analyze_abf_chirp(abf, stimuli_abf, average='input'):
             v = abf.sweepY
             i = stimuli_abf.sweepY[:]
             v, i, t = preprocess_data(v, i, t, average=False)
-            temp_resist, temp_react, temp_z = chirp_amp_phase(v,i,t)
+            temp_resist, temp_react, temp_z = chirp_amp_phase(v,i,t,  min_freq, max_freq)
             resistance.append(temp_resist)
             reactance.append(temp_react)
         resist = np.nanmean(np.vstack(resistance), axis=0)
@@ -185,6 +185,85 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     return cen_freq,freq_3db,res_sharpness
 
 
+def subsample_average(x, width):
+
+    """Downsamples x by averaging `width` points"""
+    avg = np.nanmean(x.reshape(-1, width), axis=1)
+    return avg
+
+def cal_imp(abf,abf_stimuli, sweep_end_freq):
+    ref_freq=np.linspace(0.1,sweep_end_freq,1000)
+    recorded_var=abf.data
+    current_data = np.ravel(abf_stimuli.data).reshape(1,-1)
+    dataRate=abf.dataRate
+    total_time=np.arange(0,recorded_var.shape[1])/dataRate
+    n_sample=10000
+    adcUnits=abf.adcUnits
+    #find the corresponding index for voltage and current in data
+    current_idx=1
+    voltage_idx=0
+    for unit_idx,unit in enumerate(adcUnits):
+        if unit=='pA':
+            current_idx=unit_idx
+        elif unit=='mV':
+            voltage_idx=unit_idx
+#    hamming_window=np.hamming(len(time))
+#    hamming_window=gaussian(len(time), std=len(time)/2)
+    #count the number of data sets in one folder and segment data accordingly
+    sweepList=abf.sweepList 
+    sweepTimesSec=np.asarray(sweepList)*abf.sweepLengthSec
+    voltage_array=[]
+    current_array=[]
+    time_array=[]
+    impedance_array=[]
+    for sweep_idx in sweepList: 
+
+        start_idx=int(sweepTimesSec[sweep_idx]*dataRate)
+        if sweep_idx==sweepList[-1]:
+            end_idx=len(total_time)-1
+        else:
+            end_idx=int(sweepTimesSec[sweep_idx+1]*dataRate)-1
+            
+        
+        voltage=recorded_var[voltage_idx,start_idx:end_idx]
+        N=voltage.shape[0]
+        width = int(N / n_sample)
+        pad = int(width*np.ceil(N/width) - N)
+        
+        
+        voltage_detrend=subsample_average(np.pad(voltage, (pad,0), 'constant', constant_values=np.nan), width)
+        current=current_data[voltage_idx,start_idx:end_idx]
+        current_detrend=subsample_average(np.pad(current, (pad,0), 'constant', constant_values=np.nan), width)
+        voltage_array.append(voltage_detrend)
+        current_array.append(current_detrend)
+        time=total_time[start_idx:end_idx]-total_time[start_idx]
+        time=time[::width]
+        time_array.append(time)
+        #FFT on voltage and current
+        sp_V= np.fft.fft(voltage_detrend)
+        
+        
+        sp_I= np.fft.fft(current_detrend)
+        freq = np.fft.fftfreq(len(time), d=time[1])
+        half_freq=int(len(time)/2)
+        
+        #discard frequency above 20Hz and negative frequency
+        freq=freq[1:half_freq]
+        sp_V=sp_V[1:half_freq]
+        sp_I=sp_I[1:half_freq]
+        selected_freq=freq<21
+        impedance=np.abs(sp_V[selected_freq]/sp_I[selected_freq])
+        
+        f_v=interp1d(freq[selected_freq],sp_V[selected_freq])
+        f_i=interp1d(freq[selected_freq],sp_I[selected_freq])
+        f_imp=interp1d(freq[selected_freq],impedance,fill_value="extrapolate")
+        interpolated_trace=f_imp(ref_freq)
+        impedance_array.append(interpolated_trace)
+#        plt.figure()
+#        plt.plot(time,recorded_var[voltage_idx,start_idx:end_idx])
+        
+
+    return impedance_array,ref_freq,voltage_array,current_array,time_array
 
 def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
             min_freq=0.1, max_freq=19.5):
@@ -235,23 +314,22 @@ def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
         high_ind = tsu.find_time_index(xf, max_freq)
         return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
 
-def generate_abf_array(file_path, stimuli):
+def generate_abf_array(file_path, stimuli_abf, max_freq, min_freq):
     file_path = os.path.join(root,filename)
     abf = pyabf.ABF(file_path)
-    extension = stimuli.split(".")[-1]
-    if 'atf' in extension:
-        stimuli_abf = pyabf.ATF(stimuli)
-    elif 'abf' in extension:
-        stimuli_abf = pyabf.ABF(stimuli)
+    
     print(abf.abfID + ' loaded')
     abf_name = np.vstack([abf.abfID,abf.abfID, abf.abfID, abf.abfID, abf.abfID])
     abf_label = np.vstack(['resist','react', 'freq', 'resist running avg', 'react running avg'])
-    abf_feat = analyze_abf_chirp(abf, stimuli_abf, average)
+    abf_feat = analyze_abf_chirp(abf, stimuli_abf, average, min_freq, max_freq)
     #VALIENTE ANALYSIS
-    out = plot_impedance_trace(abf_feat[0])
+    plt.clf()
+    test = cal_imp(abf, stimuli_abf,max_freq)
+    out = plot_impedance_trace(test[0][0], test[1], 41, 5, 0, 1)
+    plt.pause(5)
     running_mean_resist =  moving_avg2(abf_feat[0], 10)
     running_mean_react =  moving_avg2(abf_feat[1], 10)
-    #tpeaks = find_peak(abf_feat[2], running_mean)
+    tpeaks = find_peak(abf_feat[2], running_mean_react)
     #temp = pd.DataFrame().from_dict(tpeaks[0])
     #temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
     #temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
@@ -285,6 +363,8 @@ try:
 except:
     stimuli = stim_file[0]
 
+
+
 tag = input("tag to apply output to files: ")
 try: 
     tag = str(tag)
@@ -305,32 +385,45 @@ upperlim = input("Enter the Upper Cutoff for Freq to include in output [in Hz] (
 
 try: 
     min_freq = float(lowerlim)
+    
+except:
+    min_freq=1
+    
+
+try:
     max_freq = float(upperlim)
 except:
-    min_freq=0.1
     max_freq=19.5
 
-lowerlim = input("Enter the time to begin analysis [in s] (recommended 0.78): ")
-upperlim = input("Enter the time to finish analysis [in Hz] (recommended 49.21): ")
+# lowerlim = input("Enter the time to begin analysis [in s] (recommended 0.78): ")
+# upperlim = input("Enter the time to finish analysis [in Hz] (recommended 49.21): ")
 
-try: 
-    start = float(lowerlim)
-    end = float(upperlim)
-except:
-    min_freq=0.1
-    max_freq=19.5
-
+# try: 
+#     start = float(lowerlim)
+#     end = float(upperlim)
+# except:
+#     pass
 
 
-
+print("loading stimuli")
+extension = stimuli.split(".")[-1]
+if 'atf' in extension:
+    stimuli_abf = pyabf.ATF(stimuli)
+elif 'abf' in extension:
+    stimuli_abf = pyabf.ABF(stimuli)
+print("stimuli loaded")
 len_f = 1000
 peaks = pd.DataFrame()
 full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
  for filename in fileList:
     if filename.endswith(".abf"):
-            abf_ar = generate_abf_array(filename, stimuli)
+        #try:
+            abf_ar = generate_abf_array(filename, stimuli_abf, max_freq, min_freq)
             full = np.vstack((full, abf_ar))
+        #except Exception as e:
+            #print("issue processing {filename}")
+            #print(e)
 
 np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
 
