@@ -1,4 +1,10 @@
 from __future__ import absolute_import
+import sys
+import resource
+resource.setrlimit(resource.RLIMIT_STACK, [resource.RLIM_INFINITY, resource.RLIM_INFINITY])
+#resource.setrlimit(resource.RLIMIT_CPU, [0x10000000, resource.RLIM_INFINITY])
+#resource.setrlimit(resource.RLIMIT_DATA, [0x10000000, resource.RLIM_INFINITY])
+sys.setrecursionlimit(10**9)
 import numpy as np
 import pandas as pd
 import scipy
@@ -39,8 +45,9 @@ class CollectFeatureParameters(ags.ArgSchema):
 
 
 def data_for_specimen_id(specimen_id, passed_only, data_source, ontology):
-    #try:
-        data_set = su.dataset_for_specimen_id(specimen_id, data_source, ontology)
+    try:
+        ontology.long_square_names = [n for n in np.hstack((ontology.long_square_names,'Unknown'))]
+        data_set = su.dataset_for_specimen_id(specimen_id, data_source, ontology, file_list={specimen_id:specimen_id})
         if type(data_set) is dict and "error" in data_set:
             logging.warning("Problem getting AibsDataSet for specimen {:d} from LIMS".format(specimen_id))
             return {}
@@ -50,22 +57,26 @@ def data_for_specimen_id(specimen_id, passed_only, data_source, ontology):
             ssq_sweep_numbers = su.categorize_iclamp_sweeps(data_set, ontology.short_square_names)
             ramp_sweep_numbers = su.categorize_iclamp_sweeps(data_set, ontology.ramp_names)
         except Exception as detail:
-            logging.warn("Exception when processing specimen {:d}".format(specimen_id))
+            logging.warn(f"Exception when processing specimen {specimen_id}")
             logging.warn(detail)
     #         return {"error": {"type": "sweep_table", "details": traceback.format_exc(limit=1)}}
             return {}
-
+        lsq_sweep_numbers = np.delete(lsq_sweep_numbers, np.where(lsq_sweep_numbers == 9)).tolist()
+        ssq_sweep_numbers = ssq_sweep_numbers.tolist()
+        ramp_sweep_numbers = ramp_sweep_numbers.tolist()
         try:
             result = extract_features(data_set, ramp_sweep_numbers, ssq_sweep_numbers, lsq_sweep_numbers)
         except Exception as detail:
-            logging.warn("Exception when processing specimen {:d}".format(specimen_id))
-            logging.warn(detail)
-            #         return {"error": {"type": "processing", "details": traceback.format_exc(limit=1)}}
-            return {}
+            #if False:
+                logging.warn(f"Exception when processing specimen {specimen_id}")
+                logging.warn(detail)
+                #         return {"error": {"type": "processing", "details": traceback.format_exc(limit=1)}}
+                return {}
 
         result["specimen_id"] = specimen_id
+        print(f"Processed specimen {specimen_id}")
         return result
-    #except:
+    except:
         
         return {}
 
@@ -94,7 +105,7 @@ def extract_features(data_set, ramp_sweep_numbers, ssq_sweep_numbers, lsq_sweep_
         basic_lsq_features,
         lsq_an,
         lsq_start,
-        lsq_end) = su.preprocess_long_square_sweeps(data_set, lsq_sweep_numbers)
+        lsq_end) = su.preprocess_long_square_sweeps(data_set, lsq_sweep_numbers, extra_dur=0.1, scale_sweep_factor=None) #{'i': 1/1000000000000.0, 'v': 1/1000}
 
         features.update({
             "input_resistance": basic_lsq_features["input_resistance"],

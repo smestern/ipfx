@@ -1,0 +1,6 @@
+{
+    "output_file": "/home/smestern/feature_extract_NHP.csv",
+    "input": "/media/smestern/Expansion/NHP_MARM_2nwb_paths.txt",
+    "data_source": "filesystem",
+    "run_parallel": "False"
+}

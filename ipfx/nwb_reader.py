@@ -639,6 +639,9 @@ def get_nwb_version(nwb_file):
 
         elif "nwb_version" in f.attrs:   # but in version 2 this is an attribute
             nwb_version = f.attrs["nwb_version"]
+            #if the file is from matlab its a btyes object for w/e reason
+            if isinstance(nwb_version, bytes):
+                nwb_version = nwb_version.decode("utf-8") #hoping this is in utf-8
             if nwb_version is not None and re.match("^2", nwb_version):
                 return {"major": 2, "full": nwb_version}
 

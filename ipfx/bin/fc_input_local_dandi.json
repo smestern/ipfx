@@ -1,0 +1,6 @@
+{
+    "output_file": "/home/smestern/feature_extract_tolias2.csv",
+    "input": "/media/smestern/Expansion/dandinwb_paths.txt",
+    "data_source": "filesystem",
+    "run_parallel": "False"
+}

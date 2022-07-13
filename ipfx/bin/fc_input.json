@@ -1,0 +1,6 @@
+{
+    "output_file": "/home/smestern/feature_extract.csv",
+    "input": "/home/smestern/repos/ipfx/ipfx/bin/specids.txt",
+    "data_source": "sdk",
+    "run_parallel": "False"
+}

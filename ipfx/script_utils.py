@@ -9,6 +9,7 @@ import ipfx.time_series_utils as tsu
 import ipfx.error as er
 from ipfx.sweep import SweepSet
 from ipfx.aibs_data_set import AibsDataSet
+from ipfx.hbg_dataset import HBGDataSet
 import h5py
 import os
 import json
@@ -72,6 +73,14 @@ def dataset_for_specimen_id(specimen_id, data_source, ontology):
                 nwb_file=nwb_path, sweep_info=sweep_info, ontology=ontology)
         except Exception as detail:
             logging.warning("Exception when loading specimen {:d} via Allen SDK".format(specimen_id))
+            logging.warning(detail)
+            return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
+    elif data_source == "filesystem":
+        nwb_path = specimen_id
+        try:
+            data_set = HBGDataSet(nwb_file=nwb_path)
+        except Exception as detail:
+            logging.warning("Exception when loading specimen {:d} via file system".format(specimen_id))
             logging.warning(detail)
             return {"error": {"type": "dataset", "details": traceback.format_exc(limit=None)}}
     else:

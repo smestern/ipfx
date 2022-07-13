@@ -5,7 +5,7 @@ pandas==0.17.0
 scipy==0.15.1
 simplejson==3.10.0
 pillow
-argschema
+argschema==1.15.1
 marshmallow==2.20.5
 allensdk
 dictdiffer

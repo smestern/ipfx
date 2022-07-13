@@ -1,0 +1,6 @@
+{
+    "output_file": "/home/smestern/feature_extract_patch_seq.csv",
+    "input": "/media/smestern/Expansion/dandi/000020nwb_paths.txt",
+    "data_source": "filesystem",
+    "run_parallel": "False"
+}
