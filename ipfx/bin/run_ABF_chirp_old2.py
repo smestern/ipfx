@@ -16,7 +16,9 @@ import scipy.signal as signal
 import tkinter as tk
 from tkinter import filedialog
 import os
-
+#abf_chrip = pyabf.ATF('h:\\Sam\\Monkey\\Chirp Proto\\20mv Chirp.atf')
+#abf_set = abf_dataset.ABFDataSet(abf_file=abf)
+abf_chrip = pyabf.ATF('.\\ipfx\\bin\\0_10hz_in50s4.atf')
 root = tk.Tk()
 root.withdraw()
 files = filedialog.askdirectory(
@@ -64,9 +66,7 @@ def find_peak(x, y, freq_cut=0):
     
     return [min_peaks[1], width_peak]
     
-#abf_chrip = pyabf.ATF('h:\\Sam\\Monkey\\Chirp Proto\\20mv Chirp.atf')
-#abf_set = abf_dataset.ABFDataSet(abf_file=abf)
-abf_chrip = pyabf.ATF('M:\\Sam\\Protocol\\Monkey\\Chirp Proto\\0_20hz_in50s_vs.atf')
+
 def abf_chirp(abf):
     t = abf.sweepX
     v = t
@@ -81,7 +81,7 @@ def abf_chirp(abf):
     t = abf.sweepX
 
     def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
-            min_freq=0.5, max_freq=19.5):
+            min_freq=0.5, max_freq=10.5):
         """ Calculate amplitude and phase of chirp responses
         Parameters
         ----------
@@ -240,28 +240,6 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     prominence_fact = np.amin(ddiff)
     dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
     return dict_peak
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 len_f = 1000

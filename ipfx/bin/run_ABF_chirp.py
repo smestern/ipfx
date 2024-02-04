@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 import logging
 import pyabf
-from ipfx.sweep import Sweep,SweepSet
 from ipfx import feature_vectors as fv
 import ipfx.time_series_utils as tsu
 import matplotlib.pyplot as plt
@@ -82,7 +81,7 @@ def analyze_abf_chirp(abf, stimuli_abf, average='input', min_freq=0.1, max_freq=
             v = abf.sweepY
             i = stimuli_abf.sweepY[:]
             v, i, t = preprocess_data(v, i, t, average=False)
-            temp_resist, temp_react, temp_z = chirp_amp_phase(v,i,t,  min_freq, max_freq)
+            temp_resist, temp_react, temp_z = chirp_amp_phase(v,i,t, min_freq=min_freq, max_freq=max_freq)
             resistance.append(temp_resist)
             reactance.append(temp_react)
         resist = np.nanmean(np.vstack(resistance), axis=0)
@@ -191,8 +190,8 @@ def subsample_average(x, width):
     avg = np.nanmean(x.reshape(-1, width), axis=1)
     return avg
 
-def cal_imp(abf,abf_stimuli, sweep_end_freq):
-    ref_freq=np.linspace(0.1,sweep_end_freq,1000)
+def cal_imp(abf,abf_stimuli, min_freq,  sweep_end_freq):
+    ref_freq=np.linspace( min_freq,sweep_end_freq,1000)
     recorded_var=abf.data
     current_data = np.ravel(abf_stimuli.data).reshape(1,-1)
     dataRate=abf.dataRate
@@ -324,21 +323,21 @@ def generate_abf_array(file_path, stimuli_abf, max_freq, min_freq):
     abf_feat = analyze_abf_chirp(abf, stimuli_abf, average, min_freq, max_freq)
     #VALIENTE ANALYSIS
     plt.clf()
-    test = cal_imp(abf, stimuli_abf,max_freq)
+    test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
     out = plot_impedance_trace(test[0][0], test[1], 41, 5, 0, 1)
     plt.pause(5)
     running_mean_resist =  moving_avg2(abf_feat[0], 10)
     running_mean_react =  moving_avg2(abf_feat[1], 10)
     tpeaks = find_peak(abf_feat[2], running_mean_react)
-    #temp = pd.DataFrame().from_dict(tpeaks[0])
-    #temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
-    #temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
-    #peaks = peaks.append(temp)
+    temp = pd.DataFrame().from_dict(tpeaks[0])
+    temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
+    temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
+    
     abf_feat = np.vstack((abf_feat, running_mean_resist))
     abf_feat = np.vstack((abf_feat, running_mean_react))
     abf_ar = np.hstack((abf_name, abf_label, abf_feat))
     abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
-    return abf_ar
+    return abf_ar, temp
 
 
 ## Ask the opening Q's
@@ -396,7 +395,7 @@ except:
     max_freq=19.5
 
 # lowerlim = input("Enter the time to begin analysis [in s] (recommended 0.78): ")
-# upperlim = input("Enter the time to finish analysis [in Hz] (recommended 49.21): ")
+# upperlim = input("Enter the time to finish analysis [in s] (recommended 49.21): ")
 
 # try: 
 #     start = float(lowerlim)
@@ -413,18 +412,19 @@ elif 'abf' in extension:
     stimuli_abf = pyabf.ABF(stimuli)
 print("stimuli loaded")
 len_f = 1000
-peaks = pd.DataFrame()
+peaks = []
 full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
  for filename in fileList:
     if filename.endswith(".abf"):
         #try:
-            abf_ar = generate_abf_array(filename, stimuli_abf, max_freq, min_freq)
+            abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, max_freq, min_freq)
             full = np.vstack((full, abf_ar))
+            peaks.append(temp_peak)
         #except Exception as e:
             #print("issue processing {filename}")
             #print(e)
 
+peaks = pd.concat(peaks, axis=1)
 np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
-
-
+peaks.drop_duplicates('id').to_csv(root+"CHIRP_resist_peaks_no_dupe.csv")
