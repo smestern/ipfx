@@ -19,6 +19,16 @@ _20_in_50 = dir_script + "\\0_20hz_in50s_vs.atf"
 _20_in_30 = dir_script + "\\0_20hz_in30s.atf"
 _50_in_50 = dir_script + "\\0_50hz_in50s_vs.atf"
 
+
+
+def _subsample_average(x, width):
+    """Downsamples x by averaging `width` points"""
+
+    avg = np.nanmean(x.reshape(-1, width), axis=1)
+    return avg
+
+
+
 def moving_avg(ar, window):
     ar_fix = np.hstack((ar, np.full(1000 - ar.shape[0], np.nan)))
     size = int(ar_fix.shape[0]/window)
@@ -206,9 +216,6 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     
     res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
     prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
-    plt.scatter(freq[np.argmin(ddiff)], filtered_imp[np.argmin(ddiff)], label='res peak', zorder=9999, color='g')
-    plt.legend()
-
     dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
     return dict_peak
 
@@ -351,7 +358,7 @@ def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_
     abf_feat = analyze_abf_chirp(abf, stimuli_abf, average, min_freq, max_freq)
     #VALIENTE ANALYSIS
     plt.clf()
-    test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
+    #test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
     peaks_dict = plot_impedance_trace(abf_feat[0], abf_feat[2],moving_avg_win_in*2, 1, 0, 1)
     plt.pause(0.1)
     running_mean_resist =  moving_avg2(abf_feat[0], moving_avg_win_in)
