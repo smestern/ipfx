@@ -19,6 +19,16 @@ _20_in_50 = dir_script + "\\0_20hz_in50s_vs.atf"
 _20_in_30 = dir_script + "\\0_20hz_in30s.atf"
 _50_in_50 = dir_script + "\\0_50hz_in50s_vs.atf"
 
+
+
+def _subsample_average(x, width):
+    """Downsamples x by averaging `width` points"""
+
+    avg = np.nanmean(x.reshape(-1, width), axis=1)
+    return avg
+
+
+
 def moving_avg(ar, window):
     ar_fix = np.hstack((ar, np.full(1000 - ar.shape[0], np.nan)))
     size = int(ar_fix.shape[0]/window)
