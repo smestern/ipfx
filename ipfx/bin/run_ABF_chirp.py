@@ -125,6 +125,9 @@ def moving_average(x,window_size):
 
     return np.asarray(moving_average_trace)
 
+moving_avg2 =moving_average
+
+
 def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered_method):
     #From VALIENTAE et Al.
     #generate impedance trace over frequency with peak and cutoff frequency detection
@@ -150,7 +153,8 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     left_imp_mean=np.median(filtered_imp[0:idx_max_mag-1])
     right_imp_mean=np.median(filtered_imp[idx_max_mag+1:])
     max_imp=filtered_imp[idx_max_mag]
-    
+         
+        
     if (left_imp_mean*prominence_factor)>max_imp  or  (right_imp_mean*prominence_factor)>max_imp or cen_freq<0.5 :
         cen_freq=0  
         
@@ -167,8 +171,17 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
         freq_3db=freq[i_3db_cutoff]
     else:
         freq_3db=0
-        
-        
+
+    _x = np.hstack((filtered_imp[:5], freq[filtered_imp.shape[0]//2:]))
+    _y = np.hstack((filtered_imp[:5], filtered_imp[filtered_imp.shape[0]//2:]))
+    
+    diff = moving_average(np.diff(filtered_imp),moving_avg_wind) / np.diff(freq)
+    ddiff = moving_average( np.diff(diff) / np.diff(freq)[:-1],moving_avg_wind)
+    plt.legend(['Raw','moving average'])
+    plt.twinx()
+    plt.plot(freq[:-1], diff, c='k')
+    plt.plot(freq[:-2], ddiff, c='r')
+    #plt.xscale('log')
     plt.xlabel('Frequency[Hz]')
     plt.ylabel('Impedance[MOhms]')
     if cen_freq is not None:
@@ -178,11 +191,12 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
             plt.title('Trial {fig_idx}, '.format(fig_idx=fig_idx)+'Fr={:.2f} Hz, Cutoff Freq=None'.format(cen_freq))
     else:
         plt.title('Trial {fig_idx}, No Resonance')
-    plt.legend(['Raw Trace','Moving Averaged'])
+    plt.legend(['deriv1','deriv2'])
     
-    
-    return cen_freq,freq_3db,res_sharpness
-
+    res_peak = np.clip(freq[np.argmin(ddiff)], 0.1,np.inf)#hz
+    prominence_fact = np.amin(ddiff)
+    dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
+    return dict_peak
 
 def subsample_average(x, width):
 
@@ -313,7 +327,7 @@ def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
         high_ind = tsu.find_time_index(xf, max_freq)
         return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
 
-def generate_abf_array(file_path, stimuli_abf, max_freq, min_freq):
+def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_freq):
     file_path = os.path.join(root,filename)
     abf = pyabf.ABF(file_path)
     
@@ -324,11 +338,12 @@ def generate_abf_array(file_path, stimuli_abf, max_freq, min_freq):
     #VALIENTE ANALYSIS
     plt.clf()
     test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
-    out = plot_impedance_trace(test[0][0], test[1], 41, 5, 0, 1)
-    plt.pause(5)
-    running_mean_resist =  moving_avg2(abf_feat[0], 10)
-    running_mean_react =  moving_avg2(abf_feat[1], 10)
+    peaks_dict = plot_impedance_trace(abf_feat[0], abf_feat[2],moving_avg_win_in*2, 1, 0, 1)
+    plt.pause(0.1)
+    running_mean_resist =  moving_avg2(abf_feat[0], moving_avg_win_in)
+    running_mean_react =  moving_avg2(abf_feat[1], moving_avg_win_in)
     tpeaks = find_peak(abf_feat[2], running_mean_react)
+    tpeaks[0].update(peaks_dict)
     temp = pd.DataFrame().from_dict(tpeaks[0])
     temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
     temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
@@ -379,21 +394,27 @@ try:
 except:
     average="input"
 
-lowerlim = input("Enter the Lower Cutoff for Freq to include in output [in Hz] (recommended 1Hz): ")
+lowerlim = input("Enter the Lower Cutoff for Freq to include in output [in Hz] (recommended 0.5Hz): ")
 upperlim = input("Enter the Upper Cutoff for Freq to include in output [in Hz] (recommended 20Hz): ")
 
 try: 
     min_freq = float(lowerlim)
     
 except:
-    min_freq=1
+    min_freq=0.5
     
 
 try:
-    max_freq = float(upperlim)
+    max_freq = float(upperlim)-0.5
 except:
-    max_freq=19.5
+    max_freq=20
 
+
+moving_avg_win_in = input("Enter a window for calc of the moving averages (in n+1 points) (default 50+1):")
+try:
+    moving_avg_win_in = int(moving_avg_win_in)+1
+except:
+    moving_avg_win_in = 51
 # lowerlim = input("Enter the time to begin analysis [in s] (recommended 0.78): ")
 # upperlim = input("Enter the time to finish analysis [in s] (recommended 49.21): ")
 
@@ -417,14 +438,14 @@ full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
  for filename in fileList:
     if filename.endswith(".abf"):
-        #try:
-            abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, max_freq, min_freq)
+        try:
+            abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, moving_avg_win_in, max_freq, min_freq)
             full = np.vstack((full, abf_ar))
             peaks.append(temp_peak)
-        #except Exception as e:
-            #print("issue processing {filename}")
-            #print(e)
+        except Exception as e:
+            print("issue processing {filename}")
+            print(e)
 
-peaks = pd.concat(peaks, axis=1)
+peaks = pd.concat(peaks, axis=0)
 np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
-peaks.drop_duplicates('id').to_csv(root+"CHIRP_resist_peaks_no_dupe.csv")
+peaks.drop_duplicates('id').to_csv(root+"/CHIRP_resist_peaks_no_dupe.csv")
