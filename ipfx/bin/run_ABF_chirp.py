@@ -56,6 +56,15 @@ def find_peak(x, y, freq_cut=0):
             break
         width_peak -=1
     min_peaks[1]['x-heights'] = x[min_peaks[0]]
+    # plt.clf()
+    # plt.plot(x, y)
+    # plt.plot(x[peaks[0]], y[peaks[0]], "x", label='found_peak')
+    # plt.vlines(x=x[peaks[0]], ymin=y[peaks[0]] - peaks[1]["prominences"],
+    #          ymax = y[peaks[0]], color = "C1", label='prominance')
+    # plt.hlines(y=peaks[1]["width_heights"], xmin=x[int(peaks[1]["left_ips"])],
+    #          xmax=x[int(peaks[1]["right_ips"])], color = "C1", label='IPS width / half maximal')
+    # plt.legend()
+    # plt.show()
     return [min_peaks[1], width_peak]
     
 
@@ -132,7 +141,7 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     #From VALIENTAE et Al.
     #generate impedance trace over frequency with peak and cutoff frequency detection
     imp=imp/1e6
-    plt.plot(freq,imp)
+    plt.plot(freq,imp, label='raw trace')
     
     prominence_factor=1.01
     if filtered_method==1:
@@ -144,10 +153,12 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
        filtered_imp=moving_average(imp,moving_avg_wind)
 
 #    filtered_imp = savgol_filter(imp, moving_avg_wind, 1)
-    plt.plot(freq,filtered_imp)
+    plt.plot(freq,filtered_imp, label='running mean')
+    
     plt.ylim([np.min(imp)*0.9,np.max(imp)*1.1])
     idx_max_mag=np.argmax(filtered_imp)
     cen_freq=freq[idx_max_mag]
+    #plt.scatter(freq[idx_max_mag], filtered_imp[idx_max_mag], label='Computed center freq', zorder=999, color='r')
 
     
     left_imp_mean=np.median(filtered_imp[0:idx_max_mag-1])
@@ -171,16 +182,16 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
         freq_3db=freq[i_3db_cutoff]
     else:
         freq_3db=0
-
+    #plt.scatter(freq[i_3db_cutoff], filtered_imp[i_3db_cutoff], label='Computed 3db freq', zorder=9999, color='g')
     _x = np.hstack((filtered_imp[:5], freq[filtered_imp.shape[0]//2:]))
     _y = np.hstack((filtered_imp[:5], filtered_imp[filtered_imp.shape[0]//2:]))
     
     diff = moving_average(np.diff(filtered_imp),moving_avg_wind) / np.diff(freq)
     ddiff = moving_average( np.diff(diff) / np.diff(freq)[:-1],moving_avg_wind)
-    plt.legend(['Raw','moving average'])
-    plt.twinx()
-    plt.plot(freq[:-1], diff, c='k')
-    plt.plot(freq[:-2], ddiff, c='r')
+    
+    #plt.twinx()
+    #plt.plot(freq[:-1], diff, c='k')
+    #plt.plot(freq[:-2], ddiff, c='r')
     #plt.xscale('log')
     plt.xlabel('Frequency[Hz]')
     plt.ylabel('Impedance[MOhms]')
@@ -191,10 +202,13 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
             plt.title('Trial {fig_idx}, '.format(fig_idx=fig_idx)+'Fr={:.2f} Hz, Cutoff Freq=None'.format(cen_freq))
     else:
         plt.title('Trial {fig_idx}, No Resonance')
-    plt.legend(['deriv1','deriv2'])
+    #plt.legend(['deriv1','deriv2'])
     
-    res_peak = np.clip(freq[np.argmin(ddiff)], 0.1,np.inf)#hz
-    prominence_fact = np.amin(ddiff)
+    res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
+    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
+    plt.scatter(freq[np.argmin(ddiff)], filtered_imp[np.argmin(ddiff)], label='res peak', zorder=9999, color='g')
+    plt.legend()
+
     dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
     return dict_peak
 
@@ -443,8 +457,8 @@ for root,dir,fileList in os.walk(files):
             full = np.vstack((full, abf_ar))
             peaks.append(temp_peak)
         except Exception as e:
-            print("issue processing {filename}")
-            print(e)
+           print("issue processing {filename}")
+           print(e)
 
 peaks = pd.concat(peaks, axis=0)
 np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
