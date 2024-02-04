@@ -342,7 +342,7 @@ def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_
     plt.pause(0.1)
     running_mean_resist =  moving_avg2(abf_feat[0], moving_avg_win_in)
     running_mean_react =  moving_avg2(abf_feat[1], moving_avg_win_in)
-    tpeaks = find_peak(abf_feat[2], running_mean_react)
+    tpeaks = find_peak(abf_feat[2], running_mean_resist)
     tpeaks[0].update(peaks_dict)
     temp = pd.DataFrame().from_dict(tpeaks[0])
     temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
