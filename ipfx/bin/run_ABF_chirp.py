@@ -203,8 +203,8 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
         plt.title('Trial {fig_idx}, No Resonance')
     plt.legend(['deriv1','deriv2'])
     
-    res_peak = np.clip(freq[np.argmin(ddiff)], 0.1,np.inf)#hz
-    prominence_fact = np.amin(ddiff)
+    res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
+    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
     dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
     return dict_peak
 
@@ -347,7 +347,7 @@ def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_
     abf_feat = analyze_abf_chirp(abf, stimuli_abf, average, min_freq, max_freq)
     #VALIENTE ANALYSIS
     plt.clf()
-    test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
+    #test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
     peaks_dict = plot_impedance_trace(abf_feat[0], abf_feat[2],moving_avg_win_in*2, 1, 0, 1)
     plt.pause(0.1)
     running_mean_resist =  moving_avg2(abf_feat[0], moving_avg_win_in)
