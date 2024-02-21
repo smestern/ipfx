@@ -19,7 +19,9 @@ _20_in_50 = dir_script + "\\0_20hz_in50s_vs.atf"
 _20_in_30 = dir_script + "\\0_20hz_in30s.atf"
 _50_in_50 = dir_script + "\\0_50hz_in50s_vs.atf"
 
-
+DEBUG_PLOT = True
+_GLOBAL_FIG = None
+axs = None
 
 def _subsample_average(x, width):
     """Downsamples x by averaging `width` points"""
@@ -27,7 +29,12 @@ def _subsample_average(x, width):
     avg = np.nanmean(x.reshape(-1, width), axis=1)
     return avg
 
-
+def find_or_make_path(dir):
+    if os.path.exists(dir):
+        return dir
+    else:
+        os.mkdir(dir)
+    return dir
 
 def moving_avg(ar, window):
     ar_fix = np.hstack((ar, np.full(1000 - ar.shape[0], np.nan)))
@@ -78,9 +85,10 @@ def find_peak(x, y, freq_cut=0):
     return [min_peaks[1], width_peak]
     
 
-def analyze_abf_chirp(abf, stimuli_abf, average='input', min_freq=0.1, max_freq=10):
+def analyze_abf_chirp(abf, stimuli_abf, average='output', min_freq=0.1, max_freq=10):
     t = abf.sweepX
     v = t
+    #try and load the abf sweep if not use SWEEPX
     i = stimuli_abf.sweepY[:]
     if average=='input':
         for x in range(0,abf.sweepCount):
@@ -106,7 +114,27 @@ def analyze_abf_chirp(abf, stimuli_abf, average='input', min_freq=0.1, max_freq=
         resist = np.nanmean(np.vstack(resistance), axis=0)
         react = np.nanmean(np.vstack(reactance), axis=0)
         z = temp_z
+
+    if DEBUG_PLOT:
+        debug_plot_card(v, i, t, resist, react, z, id=os.path.basename(abf.abfFilePath))
+
     return resist, react, z
+
+
+def debug_plot_card(v,i,t,resist,react,z, id):
+    fig, axs = plt.subplots(3, 1, num=99, figsize=(10, 25))
+    axs[0].plot(t, i, c='r', label='current', alpha=0.5)
+    ax_t = axs[0].twinx()
+    ax_t.plot([],[], c='r', label='current')
+    ax_t.plot(t, v, c='k', label='voltage', alpha=0.5)
+    axs[1].plot(z, resist)
+    axs[2].plot(z, react)
+    ax_t.legend()
+    dir_out = find_or_make_path(os.path.join(root_fold, 'chirp_debug_plots/'))
+    fig.savefig(os.path.join(dir_out, f"{id}_baseball_card.png"))
+    
+
+
 
 def preprocess_data(v_list, i_list, t, average=True):
     if average:
@@ -147,11 +175,14 @@ def moving_average(x,window_size):
 moving_avg2 =moving_average
 
 
-def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered_method):
+def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered_method, id):
+    global _GLOBAL_FIG
+    global axs
     #From VALIENTAE et Al.
     #generate impedance trace over frequency with peak and cutoff frequency detection
     imp=imp/1e6
-    plt.plot(freq,imp, label='raw trace')
+    fig, ax = plt.subplots(1,1, num=98)
+    ax.plot(freq,imp, label='raw trace')
     
     prominence_factor=1.01
     if filtered_method==1:
@@ -163,9 +194,9 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
        filtered_imp=moving_average(imp,moving_avg_wind)
 
 #    filtered_imp = savgol_filter(imp, moving_avg_wind, 1)
-    plt.plot(freq,filtered_imp, label='running mean')
+    ax.plot(freq,filtered_imp, label='running mean')
     
-    plt.ylim([np.min(imp)*0.9,np.max(imp)*1.1])
+    ax.set_ylim([np.min(imp)*0.9,np.max(imp)*1.1])
     idx_max_mag=np.argmax(filtered_imp)
     cen_freq=freq[idx_max_mag]
     #plt.scatter(freq[idx_max_mag], filtered_imp[idx_max_mag], label='Computed center freq', zorder=999, color='r')
@@ -199,12 +230,12 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     diff = moving_average(np.diff(filtered_imp),moving_avg_wind) / np.diff(freq)
     ddiff = moving_average( np.diff(diff) / np.diff(freq)[:-1],moving_avg_wind)
     
-    #plt.twinx()
-    #plt.plot(freq[:-1], diff, c='k')
-    #plt.plot(freq[:-2], ddiff, c='r')
+    nu_ax = ax.twinx()
+    nu_ax .plot(freq[:-1], diff, c='k')
+    nu_ax .plot(freq[:-2], ddiff, c='r')
     #plt.xscale('log')
-    plt.xlabel('Frequency[Hz]')
-    plt.ylabel('Impedance[MOhms]')
+    ax.set_xlabel('Frequency[Hz]')
+    ax.set_ylabel('Impedance[MOhms]')
     if cen_freq is not None:
         if freq_3db is not None:
             plt.title('Trial {fig_idx}, '.format(fig_idx=fig_idx)+'Fr={:.2f} Hz, Cutoff Freq={:.2f}Hz, Sharpness={:.2f}'.format(cen_freq,freq_3db,res_sharpness))
@@ -216,6 +247,9 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     
     res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
     prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
+    ax.scatter(res_peak, prominence_fact, c='r')
+    dir_out = find_or_make_path(os.path.join(root_fold, 'chirp_debug_plots/'))
+    fig.savefig(os.path.join(dir_out, f"{id}_peak_finding.png"))
     dict_peak = {'cen_freq': cen_freq, 'freq_3db': freq_3db, 'res_sharpness': res_sharpness, 'res_peak': res_peak, 'res_peak_height': prominence_fact}
     return dict_peak
 
@@ -241,8 +275,8 @@ def cal_imp(abf,abf_stimuli, min_freq,  sweep_end_freq):
             current_idx=unit_idx
         elif unit=='mV':
             voltage_idx=unit_idx
-#    hamming_window=np.hamming(len(time))
-#    hamming_window=gaussian(len(time), std=len(time)/2)
+    #hamming_window=np.hamming(len(time))
+    #hamming_window=gaussian(len(time), std=len(time)/2)
     #count the number of data sets in one folder and segment data accordingly
     sweepList=abf.sweepList 
     sweepTimesSec=np.asarray(sweepList)*abf.sweepLengthSec
@@ -346,6 +380,7 @@ def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
 
         low_ind = tsu.find_time_index(xf, min_freq)
         high_ind = tsu.find_time_index(xf, max_freq)
+        
         return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
 
 def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_freq):
@@ -357,10 +392,10 @@ def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_
     abf_label = np.vstack(['resist','react', 'freq', 'resist running avg', 'react running avg'])
     abf_feat = analyze_abf_chirp(abf, stimuli_abf, average, min_freq, max_freq)
     #VALIENTE ANALYSIS
-    plt.clf()
+    #plt.clf()
     #test = cal_imp(abf, stimuli_abf, min_freq, max_freq)
-    peaks_dict = plot_impedance_trace(abf_feat[0], abf_feat[2],moving_avg_win_in*2, 1, 0, 1)
-    plt.pause(0.1)
+    peaks_dict = plot_impedance_trace(abf_feat[0], abf_feat[2],moving_avg_win_in*2, 1, 0, 1, id=os.path.basename(file_path))
+    #plt.pause(0.1)
     running_mean_resist =  moving_avg2(abf_feat[0], moving_avg_win_in)
     running_mean_react =  moving_avg2(abf_feat[1], moving_avg_win_in)
     tpeaks = find_peak(abf_feat[2], running_mean_resist)
@@ -368,13 +403,28 @@ def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_
     temp = pd.DataFrame().from_dict(tpeaks[0])
     temp['id'] = np.full(temp.index.values.shape[0], abf.abfID)
     temp['width'] = np.full(temp.index.values.shape[0], tpeaks[1])
-    
-    abf_feat = np.vstack((abf_feat, running_mean_resist))
-    abf_feat = np.vstack((abf_feat, running_mean_react))
-    abf_ar = np.hstack((abf_name, abf_label, abf_feat))
-    abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
-    return abf_ar, temp
+    resist, react, z = abf_feat[0], abf_feat[1], abf_feat[2]
+    # abf_feat = np.vstack((abf_feat, running_mean_resist))
+    # abf_feat = np.vstack((abf_feat, running_mean_react))
+    # abf_ar = np.hstack((abf_name, abf_label, abf_feat))
+    # abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
+    resist_dict = {f"resist_fr_{y}":x for x,y in zip(resist, z)}
+    react_dict = {f"react_fr_{y}": x for x, y in zip(react, z)}
+    react_rm_dict = {f"react_running_mean_fr_{y}": x for x, y in zip(running_mean_react, z)}
+    resist_rm_dict = {f"resist_running_mean_fr_{y}": x for x, y, in zip(running_mean_resist, z)}
+    freq_dict = {f"freq_col_{y}": y for y in z}
+    dict_out = {abf.abfID: [resist_dict, resist_rm_dict, react_dict, react_rm_dict, freq_dict]}
 
+    return dict_out, temp
+
+def df_select_by_col(df, string_to_find):
+    columns = df.columns.values
+    out = []
+    for col in columns:
+        string_found = [x in col for x in string_to_find]
+        if np.any(string_found):
+            out.append(col)
+    return df[out]
 
 ## Ask the opening Q's
 down_rate = 20000
@@ -384,7 +434,7 @@ files = filedialog.askdirectory(
                                    title='Select dir File'
                                    )
 
-root_fold = files
+root_fold = os.path.abspath(files)
 print("Stimuli options")
 stim_names = [os.path.basename(x) for x in atf_files]
 stim_file = atf_files
@@ -455,18 +505,39 @@ elif 'abf' in extension:
 print("stimuli loaded")
 len_f = 1000
 peaks = []
-full = np.full(len_f , np.nan)
+full = {}
 for root,dir,fileList in os.walk(files):
- for filename in fileList:
-    if filename.endswith(".abf"):
-        try:
+    for filename in fileList:
+        if filename.endswith(".abf"):
+            #try:
             abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, moving_avg_win_in, max_freq, min_freq)
-            full = np.vstack((full, abf_ar))
+            full.update(abf_ar)
             peaks.append(temp_peak)
-        except Exception as e:
-           print("issue processing {filename}")
-           print(e)
+            plt.close('all')
+            #except Exception as e:
+            #print("issue processing {filename}")
+            #print(e)
 
 peaks = pd.concat(peaks, axis=0)
-np.savetxt(root+'/CHIRP.csv', full, delimiter=",", fmt='%s')
-peaks.drop_duplicates('id').to_csv(root+"/CHIRP_resist_peaks_no_dupe.csv")
+peaks.to_csv(os.path.join(root_fold,f"CHIRP_resist_peaks_{tag}.csv"))
+peaks.drop_duplicates('id').to_csv(os.path.join(root_fold,f"CHIRP_resist_peaks_no_dupe_{tag}.csv"))
+
+
+dict_out = {}
+for key, val in full.items():
+    temp_inner = {}
+    for v2 in val:
+        temp_inner.update(v2)
+    dict_out[key]=temp_inner
+traces = pd.DataFrame.from_dict(dict_out , orient='index')
+
+
+keys = ['resist_fr', 'resist_run', 'react_fr', 'react_run', 'freq']
+with pd.ExcelWriter(os.path.join(root_fold,f'CHIRP_{tag}.xlsx')) as runf:
+    traces.to_excel(runf, sheet_name="full_sheet")
+    for key in keys:
+        temp = df_select_by_col(traces, key)
+        temp.to_excel(runf, sheet_name=key)
+
+print("==== SUCCESS ====")
+input('Press ENTER to exit')

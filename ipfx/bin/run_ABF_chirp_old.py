@@ -267,7 +267,7 @@ full = np.full(len_f , np.nan)
 for root,dir,fileList in os.walk(files):
  for filename in fileList:
     if filename.endswith(".abf"):
-        try:
+            #try:
             file_path = os.path.join(root,filename)
             abf = pyabf.ABF(file_path)
             if abf.dataRate > 10000:
@@ -290,8 +290,8 @@ for root,dir,fileList in os.walk(files):
                 abf_ar = np.hstack((abf_name, abf_label, abf_feat))
                 abf_ar = np.hstack((abf_ar, np.vstack([np.full(len_f  - abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan), np.full(len_f  -abf_ar.shape[1], np.nan)])))
                 full = np.vstack((full, abf_ar))
-        except:
-            pass
+            #except:
+            #    pass
 
 np.savetxt('H:\Sam\CHIRP.csv', full, delimiter=",", fmt='%s')
 peaks.to_csv("H:\Sam\CHIRP_resist_peaks.csv")
