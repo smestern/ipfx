@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import glob
 import pyabf
 from ipfx import feature_vectors as fv
 import ipfx.time_series_utils as tsu
@@ -82,6 +83,11 @@ def find_peak(x, y, freq_cut=0):
     #          xmax=x[int(peaks[1]["right_ips"])], color = "C1", label='IPS width / half maximal')
     # plt.legend()
     # plt.show()
+    if len(min_peaks[1]['peak_heights'])<1:
+        for key, item in min_peaks[1].items():
+            if len(item)<1:
+                min_peaks[1][key] = [np.nan]
+        
     return [min_peaks[1], width_peak]
     
 
@@ -246,7 +252,7 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     #plt.legend(['deriv1','deriv2'])
     
     res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
-    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
+    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.0,np.inf)#hz
     ax.scatter(res_peak, prominence_fact, c='r')
     dir_out = find_or_make_path(os.path.join(root_fold, 'chirp_debug_plots/'))
     fig.savefig(os.path.join(dir_out, f"{id}_peak_finding.png"))
@@ -384,7 +390,7 @@ def chirp_amp_phase(v,i, t, start=0.78089, end=49.21, down_rate=20000.0,
         return resistance[low_ind:high_ind], reactance[low_ind:high_ind], xf[low_ind:high_ind]
 
 def generate_abf_array(file_path, stimuli_abf, moving_avg_win_in, max_freq, min_freq):
-    file_path = os.path.join(root,filename)
+    file_path = os.path.join(root_fold,filename)
     abf = pyabf.ABF(file_path)
     
     print(abf.abfID + ' loaded')
@@ -506,17 +512,17 @@ print("stimuli loaded")
 len_f = 1000
 peaks = []
 full = {}
-for root,dir,fileList in os.walk(files):
-    for filename in fileList:
-        if filename.endswith(".abf"):
-            #try:
-            abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, moving_avg_win_in, max_freq, min_freq)
-            full.update(abf_ar)
-            peaks.append(temp_peak)
-            plt.close('all')
-            #except Exception as e:
-            #print("issue processing {filename}")
-            #print(e)
+abf_files = glob.glob(os.path.join(root_fold, "**/*.abf"), recursive=True)
+print(f"found {len(abf_files)} abf files in the folder")
+for filename in abf_files:
+    #try:
+    abf_ar, temp_peak = generate_abf_array(filename, stimuli_abf, moving_avg_win_in, max_freq, min_freq)
+    full.update(abf_ar)
+    peaks.append(temp_peak)
+    plt.close('all')
+    #except Exception as e:
+    #print("issue processing {filename}")
+    #print(e)
 
 peaks = pd.concat(peaks, axis=0)
 peaks.to_csv(os.path.join(root_fold,f"CHIRP_resist_peaks_{tag}.csv"))
@@ -536,7 +542,7 @@ keys = ['resist_fr', 'resist_run', 'react_fr', 'react_run', 'freq']
 with pd.ExcelWriter(os.path.join(root_fold,f'CHIRP_{tag}.xlsx')) as runf:
     traces.to_excel(runf, sheet_name="full_sheet")
     for key in keys:
-        temp = df_select_by_col(traces, key)
+        temp = df_select_by_col(traces, [key])
         temp.to_excel(runf, sheet_name=key)
 
 print("==== SUCCESS ====")
