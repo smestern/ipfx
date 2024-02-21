@@ -252,7 +252,7 @@ def plot_impedance_trace(imp,freq,moving_avg_wind,fig_idx,sharpness_thr,filtered
     #plt.legend(['deriv1','deriv2'])
     
     res_peak = np.clip(freq[:-2][np.argmin(ddiff)], 0.1,np.inf)#hz
-    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.0,np.inf)#hz
+    prominence_fact = np.clip(filtered_imp[:-2][np.argmin(ddiff)], 0.0,np.inf)*1e6 #in ohms 
     ax.scatter(res_peak, prominence_fact, c='r')
     dir_out = find_or_make_path(os.path.join(root_fold, 'chirp_debug_plots/'))
     fig.savefig(os.path.join(dir_out, f"{id}_peak_finding.png"))
