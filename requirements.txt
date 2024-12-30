@@ -1,8 +1,5 @@
 ﻿allensdk==1.0.1
-
 h5py==2.10.0
 hdmf==1.0.2
-
 numpy==1.17.2
-
 pynwb==1.0.2
