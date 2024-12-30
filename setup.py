@@ -58,7 +58,7 @@ setup(
     author_email="Marmot@AllenInstitute.onmicrosoft.com",
     url="https://github.com/AllenInstitute/ipfx",
     packages=find_packages(exclude=["tests", "tests.*", "cell_types", "cell_types*"]),
-    install_requires=required,
+    install_requires=[''],
     include_package_data=True,
     setup_requires=['pytest-runner'],
     keywords=["neuroscience", "bioinformatics", "scientific"],
